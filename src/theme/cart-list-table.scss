@@ -1,0 +1,52 @@
+@import "colors";
+
+// CART LIST TABLE
+.table-responsive .table{
+    border: 1px solid rgba(0,0,0,.125);
+}
+tbody td{
+    border: none !important;
+}
+thead th{
+    border: none !important;
+    border-bottom: 1px solid rgba(0,0,0,.125) !important;
+}
+.cart-list tbody tr{
+    background: #fff;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.del-cart i{
+    color: $primary;
+    font-size: 21px;
+    text-align: center;
+    cursor: pointer;
+}
+.ptop{
+    padding-top: 45px;
+}
+
+.three-grid .card-header h3{
+    font-size: 15px;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 0px;
+    margin: 4px 5px
+}
+.three-grid label{
+    font-size: 13px;
+    font-weight: 550;
+}
+.qty-input{
+    text-align: center;
+    border: none;
+    width: 60px;
+}
+.qty-btn i{
+    font-size: 20px;
+    cursor: pointer;
+}
+.qty-input:focus{
+    border: none;
+    outline: none;
+}

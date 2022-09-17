@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Welcome</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="appFavicon" rel="icon" type="image/x-icon" href="fav.png">
+
+    <style type="text/css">
+        .loading-indicator-wrapper {
+            margin: 10% auto;
+        }
+        
+        .loading-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .loadingText h3 {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 15px;
+            font-weight: lighter;
+        }
+        
+        .lds-dual-ring {
+            display: inline-block;
+            width: 64px;
+            height: 64px;
+        }
+        
+        .lds-dual-ring:after {
+            content: ' ';
+            display: block;
+            width: 46px;
+            height: 46px;
+            margin: 1px;
+            border-radius: 100%;
+            border: 5px solid #61ce70;
+            border-color: #61ce70 transparent #61ce70 transparent;
+            animation: lds-dual-ring 1.0s linear infinite;
+        }
+        
+        @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <app-root>
+        <div class="loading-indicator-wrapper">
+            <div class="loading-indicator">
+                <div class="lds-dual-ring"></div>
+            </div>
+            <div class="loadingText">
+                <h3 style="color: #FFF;">Loading...</h3>
+            </div>
+        </div>
+    </app-root>
+
+
+
+    <script>
+        function maximizeNav() {
+            var sideNav = document.getElementById("mySidenav");
+            document.getElementById("mySidenav").style.width = "260px";
+            document.getElementById("main").style.marginLeft = "260px";
+            document.getElementById("logo").style.display = "inline-block";
+            document.getElementById("maximizeNav").style.display = "none";
+            document.getElementById("minimizeNav").style.display = "inline-block";
+            // document.getElementById("menu-wrapper").style.display = "block";
+            sideNav.onmouseover = null;
+            sideNav.onmouseout = null;
+        }
+
+        function minimizeNav() {
+            var sideNav = document.getElementById("mySidenav");
+            document.getElementById("main").style.marginLeft = "50px";
+            document.getElementById("maximizeNav").style.display = "inline-block";
+            document.getElementById("minimizeNav").style.display = "none";
+            sideNav.onmouseover = desktopOver;
+            sideNav.onmouseout = desktopOut;
+        }
+
+
+        function desktopOver() {
+            var sideNav = document.getElementById("mySidenav").style.width = '260px';
+            document.getElementById("logo").style.display = "inline-block";
+            // document.getElementById("menu-wrapper").style.display = "block";
+            document.getElementById("showNav").style.display = "none";
+            var allClass = document.getElementsByClassName("menu-text");
+            var i;
+            for (let i = 0; i < allClass.length; i++) {
+                allClass[i].style.display = "inline-block";
+            }
+        }
+
+
+        function desktopOut() {
+            var sideNav = document.getElementById("mySidenav").style.width = '50px';
+            document.getElementById("logo").style.display = "none";
+            // document.getElementById("menu-wrapper").style.display = "none";
+            document.getElementById("showNav").style.display = "inline";
+            var allClass = document.getElementsByClassName("menu-text");
+            var i;
+            for (let i = 0; i < allClass.length; i++) {
+                allClass[i].style.display = "none";
+            }
+        }
+
+
+
+        function mobileMaximizeNav() {
+            document.getElementById("mySidenav").style.width = "260px";
+            document.getElementById("main").style.marginLeft = "260px";
+            document.getElementById("mobileMaximizeNav").style.display = "none";
+            document.getElementById("mobileMinimizeNav").style.display = "inline-block";
+            document.getElementById("menu-wrapper").style.display = "block";
+        }
+
+        function mobileMinimizeNav() {
+            document.getElementById("mySidenav").style.width = "0px";
+            document.getElementById("main").style.marginLeft = "0px";
+            document.getElementById("mobileMaximizeNav").style.display = "inline-block";
+            document.getElementById("mobileMinimizeNav").style.display = "none";
+            document.getElementById("menu-wrapper").style.display = "none";
+        }
+    </script>
+
+
+    <!-- CHAT WIDGET -->
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5fdc8950df060f156a8e4b05/1epqngp3s';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+
+</body>
+
+</html>

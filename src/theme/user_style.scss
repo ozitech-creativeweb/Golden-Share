@@ -1,0 +1,279 @@
+@import "../theme/colors";
+// USER NAV SECTION
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+
+/* width */
+
+.fixed-top {
+    position: sticky;
+    top: 0;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    transition: .3s background;
+}
+
+
+/* Track */
+
+// ::-webkit-scrollbar-track {
+//     box-shadow: inset 0 0 5px grey;
+// }
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: #e1e6f1;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+    background: #adb5bd;
+}
+
+.sidenav {
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    z-index: 3000;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 10px;
+    box-shadow: 3px 0px 20px #ebebeb;
+    // box-shadow: 1px 0 20px 0 #3f4d67;
+}
+
+//   2e82fff3
+.sidenav a:hover {
+    color: #fff;
+}
+
+.nav-action-icon {
+    color: #1e11c1;
+    font-size: 25px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+#main {
+    transition: margin-left .4s;
+    // padding: 16px;
+    margin-left: 240px;
+    padding: 0 20px;
+}
+
+#main.expand {
+    margin-left: 0px;
+}
+
+#maximizeNav {
+    display: none;
+}
+
+#mobileMinimizeNav {
+    display: none;
+}
+
+.mobileHeader {
+    display: none;
+}
+
+@media only screen and (max-width: 776px) {
+    #main {
+        margin-left: 0px !important;
+    }
+    .sidenav {
+        width: 0px;
+    }
+    .mobileHeader {
+        display: block;
+    }
+    .remove-mobile {
+        display: none !important;
+    }
+    .main-wrapper {
+        margin-top: 40px;
+    }
+    #logo img {
+        margin-left: 20px;
+        margin-top: 8px;
+    }
+}
+
+.list-group-item {
+    background-color: #fff;
+    border-radius: 0px !important;
+    padding: 16px 15px 16px 15px !important;
+    color: #1e11c1;
+    cursor: pointer;
+    font-size: 14px;
+    .menu-text,
+    i {
+        color: #1e11c1;
+    }
+}
+
+.list-group-item:hover {
+    color: #fff;
+    background: #2e82fff3;
+    .menu-text,
+    i {
+        color: #fff;
+    }
+}
+
+// .list-group-item + .list-group-item.active{
+//     background-color: $primary;
+//     border-color: $primary;
+// }
+.list-group-item.active {
+    background-color: #2e82ff;
+    // border-color: $primary;
+    color: #fff;
+    .menu-text,
+    i {
+        color: #fff;
+    }
+    border: none;
+}
+
+.onFocus {
+    background-color: #fff !important;
+    border-left: 3px solid $userPrimary !important;
+}
+
+.list-group-item.onFocus:hover {
+    background: #2e82ff !important;
+}
+
+.dropdownMenu {
+    border-left: 3px solid $userPrimary;
+}
+
+.dropdownMenu .list-group-item:hover {
+    color: #fff !important;
+    background: #1e11c1;
+}
+
+// .dropdownMenu .isActive{
+// 	background: #333f54 !important;
+//     color: #fff !important;
+//     border-left: 1px solid $userPrimary;
+// }
+.dropdownMenu a {
+    color: #1e11c1;
+    margin-right: 15px;
+    background-color: #2e82ff2c;
+}
+
+.menu-list-icon {
+    width: 25px;
+    text-align: left;
+}
+
+.logout {
+    cursor: pointer;
+}
+
+.dropdownMenu .isActive {
+    background: #1e11c1 !important;
+    color: #fff !important;
+    .menu-text {
+        color: #fff;
+    }
+}
+
+.nav-title h4 {
+    color: #1e11c1;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 30px 15px 30px 20px;
+}
+
+// END SIDE NAV
+.main-wrapper {
+    min-height: calc(100vh - 63px);
+}
+
+.all-wrapper {
+    font-family: calibri;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: auto;
+    background: #141b2d;
+}
+
+section {
+    padding-top: 0px !important;
+}
+
+// BREADCRUM
+.user-breadcrum {
+    margin: 10px 0px 20px 0px;
+}
+
+.user-breadcrum li a {
+    color: #000;
+    text-transform: capitalize;
+}
+
+.user-breadcrum li {
+    color: #000;
+    text-transform: capitalize;
+}
+
+.user-breadcrum h4 {
+    text-transform: uppercase !important;
+    font-size: 20px;
+    color: #000;
+}
+
+// BUTTONS
+.btn-primary {
+    background: $userPrimary;
+    border-color: $userPrimary;
+}
+
+
+/***************************************/
+
+// FORM STYLE
+
+/***************************************/
+
+input.form-control,
+select.form-control {
+    height: 45px;
+    border-radius: 0px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    color: #fff;
+    background-color: #232e48;
+    border: 1px solid rgba(226, 232, 245, 0.1);
+}
+
+// .bank-info .form-control {
+//     background: $userbody;
+// }
+.cusCard {
+    background: #1f2940 !important;
+    border: 1px solid #1f2940 !important;
+    box-shadow: 0 0 10px rgba(28, 39, 60, 0.1);
+    padding: 20px;
+    border-radius: 7px;
+    margin-bottom: 20px;
+}

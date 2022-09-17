@@ -1,0 +1,92 @@
+@import "colors";
+
+// USER CARD
+.user-content-wrapper{
+    background: #fff;
+    padding: 20px 35px 35px;
+    border:1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.user-content-wrapper .card-header, .user-content-wrapper .card-body{
+    padding: 0px;
+    background: #fff;
+    padding: 5px 12px 5px 12px;
+}
+.user-content-wrapper h3{
+    font-size: 20px;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+.user-content-wrapper .cardFooter{
+    border-top: 1px solid rgba(0,0,0,.125);
+}
+.user-content-wrapper .card-header h4{
+    font-size: 15px;
+    text-transform: uppercase;
+}
+.user-content-wrapper .card-header h4.heading-text{
+    font-size: 15px;
+    text-transform: uppercase;
+    margin-top: 10px
+}
+.user-content-wrapper .card-header h4 a i{
+    padding: 12px;
+    font-size: 15px;
+    color: $primary;
+}
+.user-content-wrapper .card-header h4 a i:hover{
+    background: rgba(226, 62, 29, 0.2);
+    border-radius: 50%;
+}
+.user-content-wrapper  p.email{
+    font-size: 14px;
+    margin-bottom: 2px;
+    color: #777;
+}
+.user-content-wrapper .card-body .change-pwd{
+    margin-top: 47px;
+}
+.user-content-wrapper .cardFooter .change-pwd{
+    margin-top: 7px;
+}
+.user-content-wrapper .cardFooter .defaultAddress{
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 7px;
+    color: #ccc;
+}
+.user-content-wrapper .card-body .change-pwd a, .user-content-wrapper .cardFooter .change-pwd a, .user-content-wrapper .order-details a{
+    color: $primary;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 7px;
+    border-radius: 3px;
+}
+.user-content-wrapper .card-body .change-pwd a:hover, .user-content-wrapper .cardFooter .change-pwd a:hover, .user-content-wrapper .order-details a:hover{
+    background: rgba(226, 62, 29, 0.2);
+}
+.setAsAdd button{
+    border: none;
+    background: transparent;
+    color: $primary;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 7px;
+    border-radius: 3px;
+}
+.setAsAdd button:hover{
+    background: rgba(226, 62, 29, 0.2);
+}
+.setAsAdd .defAddSet{
+    color: $formControlFocus !important;
+}
+.setAsAdd .defAddSet:hover{
+    background: transparent;
+    cursor: text;
+}
+.setAsAdd .defAddSet:focus{
+    box-shadow: none !important;
+}
