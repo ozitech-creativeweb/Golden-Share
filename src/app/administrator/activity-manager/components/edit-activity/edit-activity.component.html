@@ -1,0 +1,146 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-activity-manager-menu></app-activity-manager-menu>
+					</div>
+
+					<div class="custmDisplay col-xl-10">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">Dashboard</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/testimonial-manager">Activity Manager</a>
+											</li>
+											<li class="breadcrumb-item active">Edit Activity</li>
+										</ol>
+									</div>
+									<h4 class="page-title">Edit Activity</h4>
+								</div>
+							</div>
+						</div>
+
+						<section class="web-set">
+							<form [formGroup]="form" (ngSubmit)="submit()">
+								<div class="row">
+									<div class="col-xl-6">
+										<div class="card mt-3">
+											<div class="card-header">
+													General
+											</div>
+											<div class="card card-body">
+												<div class="form-group">
+													<select class="form-control" formControlName="status">
+														<option value="0">Pending</option>
+														<option value="1">Active</option>
+													</select>
+												</div>
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="form-group">
+															<label for="title">Title <span class="requiredField">*</span></label>
+															<input 
+																type="text" 
+																formControlName="title" 
+																id="title" 
+																class="form-control"
+															>
+														</div>
+													</div>
+												</div>
+
+												<div class="form-group">
+														<label for="pro_dec">Description <span class="requiredField">*</span></label>
+														<angular-editor 
+																id="editor1" 
+																formControlName="description" 
+																[config]="editorConfig"
+														></angular-editor>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="col-xl-6">
+										<div class="card">
+											<div class="card-header">
+												Add Image
+											</div>
+											<div class="card-body">
+												<img src="{{activityData?.act_photo}}">
+												<div class="form-group mb-3 mt-3">
+													<div *ngIf="uploadErr && uploadRole === 'act_photo'" 
+														class="alert alert-danger mt-2">
+														{{uploadErr}}
+													</div>
+													<div *ngIf="uploadProgress > 0 && uploadRole === 'act_photo'" class="progress" style="margin-bottom: 10px;">
+														<span class="progress-bar progress-bar-striped progress-bar-animated" 
+															role="progressbar" 
+															aria-valuenow="100" 
+															aria-valuemin="0" 
+															aria-valuemax="100" 
+															style="width: 100%"> 
+															Uploading...{{ uploadProgress }}%
+														</span>
+													</div>
+
+													<label for="userActImage" class="mt-4">
+														Activity Image
+														<span class="text-danger">* </span> 
+														<small class="text-danger">
+															Best image size: 370px by 270px
+														</small>
+													</label>
+													<input 
+														type="tex" 
+														formControlName="act_photo" 
+														id="userActImage" 
+														class="form-control"
+														hidden
+													>
+													<input 
+														type="file" 
+														id="userActImage" 
+														class="form-control"
+														(change)="addUserActImage($event, 'act_photo')"
+													>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>	
+
+								<div class="text-center mt-5 mb-5">
+									<button class="btn btn-primary">UPDATE ACTIVITY</button>
+								</div>
+							</form>
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+					</div>
+				</div>		
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,129 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle" />
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+    <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+    <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+    <div id="adminWrapper">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-2 custmDisplay-sidebar">
+                        <app-admin-manager-menu></app-admin-manager-menu>
+                    </div>
+
+                    <div class="col-xl-10 custmDisplay">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item">
+                                                <a routerLink="/{{adminUrl}}">Dashboard</a>
+                                            </li>
+                                            <li class="breadcrumb-item">
+                                                <a routerLink="/{{adminUrl}}/admin-manager">
+													Admin Manager
+												</a>
+                                            </li>
+                                            <li class="breadcrumb-item active">
+                                                Administrators
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">Administrators</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <section class="user-list">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-lg-9 col-md-6">
+                                                    Administrators
+                                                </div>
+                                                <div class="col-lg-3 col-md-6">
+                                                    <div class="text-right">
+                                                        <input type="text" placeholder="Search..." class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Admin</th>
+                                                            <th>Full Name</th>
+                                                            <th>Username</th>
+                                                            <th>Role</th>
+                                                            <th>Email</th>
+                                                            <th>Created</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let adm of adminstrators">
+                                                            <td class="table-img">
+                                                                <img *ngIf="adm.photo" defaultImage="/assets/images/avatar.jpg" lazyLoad="{{adm.photo}}" alt="user-name" class="mr-3 rounded-circle border" style="width:40px;">
+                                                                <img *ngIf="!adm.photo" src="/assets/images/avatar.jpg" alt="user-name" class="mr-3 rounded-circle border" style="width:40px;">
+                                                            </td>
+                                                            <td>
+                                                                <a routerLink="/">
+																	{{adm.full_name}}
+																</a>
+                                                            </td>
+                                                            <td>{{adm.username}}</td>
+                                                            <td>{{adm.role}}</td>
+                                                            <td>{{adm.email}}</td>
+                                                            <td>{{adm.created_at | date}}</td>
+                                                            <td *ngIf="adm.username.toLowerCase() !== 'administrator'" class="text-center">
+                                                                <a routerLink="/{{adminUrl}}/admin-manager/edit/{{adm.id}}" class="btn btn-success admin-btn-sm btn-sm mr-3"><i class="fa fa-edit"></i> </a>
+                                                                <button type="button" (click)="delete(adm)" class="btn btn-danger admin-btn-sm btn-sm"><i class="fa fa-trash"></i> </button>
+                                                            </td>
+
+                                                            <td *ngIf="adm.username.toLowerCase() === 'administrator'" class="text-center">
+                                                                <a class="btn btn-success admin-btn-sm btn-sm mr-3 disabled"><i class="fa fa-edit"></i> </a>
+                                                                <button type="button" class="btn btn-danger admin-btn-sm btn-sm disabled"><i class="fa fa-trash"></i> </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="pagin-wrapper mt-3">
+                                                <ul class="pagination pagination-sm justify-content-end">
+                                                    <li class="page-item">
+                                                        <a class="btn page-link disabled" href="">Previous</a>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <a class="btn page-link disabled" href="">1</a>
+                                                    </li>
+                                                    <li class="page-item">
+                                                        <a class="btn page-link disabled" href="">Next</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <app-admin-footer></app-admin-footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

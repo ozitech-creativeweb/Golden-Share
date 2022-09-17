@@ -1,0 +1,179 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div *ngIf="updateError" class="alert alert-danger mb-2">
+    {{updateError}}
+  </div>
+
+    <div class="row">
+      <div class="col-xl-6">
+       <div class="card">
+        <div class="card-header">
+          General Details
+        </div>
+        <div class="card-body">    
+          <div class="form-group mb-3">
+            <label for="full_name">Full Name <span class="text-danger">*</span></label>
+            <input type="text" formControlName="full_name" id="full_name" class="form-control">
+          </div>
+          
+          <div class="form-group mb-3">
+            <label for="username">Username <span class="text-danger">*</span></label>
+            <input readonly type="text" formControlName="username" id="username" class="form-control">
+          </div>
+          
+          <div *ngIf="admID" class="form-group mb-3">
+            <label for="password">
+              Password <small class="text-danger">
+                Enter value only to change password
+              </small>
+            </label>
+            <input 
+              type="password" 
+              formControlName="password" 
+              id="password" class="form-control"
+              placeholder="Change password"
+            >
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="role">Role <span class="text-danger">*</span></label>
+              <select 
+                *ngIf="authAdmin && authAdmin.username === 'administrator'" 
+                formControlName="role" id="role" class="form-control"
+              >
+              <option value="Administrator">Administrator</option>
+              <option value="Accountant">Accountant</option>
+              <option value="Editor">Editor</option>
+              <option value="Moderator">Moderator</option>
+              <option value="Marketer">Marketer</option>
+            </select>
+
+            <input 
+              type="text"
+              *ngIf="authAdmin && authAdmin.username !== 'administrator'" 
+              readonly formControlName="role" id="role" class="form-control"
+            >
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="email">Email <span class="text-danger">*</span></label>
+            <input type="email" formControlName="email" id="email" class="form-control">
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="phone">Phone Number</label>
+            <input type="text" formControlName="phone" id="phone" class="form-control">
+          </div>  
+
+          <div class="row">
+            <div class="col-xl-12">
+              <div class="form-group mb-3">
+                <label for="address">Address </label>
+                <input type="text" formControlName="address" id="address" class="form-control">
+              </div>
+            </div>
+
+            <div class="col-xl-6">
+              <div class="form-group mb-3">
+                <label for="city">City </label>
+                <input type="text" formControlName="city" id="city" class="form-control">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-6">
+              <div class="form-group mb-3">
+                <label for="state">State </label>
+                <input type="text" formControlName="state" id="state" class="form-control">
+              </div>
+            </div>
+
+            <div class="col-xl-12">
+              <div class="form-group mb-3">
+                <label for="country">Country </label>
+                <input type="text" formControlName="country" id="country" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
+      </div>
+
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header">
+            Profile Photo
+          </div>
+          <div class="card-body">               
+            <div class="form-group mb-3">
+                <div class="alert alert-danger mt-2" *ngIf="fileUploadError">
+                    {{fileUploadError}}
+                </div>
+
+                <div *ngIf="uploadingProgress > 0" class="progress" style="margin-bottom: 10px;">
+                    <span class="progress-bar progress-bar-striped progress-bar-animated" 
+                        role="progressbar" 
+                        aria-valuenow="100" 
+                        aria-valuemin="0" 
+                        aria-valuemax="100" 
+                        style="width: 100%"> 
+                        Uploading...{{ uploadingProgress }}%
+                    </span>
+                </div>
+                
+                <div class="row">
+                  <div class="col-4">
+                    <img 
+                      [src]="adm && adm.photo" 
+                      class="img-thumbnail rounded-circle float-right" 
+                      [alt]="adm && adm.username"
+                      style="max-width: 120px;"
+                    > 
+                  </div>
+                  <div class="col-8 text-left">
+                    <input type="text" formControlName="photo" hidden>
+                    <input 
+                      type="file" 
+                      class="form-control mt-4"
+                      id="uploadFile"
+                      name="uploadFile"
+                      (change)="onSelectedFile($event)"
+                    >
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-5">
+          <div class="card-header">
+            About
+          </div>
+          <div class="card-body">
+            <div class="form-group mb-3">
+                <textarea 
+                    placeholder="Enter information about yourself here" 
+                    class="form-control" 
+                    rows="4" formControlName="bio"
+                ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button *ngIf="!isAdding" 
+        type="submit" 
+        [disabled]="!form.valid"
+        class="btn btn-primary btn-lg mt-5"
+      >Update</button>
+      <button *ngIf="isAdding"
+        class="btn btn-primary btn-lg mt-5" 
+        type="button" disabled>
+        <span class="spinner-border spinner-border-sm" 
+        role="status" aria-hidden="true"></span>
+        Updating...
+      </button>
+    </div>
+  </form>

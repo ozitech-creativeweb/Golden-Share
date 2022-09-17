@@ -1,0 +1,33 @@
+<footer>
+	<br><br>
+	<hr>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-7 developer text-right">
+				<span 
+					*ngIf="generalSettings && generalSettings.copyright"
+					[innerHTML]="generalSettings && generalSettings.copyright"
+				></span>
+				<span *ngIf="!(generalSettings && generalSettings.copyright)">
+					Copyright © {{currYear}} 
+					<span class="pri-col">
+						{{generalSettings && generalSettings.name}}
+					</span>. 
+					All Rights Reserved.
+				</span> 
+			</div>
+	
+			<div class="col-xl-5">
+				<div class="text-right">
+					<span class="designed">
+						Designed by: 
+						<a title="Web & Mobile App Development Agency"
+							target="_blank" 
+							href="https://www.creativeweb.com.ng"
+						>CreativeWeb Nigeria</a> 
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>

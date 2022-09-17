@@ -1,0 +1,68 @@
+<div id="wrapper" style="background: url('assets/images/banner/breadcrum.jpg')  no-repeat center;">
+	<div class="overlay">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-2"></div>
+
+				<div class="col-lg-6 col-md-8">
+					<div class="useraccount container">
+						<div class="userbtns text-center mb-5">
+							<img width="140" src="{{settings && settings.logo_url}}">
+							<br>
+							<br>
+							<h4>Administrator Only</h4>					
+						</div>				
+						
+						<div *ngIf="authError" class="alert alert-danger">
+							{{ authError }}
+						</div>
+						<form 
+							id="getEmaildata"
+							[formGroup]="form" 
+							class="form mb-5" 
+							(ngSubmit)="onSubmit()"
+						>
+							<div class="formrow mt-4">
+								<label for="email">Email</label>
+								<input 
+									type="text" 
+									id="username"
+									class="form-control" 
+									placeholder="Username or Email" 
+									formControlName="username"
+									id="email"
+								>
+							</div><br>
+							<div class="formrow mt-3">
+								<label for="password">Password</label>
+								<input 
+									type="password" 
+									id="password" 
+									class="form-control" 
+									placeholder="Password"
+									formControlName="password"
+									id="password"
+								>
+							</div><br>
+							<div align="center" class="mt-4">
+								<button *ngIf="!isLoading" 
+									type="submit" 
+									class="addBtn btn btn-primary btn-block"
+								>Login</button>
+								<button *ngIf="isLoading"
+									class="addBtn btn btn-primary btn-block" 
+									type="button" disabled>
+									<span class="spinner-border spinner-border-sm" 
+									role="status" aria-hidden="true"></span>
+									Logging in...
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+					
+				<div class="col-lg-3 col-md-2"></div>
+			</div>
+		</div>
+	</div>
+</div>

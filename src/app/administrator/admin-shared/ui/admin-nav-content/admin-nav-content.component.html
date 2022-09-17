@@ -1,0 +1,261 @@
+<div class="mobile-menu">
+    <div class="auth-menu">
+
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action navigation">
+				NAVIGATION
+			</a>
+            <a (click)="toggle('administrator')" routerLinkActive="isActive" routerLink="/administrator" class="list-group-item list-group-item-action"><i class="fa fa-dashboard"></i> Dashboard</a>
+
+
+            <div *ngIf="isRootAdmin" class="dropdown-wrapper">
+                <div class="dropdown-click" (click)="toggle('general-settings')">
+                    <a class="list-group-item list-group-item-action">
+                        <i class="fa fa-cog"></i> General Settings
+                        <span class="pull-right">
+							<i *ngIf="role === 'general-settings'" class="fa fa-angle-down"></i>
+							<i *ngIf="role !== 'general-settings'" class="fa fa-angle-right"></i>
+						</span>
+                    </a>
+                </div>
+                <div class="dropdownMenu" *ngIf="role === 'general-settings'">
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/settings-manager/website-settings" class="list-group-item list-group-item-action">Website Settings</a>
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/settings-manager/currency-settings" class="list-group-item list-group-item-action">Currency Settings</a>
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/settings-manager/social-settings" class="list-group-item list-group-item-action">Social Settings</a>
+
+                    <a routerLink="/{{adminUrl}}/settings-manager/configuration" class="list-group-item list-group-item-action">Configuration</a>
+                </div>
+            </div>
+
+
+            <div *ngIf="isRootAdmin" class="dropdown-wrapper">
+                <div class="dropdown-click" (click)="toggle('admin-manager')">
+                    <a class="list-group-item list-group-item-action">
+                        <i class="fa fa-lock"></i> Admin Manager
+                        <span class="pull-right">
+							<span class="pull-right">
+								<i *ngIf="role === 'admin-manager'" class="fa fa-angle-down"></i>
+								<i *ngIf="role !== 'admin-manager'" class="fa fa-angle-right"></i>
+							</span>
+                        </span>
+                    </a>
+                </div>
+                <div class="dropdownMenu" *ngIf="role === 'admin-manager'">
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/admin-manager" class="list-group-item list-group-item-action">Administrators</a>
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/admin-manager/add-admin" class="list-group-item list-group-item-action">Add New</a>
+                </div>
+            </div>
+
+
+            <div class="dropdown-wrapper">
+                <div class="dropdown-click" (click)="toggle('content-manager')">
+                    <a class="list-group-item list-group-item-action">
+                        <i class="fa fa-pencil-square-o"></i> Content Manager
+                        <span class="pull-right">
+							<i *ngIf="role === 'content-manager'" class="fa fa-angle-down"></i>
+							<i *ngIf="role !== 'content-manager'" class="fa fa-angle-right"></i>
+						</span>
+                    </a>
+                </div>
+                <div class="dropdownMenu" *ngIf="role === 'content-manager'">
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/content-manager/home-banners" class="list-group-item list-group-item-action">Home Banners</a>
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/content-manager/how-it-works" class="list-group-item list-group-item-action">How it works</a>
+
+                    <!-- <a routerLinkActive="isActive"
+						routerLink="/{{adminUrl}}/content-manager/pages"
+						class="list-group-item list-group-item-action"
+					>Pages</a> -->
+
+                    <!--
+
+					<a routerLinkActive="isActive"
+						routerLink="/{{adminUrl}}/content-manager/biggest-advantage"
+						class="list-group-item list-group-item-action"
+					>Biggest Advantage</a> -->
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/content-manager/banks" class="list-group-item list-group-item-action">List of Banks</a>
+
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/content-manager/email-templates" class="list-group-item list-group-item-action">Email Templates</a>
+
+
+                    <!-- <a routerLinkActive="isActive"
+						routerLink="/{{adminUrl}}/content-manager/sms-template"
+						class="list-group-item list-group-item-action"
+					>SMS Templates</a>-->
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/content-manager/edit/terms-and-conditions" class="list-group-item list-group-item-action">Terms & Conditions</a>
+                </div>
+            </div>
+
+            <!-- <a
+			 	(click)="toggle('donation')"
+				routerLinkActive="isActive"
+				routerLink="/{{adminUrl}}/donation-manager"
+				class="list-group-item list-group-item-action logout"
+			><i class="fa fa-filter"></i> Donations</a> -->
+
+            <!-- <a
+			 	(click)="toggle('merged-orders')"
+				routerLinkActive="isActive"
+				routerLink="/{{adminUrl}}/donation-manager/merged-orders"
+				class="list-group-item list-group-item-action logout"
+			><i class="fa fa-shopping-bag"></i> Merged Orders</a> -->
+
+            <div class="dropdown-wrapper">
+                <div class="dropdown-click" (click)="toggle('merged-orders')">
+                    <a class="list-group-item list-group-item-action">
+                        <i class="fa fa-shopping-bag"></i> Merged Orders
+                        <span class="pull-right">
+							<i *ngIf="role === 'merged-orders'" class="fa fa-angle-down"></i>
+							<i *ngIf="role !== 'merged-orders'" class="fa fa-angle-right"></i>
+						</span>
+                    </a>
+                </div>
+                <div class="dropdownMenu" *ngIf="role === 'merged-orders'">
+                    <!-- [queryParams]="{ status: 'active'}"  -->
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/donation-manager/merged-orders/all" class="list-group-item list-group-item-action">All Merged Orders</a>
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/donation-manager/merged-orders/approved" (click)="setMergedStatus('approved')" class="list-group-item list-group-item-action">Approved</a>
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/donation-manager/merged-orders/pending" (click)="setMergedStatus('pending')" class="list-group-item list-group-item-action">Pending</a>
+                </div>
+            </div>
+
+
+            <!-- <a *ngIf="isRootAdmin"
+			 	(click)="toggle('manual-merging')"
+				routerLinkActive="isActive"
+				routerLink="/{{adminUrl}}/manual-merging-manager"
+				class="list-group-item list-group-item-action logout"
+			><i class="fa fa-refresh"></i> Manual Merging</a> -->
+
+
+            <div class="dropdown-wrapper">
+                <div class="dropdown-click" (click)="toggle('withdrawal-manager')">
+                    <a class="list-group-item list-group-item-action">
+                        <i class="fa fa-money"></i> Auction Manager
+                        <span class="pull-right">
+							<i *ngIf="role === 'withdrawal-manager'" class="fa fa-angle-down"></i>
+							<i *ngIf="role !== 'withdrawal-manager'" class="fa fa-angle-right"></i>
+						</span>
+                    </a>
+                </div>
+                <div class="dropdownMenu" *ngIf="role === 'withdrawal-manager'">
+                    <!-- <a routerLinkActive="isActive"
+						routerLink="/{{adminUrl}}/withdrawal-manager"
+						class="list-group-item list-group-item-action"
+					>All Auctions</a> -->
+
+                    <!-- [queryParams]="{ status: 'active'}"  -->
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/withdrawal-manager" (click)="setCustomerStatus('active')" class="list-group-item list-group-item-action">Active</a>
+
+
+                    <a routerLinkActive="isActive" href="/{{adminUrl}}/withdrawal-manager/others" (click)="setCustomerStatus('others')" class="list-group-item list-group-item-action">Others</a>
+                </div>
+            </div>
+
+            <!-- <a
+			 	(click)="toggle('withdrawal')"
+				routerLinkActive="isActive"
+				routerLink="/{{adminUrl}}/withdrawal-manager"
+				class="list-group-item list-group-item-action logout"
+			><i class="fa fa-gift"></i> Withdrawal</a> -->
+
+
+            <div class="dropdown-wrapper">
+                <div class="dropdown-click" (click)="toggle('user-manager')">
+                    <a class="list-group-item list-group-item-action">
+                        <i class="fa fa-users"></i> Users Manager
+                        <span class="pull-right">
+							<i *ngIf="role === 'user-manager'" class="fa fa-angle-down"></i>
+							<i *ngIf="role !== 'user-manager'" class="fa fa-angle-right"></i>
+						</span>
+                    </a>
+                </div>
+                <div class="dropdownMenu" *ngIf="role === 'user-manager'">
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/user-manager" class="list-group-item list-group-item-action">All Users</a>
+
+                    <!-- <a routerLinkActive="isActive"
+						routerLink="/{{adminUrl}}/user-manager/activation/users"
+						class="list-group-item list-group-item-action"
+					>Users for Activation</a> -->
+
+                    <!-- [queryParams]="{ status: 'active'}"  -->
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/user-manager/active" (click)="setCustomerStatus('active')" class="list-group-item list-group-item-action">Active Users</a>
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/user-manager/blocked" (click)="setCustomerStatus('blocked')" class="list-group-item list-group-item-action">Blocked Users</a>
+                </div>
+            </div>
+
+
+            <div class="dropdown-wrapper">
+                <div class="dropdown-click" (click)="toggle('packages-manager')">
+                    <a class="list-group-item list-group-item-action">
+                        <i class="fa fa-cubes"></i> Packages
+                        <span class="pull-right">
+							<span class="pull-right">
+								<i *ngIf="role === 'packages-manager'" class="fa fa-angle-down"></i>
+								<i *ngIf="role !== 'packages-manager'" class="fa fa-angle-right"></i>
+							</span>
+                        </span>
+                    </a>
+                </div>
+                <div class="dropdownMenu" *ngIf="role === 'packages-manager'">
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/packages-manager" class="list-group-item list-group-item-action">All Packages</a>
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/packages-manager/add-package" class="list-group-item list-group-item-action">Add Package</a>
+                </div>
+            </div>
+
+            <div class="dropdown-wrapper">
+                <div class="dropdown-click" (click)="toggle('news-manager')">
+                    <a class="list-group-item list-group-item-action">
+                        <i class="fa fa-bullhorn"></i> News Manager
+                        <span class="pull-right">
+							<i *ngIf="role === 'news-manager'" class="fa fa-angle-down"></i>
+							<i *ngIf="role !== 'news-manager'" class="fa fa-angle-right"></i>
+						</span>
+                    </a>
+                </div>
+                <div class="dropdownMenu" *ngIf="role === 'news-manager'">
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/news-manager" class="list-group-item list-group-item-action">All News</a>
+
+                    <!-- [queryParams]="{ status: 'active'}"  -->
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/news-manager/add" (click)="setCustomerStatus('active')" class="list-group-item list-group-item-action">Add News</a>
+                </div>
+            </div>
+
+            <div class="dropdown-wrapper">
+                <div class="dropdown-click" (click)="toggle('testimonial-manager')">
+                    <a class="list-group-item list-group-item-action">
+                        <i class="fa fa-file-text"></i> Testimonial Manager
+                        <span class="pull-right">
+							<i *ngIf="role === 'testimonial-manager'" class="fa fa-angle-down"></i>
+							<i *ngIf="role !== 'testimonial-manager'" class="fa fa-angle-right"></i>
+						</span>
+                    </a>
+                </div>
+                <div class="dropdownMenu" *ngIf="role === 'testimonial-manager'">
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/testimonial-manager" class="list-group-item list-group-item-action">All Testimonial</a>
+
+                    <a routerLinkActive="isActive" routerLink="/{{adminUrl}}/testimonial-manager/add-testimonial" class="list-group-item list-group-item-action">Add Testimonial</a>
+                </div>
+            </div>
+
+
+            <!-- <a
+			 	(click)="toggle('support')"
+				routerLinkActive="isActive"
+				routerLink="/{{adminUrl}}/support-manager"
+				class="list-group-item list-group-item-action logout"
+			><i class="fa fa-commenting"></i> Support</a> -->
+
+            <a (click)="logout()" class="list-group-item list-group-item-action logout"><i class="fa fa-sign-out"></i> Logout</a>
+        </div>
+    </div>
+</div>
