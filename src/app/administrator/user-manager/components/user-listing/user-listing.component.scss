@@ -1,0 +1,29 @@
+.user-list table tr td{
+    padding: 15px 12px 5px 12px;
+}
+.user-list table tr td.table-img{
+    padding: 5px 12px !important;
+}
+.btn-primary{
+    color: #fff !important;
+    padding: 3px 10px;
+    margin: 0px;
+}
+.cus-btn{
+    margin-right: 20px;
+    height: 60px;
+}
+thead{
+    border-top: 1px solid #ccc;
+}
+input, textarea, select{
+    background: #fff !important;
+    color: #000 !important;
+    padding: 10px !important;
+}
+.searchBtn{
+    font-size: 15px;
+}
+::placeholder{
+    font-size: 14px;
+}

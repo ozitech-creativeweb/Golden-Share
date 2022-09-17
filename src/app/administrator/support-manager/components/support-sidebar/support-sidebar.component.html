@@ -1,0 +1,20 @@
+<div class="card-body chat-contact-list">
+	<div class="list-group">
+		<a *ngFor="let supp of supports" 
+			href="/{{adminUrl}}/support-manager/reply/{{supp?.id}}"
+			(click)="setID(supp?.id)" 
+			class="list-group-item list-group-item-action">
+			<div class="media chat-user-detail">
+				<img *ngIf="supp.photo" src="{{supp?.photo}}" alt="John Doe" class="rounded-circle mr-2 mt-2">
+				<img *ngIf="!supp.photo" src="assets/images/user/profile-default.png" alt="John Doe" class="rounded-circle mr-2 mt-2">
+				<div class="media-body">
+					<h4 class="mb-0">{{supp?.title}}</h4>
+					<p>{{supp?.first_name}} {{supp?.last_name}}<span>{{supp?.created_at | date}}</span></p>
+				</div>
+			</div>
+		</a>
+	</div> 
+</div>
+
+
+			<!-- routerLink="/{{adminUrl}}/support-manager/reply/{{supp?.id}}"  -->

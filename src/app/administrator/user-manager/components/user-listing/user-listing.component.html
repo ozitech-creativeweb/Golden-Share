@@ -1,0 +1,188 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-user-manager-menu></app-user-manager-menu>
+					</div>
+
+					<div class="custmDisplay col-xl-10">
+						<div class="page-title-box">
+							<div class="page-title-right">
+								<ol class="breadcrumb m-0">
+									<li class="breadcrumb-item">
+										<a routerLink="/{{adminUrl}}">
+											Dashboard
+										</a>
+									</li>
+									<li class="breadcrumb-item">
+										<a routerLink="/{{adminUrl}}/user-manager">
+											Applicant Manager
+										</a>
+									</li>
+									<li class="breadcrumb-item active">
+										<span *ngIf="customerStatus === 'all'">
+											All Users
+										</span>
+										<span *ngIf="customerStatus !== 'all'">
+											{{customerStatus | titlecase}} Applicants
+										</span>
+									</li>
+								</ol>
+							</div>
+							<h4 class="page-title">All Users</h4>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xl-2 col-lg-2 col-md-3">
+						<app-user-manager-menu></app-user-manager-menu>
+					</div>
+					
+					<div class="custmDisplay col-xl-10">
+						<div class="row">
+							<div class="col-lg-6 col-md-6">
+								<div class="mt-1">
+									<span 
+										*ngIf="!customerStatus || customerStatus === 'all'"
+									>All Users</span> 
+									<span 
+										*ngIf="customerStatus && customerStatus !== 'all'"
+									>{{customerStatus | titlecase}} Users</span> 
+									
+									(<b>{{customerCounts}}</b>)
+								</div>
+							</div>
+							<!-- <div class="col-lg-3"></div> -->
+							<div class="col-lg-6 col-md-6">
+								<form class="search-form" [formGroup]="form" (ngSubmit)="submit()">
+									<div class="input-group mb-3" style="z-index: 0;">
+										<input type="text" class="form-control" placeholder="Search by First name, Last name and Email" formControlName="keywords">
+										<div class="input-group-append">
+										  <button *ngIf="!isSearching" class="btn btn-success searchBtn" type="submit">Search</button>
+										  <app-inner-loading
+										  *ngIf="isSearching"
+										  [name]="'Searching...'"
+										  [class]="'btn btn-success'"
+										  ></app-inner-loading>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<section class="user-list">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th>First Name</th>
+													<th>Last Name</th>
+													<th>Phone</th>
+													<th>Email</th>
+													<th>Signup Date</th>
+													<th>Status</th>
+													<th>View</th>
+												</tr>
+											</thead>
+											<tbody>
+												<app-inner-loading *ngIf="isLoading" [justSpinner]="true" [marginTo]="false"></app-inner-loading>
+												<tr *ngFor="let customer of customers">
+													<td>
+														<a routerLink="/{{adminUrl}}/user-manager/profile/{{customer.login_id}}">
+															{{customer.first_name | titlecase}}
+														</a>
+													</td>
+													<td>
+														<a routerLink="/{{adminUrl}}/user-manager/profile/{{customer.login_id}}">
+															{{customer.last_name | titlecase}}
+														</a>
+													</td>
+													<td>{{customer.phone}}</td>
+													<td>{{customer.email}}</td>
+													<td>{{customer.created_at | date}}</td>
+													<td class="text-center">
+														<span 
+															*ngIf="customer.status === 'Active'" 
+															class="badge badge-success"
+														>Active</span>
+
+														<span 
+															*ngIf="customer.status === 'Pending'" 
+															class="badge badge-primary"
+														>Pending</span>
+
+														<span 
+															*ngIf="customer.status === 'Suspended'" 
+															class="badge badge-warning"
+														>Suspended</span>
+
+														<span 
+															*ngIf="customer.status === 'Blocked'" 
+															class="badge badge-danger"
+														>Blocked</span>
+
+														<span 
+															*ngIf="customer.status === 'Removed'" 
+															class="badge badge-secondary"
+														>Removed</span>
+													</td>
+													<td>
+														<a class="btn btn-primary admin-btn-sm btn-sm"
+															routerLink="/{{adminUrl}}/user-manager/profile/{{customer.login_id}}">
+															<i class="fa fa-edit"></i>
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>	
+								</div>
+
+								<div class="text-center mt-5 mb-5">
+									<p *ngIf="customerCounts < 1" class="text-muted">
+										Oops! No Applicant
+									</p>
+
+									<button
+										*ngIf="customerCounts > 0 && !isLoadMore"
+										(click)="loadMore()"
+										[disabled]="customerCounts <= customers.length"
+										class="btn btn-primary btn-lg"
+									>Load more</button>
+
+									<app-inner-loading 
+										*ngIf="isLoadMore"
+										[name]="'Loading'"
+										[class]="'btn btn-primary btn-lg'"
+									></app-inner-loading>
+
+
+									
+								</div>
+							</div>
+						</section>
+						<app-admin-footer></app-admin-footer>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

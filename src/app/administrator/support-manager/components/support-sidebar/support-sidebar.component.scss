@@ -1,0 +1,22 @@
+@import "../open-support/open-support.component.scss";
+
+.chat-contact-list{
+    height: 400px;
+    padding: 0px;
+    overflow-y: auto;
+}
+.chat-contact-list img{
+    width:50px; 
+    height: 50px;
+}
+.chat-contact-list p{
+    font-size: 14px;
+    text-align: left;
+}
+.chat-contact-list p span{
+    text-align: right;
+    font-size: 12px;
+}
+.rounded-circle{
+    border: 1px solid #ccc
+}

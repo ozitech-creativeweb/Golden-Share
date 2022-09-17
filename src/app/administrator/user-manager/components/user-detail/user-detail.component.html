@@ -1,0 +1,513 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle" />
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+    <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+    <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+
+    <div id="adminWrapper">
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item">
+                                        <a routerLink="/{{adminUrl}}">
+											Dashboard
+										</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a routerLink="/{{adminUrl}}/user-manager">
+											Users List
+										</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">
+                                        {{user && user.first_name + ' ' + user.last_name}}
+                                    </li>
+                                </ol>
+                            </div>
+                            <h4 class="page-title">
+                                {{user && user.first_name + ' ' + user.last_name | uppercase}}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="user-det">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4">
+                            <app-user-info-share [customer]="user && user"></app-user-info-share>
+                        </div>
+
+                        <div class="col-xl-8 col-lg-8">
+                            <div class="user-content-wrapper">
+                                <ngb-tabset type="pills" justify="justified">
+                                    <!-- activation -->
+                                    <!-- <ngb-tab>
+										<ng-template ngbTabTitle><b>Activation</b></ng-template>
+										<ng-template ngbTabContent>
+											<div *ngIf="successPOP" class="alert alert-success">
+												{{ successPOP }}
+											</div>
+											<div *ngIf="errorPOP" class="alert alert-danger">
+												{{ errorPOP }}
+											</div>
+											<h3>{{ user && user.first_name }} Prove of Payment</h3>
+											<div class="tab-content">
+												<div class="cart-list text-center">
+													<div class="row">
+														<div class="col-xl-6">
+															<div *ngIf="user?.activation_pop">
+																<a href="{{user?.activation_pop}}" class="btn btn-primary btn-block" target="_blank">View POP</a>
+
+																<p class="text-left mt-4">Uploaded On: <b>{{user?.activation_pop_date | date}}</b></p>
+
+																<p class="text-left mt-2" *ngIf="user && user.activation === 1">Approved On: <b>{{user?.activation_pop_confirm_date | date}}</b></p>
+
+																<div *ngIf="user && user.activation === 0">
+																	<button *ngIf="!isLoading"
+																		class="btn btn-success btn-sm mt-4"
+																		(click)="popAction(user && user.login_id, 1)"
+																	>Approve Now</button>
+																	<button *ngIf="isLoading"
+																		class="btn btn-success btn-sm mt-4" 
+																		type="button" disabled>
+																		<span class="spinner-border spinner-border-sm" 
+																		role="status" aria-hidden="true"></span>
+																		Approving...
+																	</button>
+																</div>
+																
+																<div *ngIf="user && user.activation === 1">
+																	<div class="alert alert-success">
+																		<b>Successfully Approved.</b>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</ng-template>
+									</ngb-tab> -->
+                                    <!-- activation -->
+
+                                    <!-- Bank -->
+                                    <ngb-tab>
+                                        <ng-template ngbTabTitle><b>Bank</b></ng-template>
+                                        <ng-template ngbTabContent>
+                                            <div class="tab-content">
+                                                <div *ngIf="successBank" class="alert alert-success">
+                                                    {{ successBank }}
+                                                </div>
+                                                <div *ngIf="error" class="alert alert-danger">
+                                                    {{ error }}
+                                                </div>
+                                                <form [formGroup]="form" (ngSubmit)="submit()">
+                                                    <input type="hidden" class="form-control" formControlName="loginID">
+                                                    <input type="hidden" formControlName="bankID" class="form-control">
+
+                                                    <div class="row">
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group mt-4">
+                                                                <label>Account Name</label>
+                                                                <input type="text" class="form-control" formControlName="account_name">
+                                                                <div *ngIf="account_name.touched && !account_name.valid" class="mt-2 errorMessage alert alert-danger">Acount name is required</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group mt-4">
+                                                                <label>Account Number</label>
+                                                                <input type="text" class="form-control" formControlName="account_number">
+                                                                <div *ngIf="account_number.touched && !account_number.valid" class="mt-2 errorMessage alert alert-danger">Account number is required</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group mt-4">
+                                                                <label>Bank Name</label>
+                                                                <input type="text" class="form-control" formControlName="bank">
+                                                                <div *ngIf="bank.touched && !bank.valid" class="mt-2 errorMessage alert alert-danger">Bank name is required</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- <div class="col-xl-6">
+															<div class="form-group mt-4">
+																<label>Account Type</label>
+																<input type="text" class="form-control" formControlName="branch">
+																<div *ngIf="branch.touched && !branch.valid" class="mt-2 errorMessage alert alert-danger">Account type is required</div>
+															</div>
+														</div> -->
+                                                    </div>
+
+                                                    <div class="mt-5">
+                                                        <!-- <button class="btn btn-primary btn-block" [disabled]="!form.valid">SUBMIT</button> -->
+                                                        <button *ngIf="!isLoading" [disabled]="!form.valid" type="submit" class="addBtn btn btn-primary btn-block">Update</button>
+                                                        <button *ngIf="isLoading" class="btn btn-primary btn-block" type="button" disabled>
+															<span class="spinner-border spinner-border-sm" 
+															role="status" aria-hidden="true"></span>
+															Updating...
+														</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+                                    <!-- Bank -->
+
+
+                                    <!-- Referrals -->
+                                    <ngb-tab>
+                                        <ng-template ngbTabTitle><b>Referrals</b></ng-template>
+                                        <ng-template ngbTabContent>
+                                            <div class="tab-content referrals">
+                                                <div class="row">
+                                                    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 mb-4">
+                                                        <div class="card card-custm card-body pt-3 pb-3">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="no_user">
+                                                                    <i class="fa fa-money grid-icon icon-col-1"></i>
+                                                                </div>
+                                                                <div class="no_user">
+                                                                    <h4 class="mb-0"><span [innerHTML]="currency?.symbol"></span> {{earnings | number}}</h4>
+                                                                    <p class="mb-0">Earnings</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 mb-4">
+                                                        <div class="card card-custm card-body pt-3 pb-3">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="no_user">
+                                                                    <i class="fa fa-filter grid-icon icon-col-2"></i>
+                                                                </div>
+                                                                <div class="no_user">
+                                                                    <h4 class="mb-0"><span [innerHTML]="currency?.symbol"></span> {{withdrawn | number}}</h4>
+                                                                    <p class="mb-0">Withdrawn</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 mb-4">
+                                                        <div class="card card-custm card-body pt-3 pb-3">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="no_user">
+                                                                    <i class="fa fa-gift grid-icon icon-col-3"></i>
+                                                                </div>
+                                                                <div class="no_user">
+                                                                    <h4 class="mb-0"><span [innerHTML]="currency?.symbol"></span> {{balance | number}}</h4>
+                                                                    <p class="mb-0">Available</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h3>Referrals</h3>
+                                                <div class="cart-list">
+
+                                                    <ngb-accordion [closeOthers]="true" activeIds="static-1">
+
+                                                        <ngb-panel *ngFor="let ref of referrals; let i = index;" id="static-{{i + 1}}">
+                                                            <ng-template ngbPanelTitle>
+                                                                <span style="font-size: 16px;">Level Referral {{i + 1}}</span>
+                                                            </ng-template>
+                                                            <ng-template ngbPanelContent>
+                                                                <div class="table-responsive">
+                                                                    <table *ngIf="ref?.list?.length > 0" class="table table-bordered">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>First Name</th>
+                                                                                <th>Last Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Signup Date</th>
+                                                                                <th>status</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr *ngFor="let user of ref?.list;">
+                                                                                <td>{{user?.first_name}}</td>
+                                                                                <td>{{user?.first_name}}</td>
+                                                                                <td>{{user?.first_name}}</td>
+                                                                                <td>{{user?.created_at | date}}</td>
+                                                                                <td>
+                                                                                    <span [class.badge-success]="user.status === 'Active'" [class.badge-warning]="user.status === 'Pending'" [class.badge-danger]="user.status === 'Suspended'" [class.badge-danger]="user.status === 'Blocked'" class="badge">{{user?.status}}</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                    <div *ngIf="ref?.list?.length < 1" class="emptyOrderText">
+                                                                        <span>No record</span>
+                                                                    </div>
+                                                                </div>
+                                                            </ng-template>
+                                                        </ngb-panel>
+                                                    </ngb-accordion>
+
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+                                    <!-- save-item -->
+
+
+                                    <!-- withdraw -->
+                                    <ngb-tab>
+                                        <ng-template ngbTabTitle><b>Incoming Orders</b></ng-template>
+                                        <ng-template ngbTabContent>
+                                            <div class="tab-content withdrawal">
+                                                <div class="row">
+                                                    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 mb-4">
+                                                        <div class="card card-custm card-body pt-3 pb-3">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="no_user">
+                                                                    <i class="fa fa-money grid-icon icon-col-1"></i>
+                                                                </div>
+                                                                <div class="no_user">
+                                                                    <h4 class="mb-0"><span [innerHTML]="currency?.symbol"></span> {{allwithdrawals | number}}</h4>
+                                                                    <p class="mb-0">All Requests</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 mb-4">
+                                                        <div class="card card-custm card-body pt-3 pb-3">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="no_user">
+                                                                    <i class="fa fa-filter grid-icon icon-col-2"></i>
+                                                                </div>
+                                                                <div class="no_user">
+                                                                    <h4 class="mb-0"><span [innerHTML]="currency?.symbol"></span> {{withdrawnNow | number}}</h4>
+                                                                    <p class="mb-0">Withdrawn</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 mb-4">
+                                                        <div class="card card-custm card-body pt-3 pb-3">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="no_user">
+                                                                    <i class="fa fa-gift grid-icon icon-col-3"></i>
+                                                                </div>
+                                                                <div class="no_user">
+                                                                    <h4 class="mb-0"><span [innerHTML]="currency?.symbol"></span> {{withdrawalAvailable | number}}</h4>
+                                                                    <p class="mb-0">Available</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <h3>Incoming Orders</h3>
+                                                <div class="cart-list">
+
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Amount</th>
+                                                                    <th>Withdrawn</th>
+                                                                    <th>Balance</th>
+                                                                    <th>Status</th>
+                                                                    <th>Date</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody *ngIf="withdrawal && withdrawal.length > 0">
+                                                                <tr *ngFor="let with of withdrawal">
+                                                                    <td><span [innerHTML]="currency?.symbol"></span> {{with?.amount | number}}</td>
+                                                                    <td><span [innerHTML]="currency?.symbol"></span> {{with?.withdrawn | number}}</td>
+                                                                    <td><span [innerHTML]="currency?.symbol"></span> {{(with?.amount - with?.withdrawn) | number}}</td>
+                                                                    <td>
+                                                                        <b *ngIf="with.status === 'Paid'" class="badge badge-success">
+																			Fully Paid
+																		</b>
+                                                                        <b *ngIf="with.status === 'Part'" class="badge badge-info">
+																			Part Payment
+																		</b>
+                                                                        <b *ngIf="with.status === 'Pending'" class="badge badge-warning">
+																			Pending
+																		</b>
+                                                                        <b *ngIf="with.status === 'Cancelled'" class="badge badge-danger">
+																			Cancelled
+																		</b>
+                                                                    </td>
+                                                                    <td>{{with?.created_at}}</td>
+                                                                    <td>
+                                                                        <a routerLink="/{{adminUrl}}/withdrawal-manager/history/{{with?.id}}" class="btn btn-primary btn-sm mr-2"><i class="fa fa-eye"></i></a>
+
+                                                                        <button class="btn btn-danger btn-sm ml-2" (click)="deleteWithdrawal(with?.id)"><i class="fa fa-trash"></i></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+
+                                                            <tbody *ngIf="withdrawal && withdrawal.length < 1">
+                                                                <tr class="text-center">
+                                                                    <td colspan="6">No Withdrawal Available</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <div class="text-center mt-4 mb-4">
+                                                        <button *ngIf="withdrawalCounty > 0 && !isLoadMore" (click)="loadMore()" [disabled]="withdrawalCounty <= withdrawal.length" class="btn btn-primary btn-lg">Load more</button>
+
+                                                        <app-inner-loading *ngIf="isLoadMore" [name]="'Loading'" [class]="'btn btn-primary btn-lg'"></app-inner-loading>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+                                    <!-- withdraw -->
+
+
+
+
+                                    <!-- donation -->
+                                    <!-- <ngb-tab>
+										<ng-template ngbTabTitle><b>Donations</b></ng-template>
+										<ng-template ngbTabContent>
+											<div class="tab-content donations">
+												<div class="row">
+													<div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 mb-4">
+														<div class="card card-custm card-body pt-3 pb-3">
+															<div class="d-flex justify-content-between">
+																<div class="no_user">
+																	<i class="fa fa-money grid-icon icon-col-1"></i>
+																</div>
+																<div class="no_user">
+																	<h4 class="mb-0"><span [innerHTML]="currency?.symbol"></span> {{allDonation | number}}</h4>
+																	<p class="mb-0">All Donations</p>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 mb-4">
+														<div class="card card-custm card-body pt-3 pb-3">
+															<div class="d-flex justify-content-between">
+																<div class="no_user">
+																	<i class="fa fa-filter grid-icon icon-col-2"></i>
+																</div>
+																<div class="no_user">
+																	<h4 class="mb-0"><span [innerHTML]="currency?.symbol"></span> {{donationPaid | number}}</h4>
+																	<p class="mb-0">Paid</p>
+																</div>
+															</div>
+														</div>
+													</div>
+
+													<div class="col-xl-4 col-lg-6 col-md-4 col-sm-6 mb-4">
+														<div class="card card-custm card-body pt-3 pb-3">
+															<div class="d-flex justify-content-between">
+																<div class="no_user">
+																	<i class="fa fa-gift grid-icon icon-col-3"></i>
+																</div>
+																<div class="no_user">
+																	<h4 class="mb-0"><span [innerHTML]="currency?.symbol"></span> {{donationUnpaid | number}}</h4>
+																	<p class="mb-0">Unpaid</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<h3>Donations</h3>
+												<div class="cart-list">
+													
+													<div class="table-responsive">
+														<table class="table table-bordered">
+															<thead>
+																<tr>
+																	<th>Amount</th>
+																	<th>Paid</th>
+																	<th>Unpaid</th>
+																	<th>Status</th>
+																	<th>Date</th>
+																	<th>Action</th>
+																</tr>
+															</thead>
+															<tbody *ngIf="donation && donation.length > 0">
+																<tr *ngFor="let donate of donation">
+																	<td><span [innerHTML]="currency?.symbol"></span> {{donate?.amount | number}}</td>
+																	<td><span [innerHTML]="currency?.symbol"></span> {{donate?.paid | number}}</td>
+																	<td><span [innerHTML]="currency?.symbol"></span> {{(donate?.amount - donate?.paid) | number}}</td>
+																	<td>
+																		<b *ngIf="donate.status === 'Paid'" class="badge badge-success">
+																			Fully Paid
+																		</b>
+																		<b *ngIf="donate.status === 'Part'" class="badge badge-info">
+																			Part Payment
+																		</b>
+																		<b *ngIf="donate.status === 'Pending'" class="badge badge-warning">
+																			Pending
+																		</b>
+																		<b *ngIf="donate.status === 'Cancelled'" class="badge badge-danger">
+																			Cancelled
+																		</b>
+																	</td>
+																	<td>{{donate?.created_at}}</td>
+																	<td>
+																		<a routerLink="/{{adminUrl}}/donation-manager/history/{{donate?.id}}" class="btn btn-primary btn-sm mr-2"><i class="fa fa-eye"></i></a>
+
+																		<button class="btn btn-danger btn-sm ml-2" (click)="deleteDonation(donate?.id)"><i class="fa fa-trash"></i></button>
+																	</td>
+																</tr>
+															</tbody>
+
+															<tbody *ngIf="donation && donation.length < 1">
+																<tr class="text-center">
+																	<td colspan="6">No Donation Available</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+													<div class="text-center mt-4 mb-4">
+														<button
+															*ngIf="donationCounty > 0 && !isLoadMore"
+															(click)="loadMoreDonat()"
+															[disabled]="donationCounty <= donation.length"
+															class="btn btn-primary btn-sm"
+														>Load more</button>
+
+														<app-inner-loading 
+															*ngIf="isLoadMore"
+															[name]="'Loading'"
+															[class]="'btn btn-primary btn-sm'"
+														></app-inner-loading>
+													</div>
+												</div>
+
+												</div>
+										</ng-template>
+									</ngb-tab> -->
+                                    <!-- withdraw -->
+                                </ngb-tabset>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+
+    <app-admin-footer></app-admin-footer>
+
+</div>

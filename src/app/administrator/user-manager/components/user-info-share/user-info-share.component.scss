@@ -1,0 +1,22 @@
+.user-info h4{
+    text-transform: uppercase;
+}
+.user-info p{
+    color: #555;
+    font-weight: 500;
+}
+.user-info p.email{
+    text-transform: lowercase !important;
+}
+.about-user h3{
+    font-size: 15px;
+    color: #555;
+    margin-top: 20px;
+}
+
+.name {
+    font-size: 18px;
+}
+.email {
+    font-size: 14px;
+}

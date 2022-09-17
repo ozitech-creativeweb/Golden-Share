@@ -1,0 +1,43 @@
+@import "../open-support/open-support.component.scss";
+
+
+.width_50{
+    margin: 3px 0px;
+}
+.width_50 .dropify-wrapper{
+    background: transparent;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.post_photo{
+    color: #000;
+    font-size: 14px;
+}
+a.attachment{
+    color: #fff !important;
+    padding-top: 10px
+}
+
+::ng-deep.chat-dropDown a.nav-link{
+    color: #000 !important;
+    font-size: 30px;
+}
+
+::ng-deep.chat-dropDown .dropdown-toggle::after{
+    display: none !important;
+}
+::ng-deep.chat-dropDown .dropdown-menu{
+    width: 400px;
+    left: 13px !important;
+    padding: 0px;
+    // height: 400px;
+    // overflow-y: auto;
+}
+.chat-dropDown{
+    display: none;
+}
+@media only screen and (max-width: 767px) {
+    .chat-dropDown{
+      display: inline;
+    }
+  }

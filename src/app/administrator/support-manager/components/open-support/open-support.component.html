@@ -1,0 +1,141 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-support-manager-menu></app-support-manager-menu>
+					</div>
+					
+					<div class="col-xl-10 col-lg-12 col-md-12">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">
+													Dashboard
+												</a>
+											</li>
+											<li class="breadcrumb-item active">
+												<span>
+													Open Support
+												</span>
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">
+										<span>
+											Open Support
+										</span>
+									</h4>
+								</div>
+							</div>
+						</div>
+
+
+						<div id="donations">
+							
+							<section class="chat-section">
+								<div class="row mx-0">
+									<div class="col-xl-4 col-lg-4 col-md-4 px-0">
+										<div class="chat-contact">
+											<div class="card">
+												<div class="card-header">
+													<h4 class="subList">Support</h4>
+												</div>
+												<app-support-sidebar></app-support-sidebar>
+											</div>
+										</div>
+									</div>
+					
+									<div class="col-xl-8 col-lg-8 col-md-8 px-0">
+										<div class="select-chat">
+											<div class="card">
+												<div class="card-body">
+													<div class="text-center">
+														<i class="fa fa-comments-o mb-3"></i>
+														<h4>Select a Chat to continue</h4>
+														<div class="about_btn mt-3">
+															<button class="btn btn-primary" (click)="open(content)">Open A Support Ticket</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+
+						</div>
+
+
+
+						<ng-template #content let-modal>
+							<div class="modal-header customModalHead">
+								<h4 class="modal-title" id="modal-basic-title">Active Users</h4>
+								<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form [formGroup]="form" (ngSubmit)="submit()">
+									<div class="form-group">
+										<label>Select User</label>
+										<select class="form-control custom-select" formControlName="loginID">
+											<option hidden>---Select User---</option>
+											<option *ngFor="let cust of  customers" value="{{cust?.login_id}}">{{cust?.first_name}} {{cust?.last_name}}</option>
+										</select>
+									</div>
+
+									<div class="form-group">
+										<label for="title">Title</label>
+										<input type="text" class="form-control" id="title" formControlName="title">
+									</div>
+
+									<div class="form-group">
+										<label for="message">Message</label>
+										<textarea class="form-control" rows="4" formControlName="message"></textarea>
+									</div>
+
+									<div class="text-center">
+										<div class="mt-4 text-center">
+											<button *ngIf="!isLoading" 
+												type="submit" 
+												class="btn btn-primary"
+											>Send Message</button>
+											<button 
+												*ngIf="isLoading" 
+												class="btn btn-primary" 
+												type="button" disabled>
+												<span class="spinner-border spinner-border-sm" 
+												role="status" aria-hidden="true"></span>
+												Sending...
+											</button>
+											<button type="button" class="btn btn-danger ml-4" (click)="modal.close('Save click')">Cancel</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</ng-template>
+
+						<app-admin-footer></app-admin-footer>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

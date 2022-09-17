@@ -1,0 +1,97 @@
+<div class="card card-body user-info">
+	<div class="d-flex justify-content-between">
+		<div></div>
+		<div class="user-img-det">
+			<div class="media">
+				<img 
+					defaultImage="assets/images/user/profile-default.png" 
+					lazyLoad="assets/images/user/profile-default.png"
+					alt="user-name" 
+					class="mr-3 rounded-circle border" style="width:60px;"
+				>
+				<div class="media-body">
+					<h4 class="name">{{customer && customer.first_name + ' ' + customer.last_name}}</h4>
+					<p class="email">{{customer && customer.email}}</p>
+				</div>
+			</div>
+		</div>
+		<div></div>
+	</div>
+	<div class="text-center">
+		<button *ngIf="customer && customer.status !== 'Active'"
+			class="btn btn-secondary btn-sm mr-1 admin-btn-sm" disabled
+		>{{customer && customer.status}}</button>
+
+		<button *ngIf="customer && customer.status === 'Pending'"
+			class="btn btn-success btn-sm mr-1 admin-btn-sm"
+			(click)="accountAction(customer && customer.login_id, 'Active')"
+		>Activate</button>
+
+		<button *ngIf="customer && customer.status === 'Active'"
+			class="btn btn-danger btn-sm mr-1 admin-btn-sm"
+			(click)="accountAction(customer && customer.login_id, 'Blocked')"
+		>Block</button>
+		
+		<button *ngIf="customer && customer.status === 'Blocked'"
+			class="btn btn-success btn-sm mr-1 admin-btn-sm"
+			(click)="accountAction(customer && customer.login_id, 'Active')"
+		>UnBlock</button>
+				
+		<button *ngIf="customer && customer.status === 'Active'"
+			class="btn btn-warning btn-sm mr-1 admin-btn-sm"
+			(click)="accountAction(customer && customer.login_id, 'Suspended')"
+		>Suspend</button>
+		
+		<button *ngIf="customer && customer.status === 'Suspended'"
+			class="btn btn-success btn-sm mr-1 admin-btn-sm"
+			(click)="accountAction(customer && customer.login_id, 'Active')"
+		>UnSuspend</button>
+
+		<button
+			class="btn btn-danger btn-sm mr-1 admin-btn-sm"
+			(click)="accountAction(customer && customer.login_id, 'Delete')"
+		>Delete</button>
+	</div>
+	<div class="about-user">
+		<h3>ABOUT {{customer && customer.first_name + ' ' + customer.last_name}}</h3>
+		<p>Status : 
+			<span 
+				*ngIf="customer && customer.status === 'Active'" 
+				class="badge badge-success"
+			>Active</span>
+
+			<span 
+				*ngIf="customer && customer.status === 'Pending'" 
+				class="badge badge-primary"
+			>Pending</span>
+
+			<span 
+				*ngIf="customer && customer.status === 'Suspended'" 
+				class="badge badge-warning"
+			>Suspended</span>
+
+			<span 
+				*ngIf="customer && customer.status === 'Blocked'" 
+				class="badge badge-danger"
+			>Blocked</span>
+
+			<span 
+				*ngIf="customer && customer.status === 'Removed'" 
+				class="badge badge-secondary"
+			>Removed</span>
+		</p>
+		<p>First Name : <span>{{customer && customer.first_name | titlecase}}</span></p>
+		<p>Last Name : <span>{{customer && customer.last_name | titlecase}}</span></p>
+		<p>Email : <span>{{customer && customer.email}}</span></p>
+		<p>Mobile N0. : <span>{{customer && customer.phone}}</span></p>
+		<p>Signup Date : <span>{{customer && customer.created_at | date}}</span></p>
+		<p>Last seen : <span>{{customer && customer.lastseen_at }}</span></p>
+	</div>
+
+	<div class="text-center">
+		<a 
+			routerLink="/{{adminUrl}}/user-manager/profile/edit/{{customer && customer.login_id}}" 
+			class="btn btn-primary btn-sm admin-btn-sm">EDIT
+		</a>
+	</div>
+</div>

@@ -1,0 +1,34 @@
+@import "../../../../../theme/colors";
+
+.btn-edit-test{
+    border-radius: 3px !important;
+    padding: 5px 12px !important;
+}
+.each-testimony .btn-primary{
+    background: #009966 !important;
+    border-color: #009966 !important;
+}
+.each-testimony .btn-primary:hover{
+    color: #fff !important;
+}
+.each-testimony .media img{
+    width: 60px;
+    border: 1px solid $primary
+}
+.test-date{
+    font-size: 12px; 
+    margin-top: 15px;
+}
+.each-testimony h3{
+    font-size: 22px;
+    text-align: center;
+    margin: 20px 0px 10px 0px;
+    text-transform: capitalize;
+    font-weight: 440;
+}
+.each-testimony .media h4{
+    font-size: 17px;
+}
+.test-area p{
+    text-align: justify;
+}

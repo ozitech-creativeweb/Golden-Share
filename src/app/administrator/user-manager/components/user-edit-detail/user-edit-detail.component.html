@@ -1,0 +1,153 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="page-title-box">
+							<div class="page-title-right">
+								<ol class="breadcrumb m-0">
+									<li class="breadcrumb-item">
+										<a routerLink="/{{adminUrl}}">
+											Dashboard
+										</a>
+									</li>
+									<li class="breadcrumb-item">
+										<a routerLink="/{{adminUrl}}/user-manager">
+											Customer Manager
+										</a>
+									</li>
+									<li class="breadcrumb-item active">
+										{{customer && customer.first_name + ' ' + customer.last_name}}
+									</li>
+								</ol>
+							</div>
+							<h4 class="page-title">
+								{{customer && customer.first_name + ' ' + customer.last_name}}
+							</h4>
+						</div>
+					</div>
+				</div>
+
+				<section class="user-det">
+					<div class="row">
+						<div class="col-xl-4 col-lg-4">
+							<app-user-info-share
+								[customer]="customer"
+							></app-user-info-share>
+						</div>
+
+						<div class="col-xl-8 col-lg-8">
+							<div class="card">
+								<div class="card-header">
+									Edit Customer information
+								</div>
+								<div class="card-body">
+									<div *ngIf="updateError" class="alert alert-danger mb-2">
+										{{updateError}}
+									</div>
+									<form 
+										[formGroup]="form" 
+										(ngSubmit)="submit()"
+									>
+										<div class="row">
+											<div class="col-xl-6 col-lg-6 col-md-12">
+												<div class="form-group">
+													<label for="first_name">First Name</label>
+													<input 
+														type="text" 
+														class="form-control" 
+														name="first_name" 
+														formControlName="first_name" 
+														id="first_name"
+													>
+												</div>
+											</div>
+												<div class="col-xl-6 col-lg-6 col-md-12">
+													<div class="form-group">
+														<label for="last_name">Last Name</label>
+														<input 
+															type="text" 
+															class="form-control" 
+															name="last_name"  
+															formControlName="last_name"  
+															id="last_name"
+														>
+													</div>
+												</div>
+										</div>
+									
+										<div class="row">
+											<div class="col-xl-6 col-lg-6 col-md-12">
+												<div class="form-group">
+													<label for="email">Email</label>
+													<input 
+														type="email" 
+														class="form-control" 
+														name="email"  
+														formControlName="email"  
+														id="email"
+													>
+												</div>
+											</div>
+											<div class="col-xl-6 col-lg-6 col-md-12">
+												<div class="form-group">
+													<label for="phone">Phone Number <small>(Optional)</small></label>
+													<div class="input-group mb-3">
+														<input 
+															type="text" 
+															class="form-control" 
+															name="phone" 
+															formControlName="phone" 
+															id="phone"
+														>
+													</div>
+												</div>
+											</div>
+										</div>
+									
+										
+									
+										<div class="text-center mt-4">
+											<button *ngIf="!isLoading" 
+												[disabled]="!form.valid" 
+												type="submit" 
+												class="addBtn btn btn-primary btn-lg"
+											>Update</button>
+											<button *ngIf="isLoading"
+												class="btn btn-primary btn-lg" 
+												type="button" disabled>
+												<span class="spinner-border spinner-border-sm" 
+												role="status" aria-hidden="true"></span>
+												Updating...
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<app-admin-footer></app-admin-footer>
+
+</div>
+
+
