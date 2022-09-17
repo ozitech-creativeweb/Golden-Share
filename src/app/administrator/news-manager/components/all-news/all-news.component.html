@@ -1,0 +1,117 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 col-lg-2 col-md-3">
+						<app-news-manager-menu></app-news-manager-menu>
+					</div>
+					
+					<div class="col-xl-10 col-lg-10 col-md-9">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">
+													Dashboard
+												</a>
+											</li>
+											<li class="breadcrumb-item active">
+												<span>
+													All News
+												</span>
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">
+										<span>
+											All News
+										</span>
+									</h4>
+								</div>
+							</div>
+						</div>
+
+
+						<div id="donations">
+							<div class="card card-body mb-4 p-2">
+								<div class="row">
+									<div class="col-6">
+										All News ({{newsCounty}})
+									</div>
+									<div class="col-6">
+										<div class="text-right">
+											<a class="btn btn-primary btn-sm" routerLink="/{{adminUrl}}/news-manager/add">Add News</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="card card-body">
+								<div class="table-responsive">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Heading</th>
+												<th>Date Added</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody *ngIf="news && news.length > 0">
+											<tr *ngFor="let new of news">
+												<td>1</td>
+												<td>{{new?.title}}</td>
+												<td>{{new?.created_at | date}}</td>
+												<td>
+													<button class="btn btn-danger admin-btn-sm btn-sm" (click)="deleteNews(new?.id)"><i class="fa fa-trash"></i></button>
+												</td>
+											</tr>
+										</tbody>
+
+										<tbody *ngIf="news && news.length < 1">
+											<tr class="text-center">
+												<td colspan="4">No News Available</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+
+							<div class="text-center mt-5">
+								<button
+									*ngIf="newsCounty > 0 && !isLoadMore"
+									(click)="loadMore()"
+									[disabled]="newsCounty <= news.length"
+									class="btn btn-primary"
+								>Load more</button>
+
+								<app-inner-loading 
+									*ngIf="isLoadMore"
+									[name]="'Loading'"
+									[class]="'btn btn-primary'"
+								></app-inner-loading>
+							</div>
+						</div>
+						<app-admin-footer></app-admin-footer>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

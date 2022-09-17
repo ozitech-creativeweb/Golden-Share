@@ -1,0 +1,91 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+          <div class="col-xl-2 custmDisplay-sidebar">
+						<app-packages-manager-menu></app-packages-manager-menu>
+					</div>
+
+
+          <div class="custmDisplay col-xl-10">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">Dashboard</a>
+											</li>
+											<li class="breadcrumb-item active">Packages</li>
+										</ol>
+									</div>
+									<h4 class="page-title">Packages</h4>
+								</div>
+							</div>
+						</div>
+						
+						<section class="search-bar p-2">
+							<div class="text-right add-section">
+								<a 
+									routerLink="/{{adminUrl}}/packages-manager/add-package" 
+									class="btn btn-primary"
+								><i class="fa fa-plus mr-2"></i> Add New</a>
+							</div>
+						</section>
+		
+		
+						<section class="user-list pt-0">
+							<div class="row">
+
+								<div *ngFor="let package of packages" class="col-xl-4 mt-4">
+									<div class="card">
+										<!-- <div class="card-header">
+											{{package?.name | titlecase}}
+										</div> -->
+										<div class="card-body p-0">
+											<ul class="list-group">
+												<li class="list-group-item">After {{package?.duration}} day<span *ngIf="package?.duration != 1">s</span></li>
+												<li class="list-group-item">{{package?.roi | number}}% Return</li>
+												<!-- <li class="list-group-item">Investment <span [innerHTML]="currency?.symbol" class="color-black"></span>{{package?.amount | number}}</li>
+												<li class="list-group-item">Profit + Investment: <span [innerHTML]="currency?.symbol" class="color-black"></span>{{(package?.amount * package?.roi/100) + package?.amount | number}}</li>
+												<li class="list-group-item">{{package?.automated}}</li>
+												<li class="list-group-item">{{package?.support}}</li>
+												<li class="list-group-item">Number of Referrals to Qualify: {{package?.qualification | number}}</li>
+												<li class="list-group-item">Amount spent to Qualify: {{package?.amount_spent | number}}</li> -->
+												<li class="list-group-item">Min. Amount to Invest: {{package?.min_amount | number}}</li>
+												<!-- <li class="list-group-item">Max. Amount to Invest: {{package?.max_amount | number}}</li> -->
+												<li class="list-group-item">
+													<a routerLink="/{{adminUrl}}/packages-manager/edit-package/{{ package?.id }}" class="btn btn-primary admin-btn-sm btn-sm">Edit</a>
+													<span class="pull-right">
+														<button (click)="deletePackage(package?.id)" class="btn btn-danger admin-btn-sm btn-sm btn-edit-test ml-2"><i class="fa fa-trash"></i></button>
+													</span>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+          </div>
+       	</div>  
+			</div>
+		</div>
+	</div>
+
+
+</div>

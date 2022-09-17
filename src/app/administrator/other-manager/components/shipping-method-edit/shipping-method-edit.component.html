@@ -1,0 +1,196 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+
+<div id="pageContents">
+  	<div id="adminWrapper">
+    	<div class="content">
+      		<div class="container-fluid">
+
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-other-manager-menu></app-other-manager-menu>
+					</div>
+
+
+					<div class="custmDisplay col-xl-10">
+
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">Dashboard</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/other-manager/payment-gateway">
+													Other Manager
+												</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/other-manager/shipping-method">
+													Shipping Methods
+												</a>
+											</li>
+											<li class="breadcrumb-item active">
+												{{method && method.name}}
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">{{method && method.name}}</h4>
+								</div>
+							</div>
+						</div>
+
+						<section id="payment-gateway">
+							<div class="row">
+								<div class="col-xl-6 col-lg-6">
+									<form [formGroup]="form" (ngSubmit)="submit()">
+										<div class="card">
+										  <div class="card-header">
+											Edit Shipping Method
+										  </div>
+										  <div class="card-body">
+											<div class="form-group">
+											  <label for="name">
+												Courier Name<span class="text-danger">*</span>
+											  </label><br>
+											  <input 
+												type="text" 
+												id="name" 
+												formControlName="name" 
+												class="form-control"
+											  >
+											</div>
+											<div class="form-group">
+											  <div class="input-group mb-3">
+												<div class="input-group-prepend">
+												  <span class="input-group-text">
+													<span innerHTML="{{currencyObj.symbol}}"></span>
+												  </span>
+												</div>
+												<input 
+												  type="number" 
+												  class="form-control"
+												  id="price"
+												  name="price"
+												  formControlName="price"
+												>
+												<div class="input-group-append">
+												  <span class="input-group-text">.00</span>
+												</div>
+											  </div>
+											</div>
+											<div class="form-group">
+											  <label for="description">
+												Description<span class="text-danger">*</span>
+											  </label>
+											  <textarea 
+												class="form-control" 
+												formControlName="description" 
+												id="description" rows="2"
+											  ></textarea>
+											</div>
+						  
+											<div class="form-group">
+											  <div *ngIf="fileUploadError" class="alert alert-danger">
+												{{fileUploadError}}
+											  </div>
+											  <div *ngIf="uploadingProgress > 0" class="progress" style="margin-bottom: 10px;">
+												<span class="progress-bar progress-bar-striped progress-bar-animated" 
+												  role="progressbar" 
+												  aria-valuenow="100" 
+												  aria-valuemin="0" 
+												  aria-valuemax="100" 
+												  style="width: 100%"> 
+												  Uploading...{{ uploadingProgress }}%
+												</span>
+											  </div>
+											  <label for="uploadIcon">
+												Courier Logo
+												<small class="text-danger">
+												  Best Banner size: 40px by 40px
+												</small>
+											  </label>
+											  <input 
+												type="text" 
+												formControlName="url"
+												hidden
+											  >
+											  <input 
+												type="file" 
+												class="form-control" 
+												id="uploadIcon"
+												(change)="onSelectFile($event)"
+											  >
+											</div>
+
+											<div class="form-group">
+												<label for="status">
+												  Status<span class="text-danger">*</span>
+												</label>
+												<select 
+												  class="form-control" 
+												  id="status"
+												  name="status"
+												  formControlName="status"
+												>
+												  <option hidden>--- Select ---</option>
+												  <option value="Active">Active</option>
+												  <option value="Inactive">Inactive</option>
+												</select>
+											</div>
+						  
+											<div class="text-center">                         
+											  <button *ngIf="!isAdding" 
+												type="submit" 
+												[disabled]="!form.valid"
+												class="btn btn-primary mt-5"
+											  >Submit</button>
+											  <button *ngIf="isAdding"
+												class="btn btn-primary mt-5" 
+												type="button" disabled>
+												<span class="spinner-border spinner-border-sm" 
+												role="status" aria-hidden="true"></span>
+												Submitting...
+											  </button>
+											</div>
+										  </div>
+										</div>
+									</form>
+								</div>
+
+								<div class="col-xl-6 col-lg-6">
+									<div class="card">
+										<div class="card-header">
+											Uploaded Logo
+										</div>
+										<div class="card-body">
+											<img *ngIf="method && method.url" 
+												[src]="method && method.url">
+
+											<p *ngIf="method && !method.url" 
+												class="text-muted">No Logo</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+					</div>
+        		</div>
+    		</div>
+    	</div>
+	</div>
+  	
+</div>

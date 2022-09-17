@@ -1,0 +1,79 @@
+@import "../../../../../theme/colors";
+
+select.sortby:focus{
+    border: none;
+    outline: none;
+}
+.each-product{
+    position: relative;
+    overflow:hidden;
+    margin-top: 30px;
+}
+.each-product .pro-detail h4{
+    font-size: 18px;
+    margin: 20px 0px;
+}
+.each-product .pro-detail .new-price{
+    color: $primary;
+    font-weight: bold;
+    font-size: 18px;
+}
+.each-product .pro-detail .del-price{
+    color: #aaa;
+    font-weight: bold;
+}
+.each-product .pro-detail .discount{
+    background: $primary;
+    padding: 3px 5px;
+    margin-left: 10px;
+    color: #fff;
+    border-radius: 3px;
+}
+.each-product .pro-detail .instock{
+    text-align: center;
+    color: #aaa;
+    font-size: 15px;
+    font-weight: 550;
+    margin-top: 20px;
+}
+.each-product .manage-option{
+    position: absolute;
+    top: 12px;
+    right: 7px;
+    -webkit-transform:translateX(100%);
+    transform:translateX(100%);
+    -webkit-transition:all .3s ease 0s;
+    transition:all .3s ease 0s;
+    visibility:hidden;
+    z-index:3;
+    opacity:0;
+}
+.each-product:hover .manage-option{
+    opacity:1;
+    visibility:visible;
+    -webkit-transform:translateX(0);
+    transform:translateX(0)
+}
+.each-product .manage-option a.product-edit{
+    background: #1abc9c;
+    padding: 4px 12px;
+    color: #fff !important;
+    border-radius: 3px;
+}
+.each-product .manage-option a.product-delet{
+    background: $primary;
+    padding: 4px 12px;
+    color: #fff !important;
+    border-radius: 3px;
+    margin-left: 15px;
+}
+.each-product .manage-option a.product-view{
+    background: rgb(123, 123, 190);
+    padding: 4px 12px;
+    color: #fff !important;
+    border-radius: 3px;
+    margin-right: 15px;
+}
+dl, ol, ul{
+    margin-bottom: 0px;
+}

@@ -1,0 +1,162 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 col-lg-2 col-md-3">
+						<app-order-manager-menu></app-order-manager-menu>
+					</div>
+					
+					<div class="col-xl-10 col-lg-10 col-md-9">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">
+													Dashboard
+												</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/order-manager">
+													Order Manager
+												</a>
+											</li>
+											<li class="breadcrumb-item active">
+												<span *ngIf="orderStatus === 'all'">
+													All Orders
+												</span>
+												<span *ngIf="orderStatus !== 'all'">
+													{{orderStatus | titlecase}} Orders
+												</span>
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">
+										<span *ngIf="orderStatus === 'all'">
+											All Orders
+										</span>
+										<span *ngIf="orderStatus !== 'all'">
+											{{orderStatus | titlecase}} Orders
+										</span>
+									</h4>
+								</div>
+							</div>
+						</div>
+						
+						<section class="user-list">
+							<div class="card">
+								<div class="card-header">
+									<div class="row">
+										<div class="col-lg-9 col-md-6">
+											<div class="mt-1">
+												<span *ngIf="orderStatus === 'all'">
+													All Orders
+												</span> 
+
+												<span *ngIf="orderStatus !== 'all'">
+													{{orderStatus | titlecase}} Orders
+												</span> 
+												
+												(<b>{{orderCounts}}</b>)
+											</div>
+										</div>
+										<!-- <div class="col-lg-3"></div> -->
+										<div class="col-lg-3 col-md-6">
+											<div class="text-right">
+												<input type="text" placeholder="Search..." class="form-control">
+											</div>
+										</div>
+									</div>									
+								</div>
+								<div class="card-body">
+									<div class="order-list">
+										<div *ngFor="let order of orders" class="media border p-2 mb-4">
+											<img 
+												src="{{ order.featured_img }}"
+												alt="{{ order.name }}" 
+												class="mr-4 mt-1" style="width:80px;"
+											>
+											<div class="media-body">
+												<p class="pro-title">
+													<a target="_blank" href="/item/{{clearnUrl(order.name)}}-{{order.pid}}">
+														{{order.name | summary:100}}
+													</a>
+												</p>
+												<p class="place-date">
+													Placed on 
+													<b>{{order.created_at | date}}</b>
+												</p>
+												<div class="row">
+													<div class="col-lg-8 col-md-12 col-sm-8">
+														<p class="report">
+															<span 
+																*ngIf="order.status === 'Delivered'" 
+																class="badge badge-success">
+																{{'Delivered' | uppercase}}
+															</span>
+			
+															<span 
+																*ngIf="order.status === 'Cancelled'" 
+																class="badge badge-danger">
+																{{'Cancelled' | uppercase}}
+															</span>											
+			
+															<span 
+																*ngIf="order.status !== 'Delivered' && order.status !== 'Cancelled'" 
+																class="badge badge-info">
+																{{order.status | uppercase}}
+															</span>
+														</p>
+													</div>
+													<div class="col-lg-4 col-md-12 col-sm-4 text-right">
+														<div class="order-details">
+															<a routerLink="/{{adminUrl}}/order-manager/order/{{order.order_number}}"
+															>See Details</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+			
+									</div>	
+								</div>
+
+								<div class="text-center mt-5 mb-3">
+									<p *ngIf="orderCounts < 1" class="text-muted">
+										No order
+									</p>
+								</div>
+							</div>
+
+
+							<div class="text-center mt-3">
+								<button
+								*ngIf="orderCounts > 0"
+								(click)="loadMore()"
+								[disabled]="orderCounts <= orders.length"
+								class="btn btn-primary btn-lg"
+							>Load more</button>
+							</div>
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

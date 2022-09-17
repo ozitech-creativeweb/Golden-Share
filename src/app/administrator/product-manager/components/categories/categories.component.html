@@ -1,0 +1,235 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+  <div id="adminWrapper">
+    <div class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-product-manager-menu></app-product-manager-menu>
+					</div>
+
+
+					<div class="custmDisplay col-xl-10">
+            <div class="row">
+              <div class="col-12">
+                  <div class="page-title-box">
+                      <div class="page-title-right">
+                          <ol class="breadcrumb m-0">
+                              <li class="breadcrumb-item">
+                                <a routerLink="/{{adminUrl}}">Dashboard</a>
+                              </li>
+                              <li class="breadcrumb-item">
+                                <a routerLink="/{{adminUrl}}/product-manager">
+                                  Product Manager
+                                </a>
+                              </li>
+                              <li class="breadcrumb-item active">
+                                Manage Categories
+                              </li>
+                          </ol>
+                      </div>
+                      <h4 class="page-title">Manage Categories</h4>
+                  </div>
+              </div>
+            </div>
+
+						<section id="add-category">
+              <div class="row">
+    
+                <div class="col-xl-4 col-lg-4 mb-5">
+                  <form 
+                    [formGroup]="form" 
+                    (ngSubmit)="submit()"
+                  >
+                    <div class="card">
+                      <div class="card-header">
+                        Add New Category
+                      </div>
+                      <div class="card-body">
+                        <div class="form-group">
+                          <label for="category">Name*</label>
+                          <input 
+                            type="text" 
+                            id="category" 
+                            name="category"
+                            formControlName="category" 
+                            class="form-control" 
+                            placeholder="Enter category name..."
+                          >
+                          <div *ngIf="category.touched && !category.valid" class="alert alert-danger mt-3">
+                            Please enter category name
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label>Parent*</label>
+                          <select
+                            formControlName="parentCategory"
+                            id="parentCategory"
+                            class="form-control"
+                          >
+                            <option [ngValue]="null" disabled>-- Select --</option>
+                            <option value="parent">PARENT</option>
+                            <ng-container *ngIf="categories && categories.length > 0">
+                              <ng-container *ngFor="let category of categories">
+                                <option class="parentCat"
+                                  value="{{category.mainCats.level+','+category.mainCats.cat_id}}"
+                                >{{category.mainCats.cat_name}}</option>
+                                
+
+                                <ng-container *ngIf="category && category.Subcategories.length > 0">																	
+                                  <ng-container *ngFor="let subcategory of category.Subcategories">
+                                    <option 
+                                      class="childCat" 
+                                      value="{{subcategory.Subcategory.level+','+subcategory.Subcategory.subcat_id}}"
+                                    > - {{subcategory.Subcategory.subcat_name}} </option>
+                                    <ng-container *ngIf="subcategory && subcategory.SubSubcategories.length > 0">
+                                      <option class="subChildCat" disabled
+                                        *ngFor="let subSub of subcategory.SubSubcategories"
+                                      > - - {{subSub.sub_subcat_name}}</option>
+                                    </ng-container>
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
+                            </ng-container>
+                            
+                          </select>
+                            
+                            <div *ngIf="parentCategory.touched && !parentCategory.valid" class="alert alert-danger mt-3">
+                              Please select role to possition your category
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="mobile_icon">Mobile Icon</label>
+                          <input 
+                            type="text" 
+                            id="mobile_icon" 
+                            name="mobile_icon"
+                            formControlName="mobile_icon" 
+                            class="form-control" 
+                            placeholder="Optional"
+                          >
+                        </div>
+
+                        <div class="form-group">
+                          <label for="web_icon">Web Icon</label>
+                          <input 
+                            type="text" 
+                            id="web_icon" 
+                            name="web_icon"
+                            formControlName="web_icon" 
+                            class="form-control" 
+                            placeholder="Optional"
+                          >
+                        </div>
+      
+                        <div class="text-center">
+                          <button *ngIf="!isAdding" 
+                            [disabled]="!form.valid" 
+                            type="submit" 
+                            class="addBtn btn btn-primary btn-lg mt-5"
+                          >Add New Category</button>
+                          <button *ngIf="isAdding"
+                            class="btn btn-primary btn-lg mt-5" 
+                            type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" 
+                            role="status" aria-hidden="true"></span>
+                            Adding Category...
+                          </button>
+                        </div>
+                      </div>
+
+                    </div>                    
+                  </form>
+                </div>
+    
+                <div class="col-xl-8 col-lg-8">
+                  <div class="card">
+                    <div class="card-header"> ALL CATEGORIES </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-condensed m-0">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Slug</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ng-container *ngFor="let category of categories">
+                              <tr class="success">
+                                <td>{{category.mainCats.cat_name}}</td>
+                                <td>{{category.mainCats.cat_slug}}</td>
+                                <td>
+                                  <button 
+                                      title="Delete Category"
+                                      (click)="deleteCategory(category.mainCats)"
+                                      class="btn btn-danger btn-sm"
+                                    ><i class="fa fa-trash"></i> </button>  
+                                </td>
+                              </tr>
+
+                              <ng-container *ngFor="let subcategory of category.Subcategories">
+                                <tr class="active">
+                                  <td>
+                                      <i class="fa fa-minus"></i> 
+                                      {{subcategory.Subcategory.subcat_name}}
+                                    </td>
+                                  <td>{{subcategory.Subcategory.subcat_slug}}</td>
+                                  <td>
+                                    <button 
+                                      title="Delete Category"
+                                      (click)="deleteCategory(subcategory.Subcategory)"
+                                      class="btn btn-danger btn-sm"
+                                    ><i class="fa fa-trash"></i> </button>
+                                  </td>
+                                </tr>
+
+                                <tr *ngFor="let subSub of subcategory.SubSubcategories">
+                                  <td> 
+                                    <i class="fa fa-minus mr-1"></i> 
+                                    <i class="fa fa-minus"></i> 
+                                    {{subSub.sub_subcat_name}}
+                                  </td>
+                                  <td>{{subSub.sub_subcat_slug}}</td>
+                                  <td>
+                                    <button 
+                                      title="Delete Category"
+                                      (click)="deleteCategory(subSub)"
+                                      class="btn btn-danger btn-sm"
+                                    ><i class="fa fa-trash"></i> </button>
+                                  </td>
+                                </tr> 
+                              </ng-container>                              
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+    
+              </div>
+            </section>
+
+            <app-admin-footer></app-admin-footer>
+					</div>
+				</div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

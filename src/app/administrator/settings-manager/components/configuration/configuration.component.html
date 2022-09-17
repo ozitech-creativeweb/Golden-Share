@@ -1,0 +1,666 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+         	 <div class="col-xl-2 custmDisplay-sidebar">
+				<app-settings-manager-menu></app-settings-manager-menu>
+			</div>
+					
+         	<div class="custmDisplay col-xl-10">
+				<div class="row">
+					<div class="col-12">
+						<div class="page-title-box">
+							<div class="page-title-right">
+								<ol class="breadcrumb m-0">
+									<li class="breadcrumb-item">
+										<a routerLink="/{{adminUrl}}">Dashboard</a>
+									</li>
+									<li class="breadcrumb-item">
+										<a routerLink="/{{adminUrl}}/settings-manager">Settings Manager</a>
+									</li>
+									<li class="breadcrumb-item active">Configuration</li>
+								</ol>
+							</div>
+							<h4 class="page-title">Configuration</h4>
+						</div>
+					</div>
+				</div>
+
+            	<section class="web-set">
+					<div class="row">
+						<div class="col-xl-12">
+							<form [formGroup]="form" (ngSubmit)="submit()">
+								<div class="card">
+									<div class="card-header">
+										Configuration Settings
+									</div>
+									<div class="card-body">
+
+										<!-- <div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="donation_type" class="float-right">Donation Type</label>
+											</div>
+											<div class="col-md-3">
+												<select formControlName="donation_type"  class="form-control custom-select">
+													<option value="Packages">Packages Enabled</option>
+													<option value="NonePackages">Packages Disabled</option>
+												</select>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="donation_type">Enable or disable Investment or donation type to or from packages</label>
+											</div>
+										</div> -->
+
+										
+										<!-- <div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="signup_bonus" class="float-right">Signup Bonus</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="signup_bonus" 
+													id="signup_bonus" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="signup_bonus">Enter amount to reward signup user. Set zero (0) if you don't want to reward</label>
+											</div>
+										</div> -->
+
+										<!-- <div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="activation_fee" class="float-right">Activation Fee</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="activation_fee" 
+													id="activation_fee" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="activation_fee">Enter amount to be paid for activation</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="activation_fee_receiver" class="float-right">Activation Fee Receiver</label>
+											</div>
+											<div class="col-md-3">
+												<select formControlName="activation_fee_receiver"  class="form-control custom-select">
+													<option value="Admin">Admin</option>
+													<option value="Upline">Upline</option>
+												</select>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="activation_fee_receiver">
+													Please select who will receive activation fee, Admin is the default receiver.
+												</label>
+											</div>
+										</div>
+
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="account_name" class="float-right">Account Name</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="text" 
+													formControlName="account_name" 
+													id="account_name" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="account_name">Enter Bank Account name</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="account_number" class="float-right">Account Number</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="account_number" 
+													id="account_number" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="account_number">Enter bank account number</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="bank_name" class="float-right">Bank Name</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="text" 
+													formControlName="bank_name" 
+													id="bank_name" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="bank_name">Enter Bank Name</label>
+											</div>
+										</div>
+
+										
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="activation_duration" class="float-right">Activation Duration</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="activation_duration" 
+													id="activation_duration" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="activation_duration">Duration for activation. E.g set (0) if activation is not recurrent</label>
+											</div>
+										</div> -->
+
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="activation_grace_period" class="float-right">Grace Period</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="activation_grace_period" 
+													id="activation_grace_period" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="activation_grace_period">After merge, the number of hours required to upload proof of payment</label>
+											</div>
+										</div>
+										
+
+										<!-- <div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="activation_type" class="float-right">Activation Type</label>
+											</div>
+											<div class="col-md-3">
+												<select formControlName="activation_type"  class="form-control custom-select">
+													<option value="One-Time">One-Time</option>
+													<option value="Recurrent">Recurrent</option>
+												</select>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="activation_type">Select recurrent if account activation is to be charge on interval </label>
+											</div>
+										</div> -->
+
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="allowed_pending" class="float-right">Allow Pending</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="allowed_pending" 
+													id="allowed_pending" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="allowed_pending">Enter maximum number of pending donation to be allowed</label>
+											</div>
+										</div>
+
+										<!-- <div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="auto_merge" class="float-right">Auto Merge</label>
+											</div>
+											<div class="col-md-3">
+												<select formControlName="auto_merge"  class="form-control custom-select">
+													<option value="Enabled">Enabled</option>
+													<option value="Disabled">Disabled</option>
+												</select>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="auto_merge">Enable or disable auto merging</label>
+											</div>
+										</div> -->
+
+
+										
+
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="invest_duration" class="float-right">Invest Duration</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="invest_duration" 
+													id="invest_duration" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="invest_duration">Number of days of investment</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="min_invest_amount" class="float-right">Min Investment Amount</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="min_invest_amount" 
+													id="min_invest_amount" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="min_invest_amount">Enter minimum investment amount</label>
+											</div>
+										</div>
+
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="max_invest_amount" class="float-right">Max Investment Amount</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="max_invest_amount" 
+													id="max_invest_amount" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="max_invest_amount">Enter maximum investment amount</label>
+											</div>
+										</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="referral_direct_reward_perc" class="float-right">Referral Direct Reward</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="referral_direct_reward_perc" 
+													id="referral_direct_reward_perc" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="referral_direct_reward_perc">Enter the number of percentage (%) to reward referral</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="referral_indirect_reward_perc" class="float-right">Referral Indirect Reward</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="referral_indirect_reward_perc" 
+													id="referral_indirect_reward_perc" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="referral_indirect_reward_perc">Enter the number of percentage (%) to reward indirect referral</label>
+											</div>
+										</div>
+
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="referral_level" class="float-right">Referral Level</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="referral_level" 
+													id="referral_level" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="referral_level">Enter number of level deep you want to reward referral</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="referral_reward_count" class="float-right">Referral Reward Count</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="referral_reward_count" 
+													id="referral_reward_count" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="referral_reward_count">Enter number of time you want to reward each referral</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="guider_added_bonus_perc" class="float-right">Guider Added Bonus</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="guider_added_bonus_perc" 
+													id="guider_added_bonus_perc" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="guider_added_bonus_perc">Additional bonus for guider in percentage (%)</label>
+											</div>
+										</div>
+
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="guider_qualification" class="float-right">Guider Qualification</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="guider_qualification" 
+													id="guider_qualification" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="guider_qualification">Number of referrals to qualify as guider</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="manager_added_bonus_perc" class="float-right">Manager Added Bonus</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="manager_added_bonus_perc" 
+													id="manager_added_bonus_perc" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="manager_added_bonus_perc">Additional bonus for manager in percentage (%)</label>
+											</div>
+										</div>
+
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="manager_qualification" class="float-right">Manager Qualification</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="manager_qualification" 
+													id="manager_qualification" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="manager_qualification">Number of referrals to qualify as manager</label>
+											</div>
+										</div>
+
+
+
+
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="roi_perc" class="float-right">Return of Investment</label>
+											</div>
+											<div class="col-md-3">
+												<input 
+													type="number" 
+													formControlName="roi_perc" 
+													id="roi_perc" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-6 mt-1">
+												<label for="roi_perc">Enter number of percentage (%) of return investment</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="auction_time" class="float-right">
+													Auction Time Start
+												</label>
+											</div>
+											<div class="col-md-5">
+												<input formControlName="auction_time" type="text" class="form-control">
+											</div>
+											<div class="col-md-4 mt-1">
+												<label for="auction_time">Enter date time you want the auction to be on</label>
+											</div>
+										</div>
+										
+										
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="auction_time" class="float-right">
+													Auction Time End
+												</label>
+											</div>
+											<div class="col-md-5">
+												<input formControlName="auction_time_end" type="text" class="form-control">
+											</div>
+											<div class="col-md-4 mt-1">
+												<label for="auction_time">Enter date time you want the auction to be off</label>
+											</div>
+										</div>
+
+										<!-- <div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="telegram_token" class="float-right">Telegram Token</label>
+											</div>
+											<div class="col-md-5">
+												<input 
+													type="text" 
+													formControlName="telegram_token" 
+													id="telegram_token" 
+													class="form-control"
+												>
+											</div>
+											<div class="col-md-4 mt-1">
+												<label for="telegram_token">Enter telegram token.</label>
+											</div>
+										</div> -->
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="email_verify" class="float-right">
+													Email Verification
+												</label>
+											</div>
+											<div class="col-md-5">
+												<select formControlName="email_verify"  class="form-control custom-select">
+													<option value="Enabled">Enabled</option>
+													<option value="Disabled">Disabled</option>
+												</select>
+											</div>
+											<div class="col-md-4 mt-1">
+												<label for="email_verify">Enabled or Disabled Email verification</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="sms_verify" class="float-right">
+													SMS Verification
+												</label>
+											</div>
+											<div class="col-md-5">
+												<select formControlName="sms_verify"  class="form-control custom-select">
+													<option value="Enabled">Enabled</option>
+													<option value="Disabled">Disabled</option>
+												</select>
+											</div>
+											<div class="col-md-4 mt-1">
+												<label for="sms_verify">Enabled or Disabled SMS verification</label>
+											</div>
+										</div>
+
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="sms_note" class="float-right">
+													SMS Notification
+												</label>
+											</div>
+											<div class="col-md-5">
+												<select formControlName="sms_note"  class="form-control custom-select">
+													<option value="Enabled">Enabled</option>
+													<option value="Disabled">Disabled</option>
+												</select>
+											</div>
+											<div class="col-md-4 mt-1">
+												<label for="sms_note">Enabled or Disabled SMS Notification</label>
+											</div>
+										</div>
+
+										
+										<div class="row each-row">
+											<div class="col-md-3 mt-1">
+												<label for="sms_gateway_url" class="float-right">SMS Gateway API URL</label>
+											</div>
+											<div class="col-md-5">
+												<textarea formControlName="sms_gateway_url" class="form-control" rows="4"></textarea>
+											</div>
+											<div class="col-md-4 mt-1">
+												<label for="sms_gateway_url">Copy and paste your SMS Gateway <b>"Send"</b> API here. Please note the <span innerHTML="{{'<b>{PHONE}</b> and <b>{MESSAGE}</b>'}}"></span>, replace them with your test number and message respectively.</label>
+											</div>
+										</div>
+
+
+										<div class="row mt-4">
+											<div class="col-xl-6">
+												<div class="form-group">
+													<label>Instrucion On Reserve</label>
+													<textarea formControlName="donation_request_instructions" class="form-control" rows="4"></textarea>
+												</div>
+											</div>
+
+											<div class="col-xl-6">
+												<div class="form-group">
+													<label>Merged Payee Instrucion</label>
+													<textarea formControlName="merged_payee_instruction" class="form-control" rows="4"></textarea>
+												</div>
+											</div>
+
+											<div class="col-xl-6">
+												<div class="form-group">
+													<label>Message to show when Auction is Off</label>
+													<textarea formControlName="merged_payer_instruction" class="form-control" rows="4"></textarea>
+												</div>
+											</div>
+
+											<!-- <div class="col-xl-6">
+												<div class="form-group">
+													<label>Withdrawal Request Instrucion</label>
+													<textarea formControlName="withdrawal_request_instructions" class="form-control" rows="4"></textarea>
+												</div>
+											</div> -->
+										</div>
+										
+										<div class="text-center mt-4">
+											<button *ngIf="!isLoading" 
+												type="submit" 
+												[disabled]="!form.valid"
+												class="btn btn-primary btn-lg"
+											>Update</button>
+											<button *ngIf="isLoading"
+												class="btn btn-primary btn-lg" 
+												type="button" disabled>
+												<span class="spinner-border spinner-border-sm" 
+												role="status" aria-hidden="true"></span>
+												Updating...
+											</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</section>
+
+				<app-admin-footer></app-admin-footer>
+          </div>
+      	</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

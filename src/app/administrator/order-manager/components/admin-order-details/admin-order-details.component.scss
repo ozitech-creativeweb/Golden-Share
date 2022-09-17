@@ -1,0 +1,21 @@
+@import "../../../../../theme/user-card.scss";
+a {
+    color: $secondary;
+}
+a:hover {
+    color: $primary;
+}
+.user-content-wrapper .card-header h4.status{
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-top: 5px
+}
+.history a{
+    font-size: 13px;
+}
+p.place-date{
+    font-size: 14px;
+}
+.payment-method h4{
+    font-size: 16px;
+}

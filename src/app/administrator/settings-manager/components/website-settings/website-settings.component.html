@@ -1,0 +1,243 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-settings-manager-menu></app-settings-manager-menu>
+					</div>
+
+					<div class="custmDisplay col-xl-10">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">Dashboard</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/settings-manager">Settings Manager</a>
+											</li>
+											<li class="breadcrumb-item active">Website Settings</li>
+										</ol>
+									</div>
+									<h4 class="page-title">Website Settings</h4>
+								</div>
+							</div>
+						</div>
+
+						<section class="web-set">
+							<form 
+								[formGroup]="form" 
+								(ngSubmit)="submit()"
+							>
+								<div class="row">
+									<div class="col-xl-6">
+										<div class="card">
+											<div class="card-header">
+												General
+											</div>
+											<div class="card-body">
+												<div class="form-group mb-3">
+													<label for="biz_name">Business Name <span class="text-danger">*</span></label>
+													<input type="text" formControlName="biz_name" id="biz_name" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="name">Site Name <span class="text-danger">*</span></label>
+													<input type="text" formControlName="name" id="name" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="title">Site Title <span class="text-danger">*</span></label>
+													<input type="text" formControlName="title" id="title" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="email">Email <span class="text-danger">*</span></label>
+													<input type="email" formControlName="email" id="email" class="form-control">
+												</div>
+
+												<div class="form-group mb-3">
+													<label for="url">Site URL <span class="text-danger">*</span></label>
+													<input type="text" formControlName="url" id="url" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="phone">Phone Number<span class="text-danger">*</span></label>
+													<input type="text" formControlName="phone" id="phone" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="address">Business Address<span class="text-danger">*</span></label>
+													<input type="text" formControlName="address" id="address" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="city">City<span class="text-danger">*</span></label>
+													<input type="text" formControlName="city" id="city" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="state">Business state<span class="text-danger">*</span></label>
+													<input type="text" formControlName="state" id="state" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="country">Busines Country<span class="text-danger">*</span></label>
+													<input type="text" formControlName="country" id="country" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="chat_code">Chat Code</label>
+													<textarea 
+														formControlName="chat_code" 
+														id="chat_code" 
+														class="form-control"
+														rows="5"
+													></textarea>
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="keywords">Keywords<span class="text-danger">*</span></label>
+													<input type="text" formControlName="keywords" id="keywords" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="description">Site Description<span class="text-danger">*</span></label>
+													<textarea rows="3" formControlName="description" class="form-control"></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xl-6">
+										<div class="card">
+											<div class="card-header">
+												Website Favicon<span class="text-danger">*</span>
+											</div>
+											<div class="card-body">
+												<div class="alert alert-danger mt-2" *ngIf="faviUploadError">
+													{{faviUploadError}}
+												</div>
+												<img src="{{generalSetting && generalSetting.favicon_url}}">
+												<div class="form-group mb-3 mt-3">
+													<input hidden formControlName="favicon_url">
+													<input 
+														type="file"
+														id="faviconUpld" 
+														class="form-control"
+														(change)="faviconUpload($event)"
+													>
+
+													<div *ngIf="uploadingProgress > 0" class="progress" style="margin-bottom: 10px;">
+														<div class="progress-bar progress-bar-striped progress-bar-animated" 
+															role="progressbar" 
+															aria-valuenow="100" 
+															aria-valuemin="0" 
+															aria-valuemax="100" 
+															style="width: 100%"> 
+															Uploading...{{ uploadingProgress }}%
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="card mt-3">
+											<div class="card-header">
+												Website Logo<span class="text-danger">*</span>
+											</div>
+											<div class="card-body">
+												<div class="alert alert-danger mt-2" *ngIf="logoUploadError">
+													{{logoUploadError}}
+												</div>
+												<img src="{{generalSetting && generalSetting.logo_url}}">
+												<div class="form-group mb-3 mt-3">
+													<input hidden formControlName="logo_url">
+													<input 
+														type="file" 
+														id="logoUpload" 
+														class="form-control"
+														(change)="logoUpload($event)"
+													>
+
+													<div *ngIf="logoUploadingProgress > 0" class="progress" style="margin-bottom: 10px;">
+														<div class="progress-bar progress-bar-striped progress-bar-animated" 
+															role="progressbar" 
+															aria-valuenow="100" 
+															aria-valuemin="0" 
+															aria-valuemax="100" 
+															style="width: 100%"> 
+															Uploading...{{ logoUploadingProgress }}%
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										
+										<div class="card mb-3">
+											<div class="card-header">
+												Copyright
+											</div>
+
+											<div class="card-body">				
+												<div class="form-group mb-3">
+													<label for="copyright">Copyright<span class="text-danger">*</span></label>
+													<input type="text" formControlName="copyright" id="copyright" class="form-control">
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="designed_by">Designed By</label>
+													<textarea 
+														formControlName="designed_by" 
+														id="designed_by" 
+														class="form-control"
+														rows="6"
+														HTMLInputElement="true"
+													></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="text-center mt-5">
+									<hr>
+
+									<button *ngIf="!isLoading" 
+										type="submit" 
+										class="addBtn btn btn-primary btn-lg"
+									>UPDATE</button>
+									<button *ngIf="isLoading"
+										class="btn btn-primary btn-lg" 
+										type="button" disabled>
+										<span class="spinner-border spinner-border-sm" 
+										role="status" aria-hidden="true"></span>
+										UPDATING...
+									</button>
+								</div>
+							</form>
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+					</div>
+				</div>		
+			</div>
+		</div>
+	</div>
+
+</div>

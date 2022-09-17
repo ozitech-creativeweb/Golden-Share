@@ -1,0 +1,212 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+  <div id="adminWrapper">
+    <div class="content">
+      <div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-product-manager-menu></app-product-manager-menu>
+					</div>
+
+					<div class="custmDisplay col-xl-10">
+
+						<div class="row">
+							<div class="col-12">
+									<div class="page-title-box">
+											<div class="page-title-right">
+													<ol class="breadcrumb m-0">
+								<li class="breadcrumb-item">
+									<a routerLink="/{{adminUrl}}">Dashboard</a>
+									</li>
+									<li class="breadcrumb-item">
+									<a routerLink="/{{adminUrl}}/product-manager">
+										Product Manager
+									</a>
+									</li>
+									<li class="breadcrumb-item active">
+									Product Variation
+									</li>
+													</ol>
+											</div>
+											<h4 class="page-title">Product Variation</h4>
+									</div>
+							</div>
+						</div>
+
+						<section id="add-category">
+							<div class="row">
+		
+								<div class="col-xl-5 col-lg-5">
+									<form 
+										[formGroup]="form" 
+										(ngSubmit)="submit()"
+									>
+										<div class="card">
+											<div class="card-header"> Add Variation </div>
+											<div class="card-body">
+												<div class="form-group">
+													<label for="category">Category *</label>
+													<select
+														formControlName="category"
+														id="category"
+														class="form-control"
+													>
+														<option [ngValue]="null" disabled>-- Select --</option>
+														<ng-container *ngIf="categories && categories.length > 0">
+															<option *ngFor="let category of categories"
+															class="parentCat"
+															value="{{category.mainCats.cat_slug}}"
+															>{{category.mainCats.cat_name}}</option>
+														</ng-container>
+													</select>
+
+													<div *ngIf="category.touched && !category.valid" class="alert alert-danger mt-2">
+														Please select category to add Variation
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="variationName">Name *</label>
+													<input 
+														type="text" 
+														id="variationName" 
+														name="variationName" 
+														formControlName="variationName" 
+														class="form-control" 
+														placeholder="eg: Sizes"
+													>
+
+													<div *ngIf="variationName.touched && !variationName.valid" class="alert alert-danger mt-2">
+														Please enter Variation name, eg: Sizes
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="variationValues">
+														Values 
+														<span class="noteLAert">separate each with comma (,)</span>
+													</label>
+													<input 
+														type="text" 
+														id="variationValues" 
+														name="variationValues" 
+														formControlName="variationValues" 
+														class="form-control" 
+														placeholder="eg: S, M, L, XL, XXL, etc"
+													>
+
+													<div *ngIf="variationValues.touched && !variationValues.valid" class="alert alert-danger mt-2">
+														Please enter Variation values, eg: XL, XXL, etc
+													</div>
+												</div>
+			
+												<div class="text-center">
+													<div *ngIf="addVariationError" class="alert alert-danger">
+														{{addVariationError}}
+													</div>
+													<button *ngIf="!isAdding" 
+														[disabled]="!form.valid" 
+														type="submit" 
+														class="addBtn btn btn-primary btn-lg mt-5"
+													>Add Variation</button>
+													<button *ngIf="isAdding"
+														class="btn btn-primary btn-lg mt-5" 
+														type="button" disabled>
+														<span class="spinner-border spinner-border-sm" 
+														role="status" aria-hidden="true"></span>
+														Adding...
+													</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+		
+								<div class="col-xl-7 col-lg-7">
+									<div class="card">
+										<div class="card-header">
+											Variations
+										</div>
+										<div class="card-body">
+											<div class="table-responsive">
+												<table class="table table-condensed m-0">
+												  <thead>
+													<tr>
+													  <th>Name</th>
+													  <th style="width: 120px;">Date</th>
+													  <th>Action</th>
+													</tr>
+												  </thead>
+												  <tbody>
+													<ng-container *ngFor="let variation of variations">
+													  <tr class="success">
+														<td>{{variation.category.split('-').join(' ').split(' and ').join(' & ') | titlecase}}</td>
+														<td>{{variation.created_at | date}}</td>
+														<td>
+															<button 
+																(click)="deleteVar(variation.category)"
+																title="Delete entire category variations"
+																class="btn btn-danger btn-sm"
+															><i class="fa fa-trash"></i> </button>
+														</td>
+													  </tr>
+						
+													  <ng-container *ngFor="let variant of variation.value_obj">
+														<tr class="active">
+														  <td>
+															  <i class="fa fa-minus"></i> 
+															  {{variant.name}}
+															</td>
+														  <td></td>
+														  <td>
+															<button 
+																(click)="deleteVar(variation.category, variant.name)"
+															  title="Delete Variation"
+															  class="btn btn-danger btn-sm"
+															><i class="fa fa-trash"></i> </button>
+														  </td>
+														</tr>
+						
+														<tr>
+														  <td> 
+															<i class="fa fa-minus mr-1"></i> 
+															<i class="fa fa-minus"></i> 															
+															<span class="badge badge-success ml-2"
+																*ngFor="let varVal of variant.values"
+															> {{varVal}}</span>
+														  </td>
+														  <td></td>
+														  <td></td>
+														</tr> 
+													  </ng-container>                              
+													</ng-container>
+												  </tbody>
+												</table>
+											  </div>
+										</div>		
+									</div>									
+								</div>		
+							</div>
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+					</div>
+				</div>
+      
+
+        
+
+      </div>
+    </div>
+  </div>
+  
+</div>

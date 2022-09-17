@@ -1,0 +1,26 @@
+::ng-deep .angular-editor-textarea{
+    height: auto !important;
+    min-height: 180px !important;
+}
+
+.parentCat {
+    font-size: 16px;
+    font-weight: bolder;
+}
+.childCat {
+    font-size: 16px;
+    font-style: italic;
+}
+.subChildCat {
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.eachContainer {
+    width: 100% !important;
+    margin-bottom: 30px;
+}
+
+.eachContainer img {
+    width: 100% !important;
+}

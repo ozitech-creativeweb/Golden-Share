@@ -1,0 +1,327 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+<div id="pageContents">
+  <div id="adminWrapper">
+    <div class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-product-manager-menu></app-product-manager-menu>
+					</div>
+
+
+					<div class="custmDisplay col-xl-10">
+            <div class="row">
+              <div class="col-12">
+                  <div class="page-title-box">
+                      <div class="page-title-right">
+                          <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item">
+                              <a routerLink="/{{adminUrl}}">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                              <a routerLink="/{{adminUrl}}/product-manager">
+                                Product Manager
+                              </a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                              Home Featured Categories
+                            </li>
+                          </ol>
+                      </div>
+                      <h4 class="page-title">Home Featured Categories</h4>
+                  </div>
+              </div>
+            </div>
+
+						<section id="add-category">
+              <div class="row">
+    
+                <div class="col-xl-4 col-lg-4 mb-5">
+                  <div class="card">
+                    <div class="card-header">
+                      Add Featured Category
+                    </div>
+                    <div class="card-body">
+                      <form 
+                        [formGroup]="form" 
+                        (ngSubmit)="submit()"
+                      >
+                          <div class="form-group">
+                            <label for="cat_name">Categories*</label>
+                            <select
+                              formControlName="category"
+                              id="category"
+                              class="form-control"
+                            >
+                              <option [ngValue]="null" disabled>-- Select --</option>
+                              <ng-container *ngIf="categories && categories.length > 0">
+                                <option *ngFor="let category of categories"
+                                  class="parentCat"
+                                  value="{{category.mainCats.cat_slug}}"
+                                >{{category.mainCats.cat_name}}</option>
+                              </ng-container>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="title">
+                              Category Heading<span class="text-danger">* </span>
+                            </label>
+                            <input 
+                              type="text" 
+                              id="title" 
+                              name="title" 
+                              formControlName="title" 
+                              class="form-control" 
+                              placeholder="eg: All Electronics"
+                            >
+                          </div>
+                          <div class="form-group">
+                            <div *ngIf="uploadErr && uploadRole === 'full_width_banner'" class="alert alert-danger mt-2">
+                              {{uploadErr}}
+                            </div>
+                            <div *ngIf="uploadProgress > 0 && uploadRole === 'full_width_banner'" class="progress" style="margin-bottom: 10px;">
+                              <span class="progress-bar progress-bar-striped progress-bar-animated" 
+                                role="progressbar" 
+                                aria-valuenow="100" 
+                                aria-valuemin="0" 
+                                aria-valuemax="100" 
+                                style="width: 100%"> 
+                                Uploading...{{ uploadProgress }}%
+                              </span>
+                            </div>
+
+                            <label for="fullBanner">
+                              Full Width Banner
+                              <small class="text-danger">
+                                Best banner size: 800px by 120px
+                              </small>
+                            </label>
+                            <input 
+                              type="file" 
+                              id="fullBanner" 
+                              name="fullBanner"
+                              class="form-control"
+                              (change)="addFullBanner($event, 'full_width_banner')"
+                            >
+                            <input 
+                              type="text" 
+                              formControlName="full_width_banner" 
+                              class="form-control"
+                              hidden
+                            >
+                          </div>
+
+                          <div class="form-group">
+                            <label for="full_width_banner_link">
+                              Full Width Banner Link
+                            </label>
+                            <input 
+                              type="url" 
+                              id="full_width_banner_link" 
+                              name="full_width_banner_link" 
+                              formControlName="full_width_banner_link" 
+                              class="form-control" 
+                              placeholder="link"
+                            >
+                          </div>
+        
+                          <div class="form-group">
+                            <div *ngIf="uploadErr && uploadRole === 'left_banner'" class="alert alert-danger mt-2">
+                              {{uploadErr}}
+                            </div>
+                            <div *ngIf="uploadProgress > 0 && uploadRole === 'left_banner'" class="progress" style="margin-bottom: 10px;">
+                              <span class="progress-bar progress-bar-striped progress-bar-animated" 
+                                role="progressbar" 
+                                aria-valuenow="100" 
+                                aria-valuemin="0" 
+                                aria-valuemax="100" 
+                                style="width: 100%"> 
+                                Uploading...{{ uploadProgress }}%
+                              </span>
+                            </div>
+                            <label for="leftBanner">
+                              Left Banner
+                              <small class="text-danger">
+                                Best banner size: 1144px by 500px
+                              </small>
+                            </label>
+                            <input 
+                              type="file" 
+                              id="leftBanner" 
+                              name="leftBanner"
+                              class="form-control"
+                              (change)="addLeftRight($event, 'left_banner')"
+                            >
+                            <input 
+                              type="text" 
+                              formControlName="left_banner" 
+                              class="form-control"
+                              hidden
+                            >
+                          </div>
+
+                          <div class="form-group">
+                            <label for="left_banner_link">
+                              Left Banner Link
+                            </label>
+                            <input 
+                              type="url" 
+                              id="left_banner_link" 
+                              name="left_banner_link" 
+                              formControlName="left_banner_link" 
+                              class="form-control" 
+                              placeholder="link"
+                            >
+                          </div>
+        
+                          <div class="form-group">
+                            <div *ngIf="uploadErr && uploadRole === 'right_banner'" class="alert alert-danger mt-2">
+                              {{uploadErr}}
+                            </div>
+                            <div *ngIf="uploadProgress > 0 && uploadRole === 'right_banner'" class="progress" style="margin-bottom: 10px;">
+                              <span class="progress-bar progress-bar-striped progress-bar-animated" 
+                                role="progressbar" 
+                                aria-valuenow="100" 
+                                aria-valuemin="0" 
+                                aria-valuemax="100" 
+                                style="width: 100%"> 
+                                Uploading...{{ uploadProgress }}%
+                              </span>
+                            </div>
+
+                            <label for="rightBanner">
+                              Right Banner
+                              <small class="text-danger">
+                                Best banner size: 1144px by 500px
+                              </small>
+                            </label>
+                            <input 
+                              type="file" 
+                              id="rightBanner" 
+                              name="rightBanner"
+                              class="form-control"
+                              (change)="addLeftRight($event, 'right_banner')"
+                            >
+                            <input 
+                              type="text" 
+                              formControlName="right_banner" 
+                              class="form-control"
+                              hidden
+                            >
+                          </div>
+
+                          <div class="form-group">
+                            <label for="right_banner_link">
+                              Right Banner Link
+                            </label>
+                            <input 
+                              type="url" 
+                              id="right_banner_link" 
+                              name="right_banner_link" 
+                              formControlName="right_banner_link" 
+                              class="form-control" 
+                              placeholder="link"
+                            >
+                          </div>
+        
+                          <div class="text-center">
+                            <div *ngIf="addFeaturedCatError" class="alert alert-danger">
+                              {{addFeaturedCatError}}
+                            </div>
+                            <button *ngIf="!isAdding" 
+                              [disabled]="!form.valid" 
+                              type="submit" 
+                              class="addBtn btn btn-primary btn-lg mt-5"
+                            >Set As Feature</button>
+                            <button *ngIf="isAdding"
+                              class="btn btn-primary btn-lg mt-5" 
+                              type="button" disabled>
+                              <span class="spinner-border spinner-border-sm" 
+                              role="status" aria-hidden="true"></span>
+                              Featuring Category...
+                            </button>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                  
+                </div>
+    
+                <div class="col-xl-8 col-lg-8">
+                  <div class="card">
+                    <div class="card-header">
+                      <b>{{homeFeaturedCats && homeFeaturedCats.length}}</b> Home Featured Categories
+                    </div>
+
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-condensed m-0">
+                          <tbody>
+                            <tr *ngFor="let fea of homeFeaturedCats">
+                              <td>
+                                <div>
+                                  Title: <b>{{fea.title}}</b><br>
+                                  Category: 
+                                  <b>{{fea.category.split('-').join(' ').split(' and ').join(' & ')}}</b> 
+                                  <button 
+                                    (click)="deleteFeature(fea)"
+                                    class="btn btn-danger btn-sm float-right">
+                                    <i class="fa fa-trash"></i>
+                                  </button>
+                                  <a routerLink="/{{adminUrl}}/product-manager/featured/{{fea.id}}"
+                                    class="btn btn-success btn-sm float-right mr-1">
+                                    <i class="fa fa-pencil"></i>
+                                  </a>
+                                </div>
+                                <div class="row">
+                                  <div *ngIf="fea.full_width_banner" class="col-xl-12">
+                                    <img 
+                                      [src]="fea.full_width_banner" 
+                                      class="rounded img-fluid"
+                                    >
+                                  </div>
+                                  <div *ngIf="fea.left_banner" class="col-6 mt-3">
+                                    <img 
+                                      [src]="fea.left_banner" 
+                                      class="rounded img-fluid"
+                                    >
+                                  </div>
+                                  <div *ngIf="fea.right_banner" class="col-6 mt-3">
+                                    <img 
+                                      [src]="fea.right_banner" 
+                                      class="rounded img-fluid"
+                                    >
+                                  </div>
+                                </div>
+                                
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+              </div>
+            </section>
+
+            <app-admin-footer></app-admin-footer>
+					</div>
+				</div>
+      
+
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,568 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+	<app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+	<app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-product-manager-menu></app-product-manager-menu>
+					</div>
+
+					<div class="custmDisplay col-xl-10">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">
+													Dashboard
+												</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/product-manager">
+													Product Manager
+												</a>
+											</li>
+											<li class="breadcrumb-item active">
+												{{product && product.name | summary: 40}}
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">Edit Product</h4>
+								</div>
+							</div>
+						</div>
+
+						<section id="add-product">
+							<form [formGroup]="form" (ngSubmit)="submit()" #f="ngForm">
+								<div class="row">
+									<div class="col-xl-8">
+										<div class="card">
+											<div class="card-header">
+												General
+											</div>
+											<div class="card card-body">
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="form-group">
+															<label for="name">Name <span class="requiredField">*</span></label>
+															<input 
+																type="text" 
+																formControlName="title" 
+																id="title" 
+																class="form-control"
+															>
+															<div 
+																*ngIf="form.controls['title'].touched && !form.controls['title'].valid"
+																class="alert alert-danger mt-2">																	
+																<div *ngIf="form.controls['title'].errors.required">Item name is required</div>
+																<div *ngIf="form.controls['title'].errors.minlength">Item name should be minimun of {{ form.controls['title'].errors.minlength.requiredLength }} characters.</div> 
+																<div *ngIf="form.controls['title'].errors.maxLength">Item name should be maximum of {{ form.controls['title'].errors.maxLength.requiredLength }} characters.</div> 
+															</div>
+														</div>
+													</div>
+												</div>
+					
+												<div class="form-group">
+													<label for="pro_dec">Description <span class="requiredField">*</span></label>
+													<angular-editor 
+														id="editor1" 
+														formControlName="description" 
+														[config]="editorConfig"
+													></angular-editor>
+
+													<div 
+														*ngIf="form.controls['description'].touched && !form.controls['description'].valid"
+														class="alert alert-danger mt-2">																	
+														<div *ngIf="form.controls['description'].errors.required">Item name is required</div>
+														<div *ngIf="form.controls['description'].errors.minlength">
+															Item name should be minimun of {{ form.controls['description'].errors.minlength.requiredLength }} characters.
+														</div>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+
+										<div class="card mt-5">
+											<div class="card-header">
+												Configuration
+											</div>
+											<div class="card card-body config-tab">
+												<ngb-tabset type="pills" [justify]="'justified'">
+													<!-- General -->
+													<ngb-tab>
+														<ng-template ngbTabTitle><b>General</b></ng-template>
+														<ng-template ngbTabContent>
+															<div class="tab-content">
+																<div class="form-group mb-3">
+																	<label for="regular_price">Regular Price</label>
+																	<input 
+																		type="number" 
+																		formControlName="regular_price" 
+																		class="form-control"
+																	>
+																</div>
+		
+																<div class="form-group mb-3">
+																	<label for="sales_price">
+																		Sale Price<span class="requiredField">*</span>
+																	</label>
+																	<input 
+																		type="number" 
+																		formControlName="sales_price" 
+																		class="form-control"
+																	>
+
+																	<div 
+																		*ngIf="form.controls['sales_price'].touched && !form.controls['sales_price'].valid"
+																		class="alert alert-danger mt-2">																	
+																		<div *ngIf="form.controls['sales_price'].errors.required">Sales price is required</div>
+																	</div>
+																</div>
+															</div>
+														</ng-template>
+													</ngb-tab>
+													<!-- General -->
+		
+													<!-- Variation -->
+													<ngb-tab>
+														<ng-template ngbTabTitle><b>Variation</b></ng-template>
+														<ng-template ngbTabContent>
+															<div class="tab-content">
+																<div formArrayName="moreVariations">
+																	<div class="mt-2 mb-3 each-varaition" *ngFor="let variant of moreVariationFormGroup.controls; let i = index;">
+																		<div class="row">
+																			<div class="col-6">
+																				<h4 class="additionalD">
+																					Variation
+																					<span class="badge badge-success">
+																						{{i + 1}}
+																					</span> 
+																				</h4>
+																			</div>
+																			<div class="col-6 text-right">
+																				<button type="button" class="btn btn-danger btn-sm" (click)="removeVariation(i)">Remove</button>
+																			</div>
+																		</div>
+																		<div class="row" [formGroupName]="i">
+																			<div class="col-lg-6">
+																				<div class="form-group">
+																					<label for="variationName">Name</label>
+																					<input 
+																						type="text" 
+																						class="form-control" 
+																						formControlName="variationName" 
+																						id="variationName" 
+																						placeholder="e.g: Sizes"
+																					>
+																				</div>
+																			</div>
+																
+																			<div class="col-lg-6">
+																				<div class="form-group">
+																					<label for="variationValues">
+																						Values 
+																						<span class="notifyAt">
+																							Separate each with comma (,)
+																						</span>
+																					</label>
+																					<input 
+																						type="text" 
+																						class="form-control" 
+																						formControlName="variationValues" 
+																						id="variationValues"
+																						placeholder="e.g: S, M, L, XL, XXL, etc"
+																					>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="text-right">
+																	<button type="button" class="btn btn-primary btn-block" (click)="addVariation()"><i class="fa fa-plus"></i> Add More Variation</button>
+																</div>
+															</div>
+														</ng-template>
+													</ngb-tab>
+													<!-- Variation -->
+												</ngb-tabset>
+											</div>
+										</div>
+	
+										<div class="card mt-5">
+											<div class="card-header">
+												OVERVIEW <span class="requiredField">*</span>
+											</div>
+											<div class="card-body">
+												<div class="form-group">
+													<angular-editor 
+														id="editor2" 
+														formControlName="overview" 
+														[config]="editorConfig"
+													></angular-editor>
+
+													<div 
+														*ngIf="form.controls['overview'].touched && !form.controls['overview'].valid"
+														class="alert alert-danger mt-2">																	
+														<div *ngIf="form.controls['overview'].errors.required">Item Overview is required</div>
+														<div *ngIf="form.controls['overview'].errors.minlength">Item Overview should be minimun of {{ form.controls['overview'].errors.minlength.requiredLength }} characters.</div> 
+														<div *ngIf="form.controls['overview'].errors.maxLength">Item Overview should be maximum of {{ form.controls['overview'].errors.maxLength.requiredLength }} characters.</div> 
+													</div>
+												</div>
+											</div>
+										</div>
+	
+										<div class="row mt-3">
+											<div class="col-12" formArrayName="moreDescriptions">													
+												<div 
+													*ngFor="let descrip of moreDescriptionFormGroup.controls; let i = index;"
+													class="card mt-5"
+												>
+													<div [formGroupName]="i">
+														<div class="card-header">
+															<h4 class="mb-0 pb-0 overview additionalD">
+																Additional Description 
+																<span class="badge badge-success">
+																	{{i + 1}}
+																</span>
+																<button 
+																	type="button" 
+																	class="btn btn-danger btn-sm float-right" 
+																	(click)="removeDescription(i)"
+																>Remove</button>
+															</h4>
+														</div>
+														<div class="card-body">
+															<div class="form-group">
+																<angular-editor 
+																	id="editor3" 
+																	formControlName="AddproDescription" 
+																	[config]="editorConfig"
+																></angular-editor>
+															</div>
+															<div class="form-group">
+																<div *ngIf="addUploadingProgress > 0" class="progress" style="margin-bottom: 10px;">
+																	<span class="progress-bar progress-bar-striped progress-bar-animated" 
+																		role="progressbar" 
+																		aria-valuenow="100" 
+																		aria-valuemin="0" 
+																		aria-valuemax="100" 
+																		style="width: 100%"> 
+																		Uploading...{{ addUploadingProgress }}%
+																	</span>
+																</div>
+																<!-- <label for="upImgDet{{i}}" class="loadImgBox text-center">
+																	<i class="fa fa-cloud-upload"></i><br>
+																	Upload Image
+																</label> -->
+
+																<label for="upImgDet{{i}}">
+																	Upload Description Banner
+																</label>
+
+																<div class="input-group mb-3">
+																	<div class="input-group-prepend">
+																	  <span class="input-group-text" id="img">Banner URL</span>
+																	</div>
+																	<input 
+																		type="text" 
+																		class="form-control"
+																		id="img"
+																		formControlName="img"
+																		placeholder="Copy and paste banner URL here"
+																	>
+																</div>
+
+																<div class="input-group mb-3">
+																	<div class="input-group-prepend">
+																	  	<span class="input-group-text" id="upImgDet{{i}}">
+																		  	Or Upload Banner
+																		</span>
+																	</div>
+																	<input 
+																		type="file" 
+																		class="form-control"
+																		id="upImgDet{{i}}"
+																		(change)="addFileUpload($event, i)"
+																	>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="mt-5">
+													<button 
+														type="button" 
+														class="btn btn-primary btn-block addMoreBtn" 
+														(click)="addDescription()"
+													>
+														<i class="fa fa-plus"></i> Add More Description
+													</button>
+												</div>
+											</div>
+										</div>
+										
+										<div class="text-center">
+											<div *ngIf="imgupload_required" 
+												class="alert alert-danger mb-2 mt-2">
+												{{imgupload_required}}
+											</div>
+
+											<button *ngIf="!isUpdating" 
+												type="submit" 
+												[disabled]="!form.valid || !itemImages"
+												class="btn btn-primary btn-lg mt-5"
+											>UPDATE PRODUCT</button>
+											<button *ngIf="isUpdating"
+												class="btn btn-primary btn-lg mt-5" 
+												type="button" disabled>
+												<span class="spinner-border spinner-border-sm" 
+												role="status" aria-hidden="true"></span>
+												UPDATEING PRODUCT...
+											</button>
+										</div>
+									</div>
+	
+									<div class="col-xl-4">
+										<div class="card">
+											<div class="card-header">													
+												Category <span class="requiredField">*</span>
+											</div>
+											<div class="card card-body">
+												<p *ngIf="selectedCategory" class="selectedCat">
+													Selected:
+													<span>
+														 {{selectedCategory}}
+													</span>
+												</p>												
+												<div class="form-group">														
+													<select
+														formControlName="category"
+														id="category"
+														class="form-control"
+														(change)="categoryChange($event)"
+													>
+														<option [ngValue]="null" disabled>-- Select --</option>
+														<optgroup 
+															*ngFor="let category of categories" 
+															label="{{category.mainCats.cat_name}}"
+														>
+
+															<ng-container *ngIf="category && category.Subcategories.length > 0">																	
+																<ng-container *ngFor="let subcategory of category.Subcategories">
+																	<option class="childCategory" disabled>
+																		{{subcategory.Subcategory.subcat_name}}
+																	</option>
+																	<ng-container *ngIf="subcategory && subcategory.SubSubcategories.length > 0">
+																		<option 
+																			*ngFor="let subSub of subcategory.SubSubcategories"
+																			value="{{category.mainCats.cat_slug + ', ' + subcategory.Subcategory.subcat_slug + ', ' + subSub.sub_subcat_slug}}"
+																		> - {{subSub.sub_subcat_name}}</option>
+																	</ng-container>
+																	<ng-container *ngIf="!subcategory || subcategory.SubSubcategories.length < 1">
+																		<option 
+																			value="{{category.mainCats.cat_slug + ', ' + subcategory.Subcategory.subcat_slug}}"
+																		> - {{subcategory.Subcategory.subcat_name}}</option>
+																	</ng-container>
+																</ng-container>
+															</ng-container>
+															<ng-container *ngIf="category && category.Subcategories.length < 1">
+																<option 
+																	value="{{category.mainCats.cat_slug}}"
+																>{{category.mainCats.cat_name}}</option>
+															</ng-container>
+														</optgroup>
+													</select>
+
+													<div 
+														*ngIf="form.controls['category'].touched && !form.controls['category'].valid"
+														class="alert alert-danger mt-2">																	
+														<div *ngIf="form.controls['category'].errors.required">Category is required</div>
+													</div>
+
+												</div>
+											</div>
+										</div>	
+
+										<div class="card">
+											<div class="card-header">													
+												Set Product As
+											</div>
+											<div class="card card-body">												
+												<div class="form-group">														
+													<select
+														formControlName="role"
+														id="role"
+														class="form-control"
+													>
+														<option [ngValue]="''" disabled>-- Select --</option>
+														<option value="Deal">Deal</option>
+														<option value="Featured">Featured</option>
+														
+													</select>
+
+													<div 
+														*ngIf="form.controls['category'].touched && !form.controls['category'].valid"
+														class="alert alert-danger mt-2">																	
+														<div *ngIf="form.controls['category'].errors.required">Category is required</div>
+													</div>
+
+												</div>
+											</div>
+										</div>		
+
+										<div class="card mt-3">
+											<div class="card-header">
+												TAGS <span class="notifyAt">
+													Separate each with comma (,)
+												</span>
+											</div>
+											<div class="card card-body">
+												<div class="form-group">
+													<label for="tags">Tags</label>
+													<input 
+														type="text" 
+														formControlName="tags" 
+														id="tags" 
+														class="form-control"
+														placeholder="eg: cloths, men suits, t-shirt, etc"
+													>
+												</div>
+												<div class="form-group">
+													<label for="est_delivery_date">Estimated Delivery Date</label>
+													<textarea 
+														id="est_delivery_date" 
+														formControlName="est_delivery_date" 
+														class="form-control"
+														placeholder="Optional"
+													></textarea>
+												</div>
+												<div class="form-group">
+													<label for="return_policy">Return Policy</label>
+													<textarea 
+														id="return_policy" 
+														formControlName="return_policy" 
+														class="form-control"
+														placeholder="Optional"
+													></textarea>
+												</div>
+											</div>
+										</div>
+
+										<div class="card mt-3">
+											<div class="card-header">
+												Brand
+											</div>
+											<div class="card card-body">
+												<div class="form-group">
+													<input 
+														type="text" 
+														formControlName="brand" 
+														id="brand" 
+														class="form-control"
+														placeholder="Optional"
+													>
+												</div>
+											</div>
+										</div>	
+
+										<div class="card mt-3">
+											<div class="card-header">
+												Warranty
+											</div>
+											<div class="card card-body">
+												<div class="form-group">
+													<input 
+														type="text" 
+														formControlName="warranty" 
+														id="warranty" 
+														class="form-control"
+														placeholder="Optional"
+													>
+												</div>
+											</div>
+										</div>	
+										
+
+										<div class="card mt-3">
+											<div class="card-header">
+												Image Gallery
+											</div>
+											<div class="card card-body">
+												<div class="form-group">
+													<input 
+														type="file" 
+														class="form-control mb-3"
+														id="uploadFile"
+														formControlName="uploadFile"
+														(change)="onSelectedFile($event)"
+													>
+
+													<div class="alert alert-danger mt-2" *ngIf="fileUploadError">
+														{{fileUploadError}}
+													</div>
+
+													<div *ngIf="uploadingProgress > 0" class="progress" style="margin-bottom: 10px;">
+														<span class="progress-bar progress-bar-striped progress-bar-animated" 
+															role="progressbar" 
+															aria-valuenow="100" 
+															aria-valuemin="0" 
+															aria-valuemax="100" 
+															style="width: 100%"> 
+															Uploading...{{ uploadingProgress }}%
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+
+										<div *ngIf="itemImages.length > 0" class="card mt-3">
+											<div class="card-header">
+												Uploaded files
+											</div>
+											<div class="card card-body">
+												<div class="row galleryGrid">
+													<div 
+														class="col-md-6" 
+														*ngFor="let img of itemImages; let i = index;"
+													>
+														<span 
+															class="badge badge-danger"
+															(click)="removeImg(i, img.id)"
+														>
+															<i class="fa fa-trash"></i>
+														</span>
+														<img [src]="img.resized_url">
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>	
+							</form>
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+					</div>
+				</div>		
+
+			</div>
+		</div>
+	</div>
+</div>

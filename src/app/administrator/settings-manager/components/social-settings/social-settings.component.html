@@ -1,0 +1,118 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-settings-manager-menu></app-settings-manager-menu>
+					</div>
+
+					<div class="custmDisplay col-xl-10">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">Dashboard</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/settings-manager">Settings Manager</a>
+											</li>
+											<li class="breadcrumb-item active">Social Settings</li>
+										</ol>
+									</div>
+									<h4 class="page-title">Social Settings</h4>
+								</div>
+							</div>
+						</div>
+
+						<section class="web-set">
+							
+							<div class="row">
+								<div class="col-xl-6">
+									<form [formGroup]="form" (ngSubmit)="submit()">
+										<div class="card">
+											<div class="card-header">
+												Social Page Links
+											</div>
+											<div class="card-body">
+												
+												<div class="form-group mb-3">
+													<label for="name">Name <span class="text-danger">*</span></label>
+													<input type="text" formControlName="name" id="name" class="form-control">
+													<div *ngIf="name.touched && !name.valid" class="errorMessage alert alert-danger">Social media name is required</div>
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="url">URL <span class="text-danger">*</span></label>
+													<input type="text" formControlName="url" id="url" class="form-control" placeholder="https://socialmedia.com/xyz">
+													<div *ngIf="url.touched && !url.valid" class="errorMessage alert alert-danger">Social media url is required</div>
+												</div>
+								
+												<div class="form-group mb-3">
+													<label for="icon">Icon <span class="text-danger">*</span></label>
+													<input type="text" formControlName="icon" id="icon" class="form-control" placeholder="eg fa-facebook">
+													<div *ngIf="icon.touched && !icon.valid" class="errorMessage alert alert-danger">Social media icon is required</div>
+												</div>
+												
+												<div class="mt-5 text-center mb-3">
+													<button class="send btn btn-primary" [disabled]="!form.valid">SUBMIT</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+
+								<div class="col-xl-6">
+									<div class="card mb-3">
+										<div class="card-header">
+											All Social Links
+										</div>
+
+										<div class="card-body">			
+											<div class="each-link" *ngFor="let social of allSocail">
+												<div class="d-flex justify-content-between">
+													<div class="url-title">{{social?.name}}</div>
+													<div>
+														<button type="button" class="btn btn-danger btn-sm float-right" 
+																(click)="deleteSocial(social?.social_id)"><i class="fa fa-trash"></i></button>
+													</div>
+												</div>
+
+												<div class="d-flex justify-content-between">
+													<div class="input-title">URL:</div>
+													<div class="form-input"><input type="text" value="{{social?.url}}" class="form-control" readonly></div>
+												</div>
+
+												<div class="d-flex justify-content-between">
+													<div class="input-title">Icon: </div>
+													<div class="form-input"><input type="text" value="{{social?.icon}}" class="form-control" readonly></div>
+												</div>
+											</div>	
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+					</div>
+				</div>		
+			</div>
+		</div>
+	</div>
+
+</div>

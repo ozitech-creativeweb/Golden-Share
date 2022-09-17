@@ -1,0 +1,315 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 col-lg-2 col-md-3">
+						<app-order-manager-menu></app-order-manager-menu>
+					</div>
+					
+					<div class="col-xl-10 col-lg-10 col-md-9">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">
+													Dashboard
+												</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/order-manager">
+													Order Manager
+												</a>
+											</li>
+											<li class="breadcrumb-item active">
+												Order #{{order && order.order_number}}
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">
+										Order #{{order && order.order_number}}
+									</h4>
+								</div>
+							</div>
+						</div>
+
+						<section class="user-list">
+							<div class="card">
+								<div class="card-header">
+									<div class="row">
+										<div class="col-lg-9 col-md-6">
+											<div class="mt-1">
+												Order <b>#{{order && order.order_number}}</b>
+											</div>
+										</div>
+									</div>									
+								</div>
+								<div class="card-body">
+                                    <div class="order-details">
+                                        <p class="email">
+                                            <b>{{orders && orders.length}}</b> Items
+                                        </p>
+                                        <p class="email">
+                                            Placed on <b>{{order && order.created_at | date}}</b>
+                                        </p>
+                                        <p class="email">
+                                            Total: 
+                                            <span innerHTML="{{order && order.total | currency: currencyObj.symbol: 'symbol':'1.0' }}"></span>
+                                        </p>
+                                        <div *ngFor="let orderItem of orders" class="card mb-3">
+                                            <div class="card-header">
+                                                <div class="d-flex justify-content-between m-0">
+                                                    <div><p class="mb-2 heading-text status">
+                                                        Status: 
+                                                        <span 
+                                                            *ngIf="orderItem.status === 'Delivered'" 
+                                                            class="badge badge-success">
+                                                            {{'Delivered' | uppercase}}
+                                                        </span>
+            
+                                                        <span 
+                                                            *ngIf="orderItem.status === 'Cancelled'" 
+                                                            class="badge badge-danger">
+                                                            {{'Cancelled' | uppercase}}
+                                                        </span>											
+            
+                                                        <span 
+                                                            *ngIf="orderItem.status !== 'Delivered' && orderItem.status !== 'Cancelled'" 
+                                                            class="badge badge-info">
+                                                            {{orderItem.status | uppercase}}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                    <!-- <div class="history">
+                                                        <a routerLink="/">
+                                                            See history 
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </a>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="card-body pt-3">
+                                                <div class="media p-2">
+                                                    <img 
+                                                        defaultImage="{{orderItem && orderItem.featured_img}}" 
+                                                        lazyLoad="{{ orderItem && orderItem.featured_img }}"
+                                                        alt="{{ orderItem && orderItem.name }}" 
+                                                        class="mr-4 mt-1" style="width:120px;"
+                                                    >
+                                                    <div class="media-body">
+                                                        <p class="pro-title">
+                                                            <a target="_blank" href="/item/{{clearnUrl(orderItem && orderItem.name)}}-{{orderItem && orderItem.pid}}">
+                                                                {{orderItem && orderItem.name | summary:50}}
+                                                            </a>												
+                                                        </p>
+                                                        <p *ngIf="variation" class="place-date m-0 p-0">
+                                                            <span *ngFor="let variant of variation">
+                                                                {{variant.name}}: <b>{{variant.value}}</b>
+                                                            </span>
+                                                        </p>
+                                                        <p class="place-date m-0 p-0">
+                                                            <span class="text-muted">QTY:</span> {{orderItem && orderItem.quantity}}
+                                                        </p>
+                                                        <p class="place-date m-0 p-0"
+                                                            innerHTML="{{orderItem && orderItem.product_price | currency: currencyObj.symbol: 'symbol':'1.0' }}"
+                                                        ></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-header border-top">
+                                                <div class="d-flex justify-content-between m-0">
+                                                    <div>
+                                                        <p class="mb-2 heading-text status">
+                                                            <span class="text-muted">
+                                                                <i class="fa fa-truck"></i>
+                                                            </span> 
+                                                            {{shippingMethods && shippingMethods[1]}} | {{shippingMethods && shippingMethods[2]}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+            
+                                        <div class="row mt-4">
+                                            <div class="col-xl-6 mb-3">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <div class="d-flex justify-content-between m-0">
+                                                            <p class="mb-0"><b>PAYMENT INFORMATION</b></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body pt-3">
+                                                        <div class="payment-method mb-4">
+                                                            <h4 class="mb-2">Payment Method</h4>
+                                                            <p class="email" *ngIf="order && order.payment_method === 'cash'">
+                                                                Pay On Delivery
+                                                            </p>
+                                                            <p class="email" *ngIf="order && order.payment_method === 'bank'">
+                                                                Bank Transfer
+                                                            </p>
+                                                            <p class="email" 
+                                                                *ngIf="(order && order.payment_method !== 'bank') && (order && order.payment_method !== 'cash')">
+                                                                Online Payment
+                                                            </p>
+                                                        </div>
+                                                        <div class="payment-method">
+                                                            <h4 class="mb-2">Payment Details</h4>
+                                                            <p class="email">
+                                                                Items total: 
+                                                                <span innerHTML="{{order && order.sub_total | currency: currencyObj.symbol: 'symbol':'1.0' }}"></span>
+                                                            </p>
+                                                            <p class="email">
+                                                                Shipping Fees: 
+                                                                <span innerHTML="{{order && order.shipping_cost | currency: currencyObj.symbol: 'symbol':'1.0' }}"></span>
+                                                            </p>
+                                                            <p class="email">
+                                                                Total: 
+                                                                <b innerHTML="{{order && order.total | currency: currencyObj.symbol: 'symbol':'1.0' }}"></b>
+                                                            
+                                                               <span class="float-right">
+                                                                    Status: 
+                                                                    <span 
+                                                                        *ngIf="order && order.invoice_status === 'Paid'" 
+                                                                        class="badge badge-success"
+                                                                    >Paid</span>
+
+                                                                    <span 
+                                                                        *ngIf="order && order.invoice_status === 'Pending'" 
+                                                                        class="badge badge-danger"
+                                                                    >Unpaid</span>
+
+                                                                    <span 
+                                                                        *ngIf="order && order.invoice_status === 'Refunded'" 
+                                                                        class="badge badge-warning"
+                                                                    >Refunded</span>
+                                                               </span>
+                                                            </p>
+
+                                                            <hr>
+                                                            <p class="email mb-0">
+                                                                <label class="text-success mr-3 uk-text-bold">
+                                                                    <input 
+                                                                        type="radio" name="payStatus" value="Paid"
+                                                                        (change)="updateOrder(order && order.order_number, $event, 'payment')"
+                                                                    > Mark Paid
+                                                                </label>
+
+                                                                <label class="text-dark mr-3 uk-text-bold">
+                                                                    <input 
+                                                                        type="radio" name="payStatus" value="Refunded"
+                                                                        (change)="updateOrder(order && order.order_number, $event, 'payment')"
+                                                                    > Refund
+                                                                </label>
+
+                                                                <label class="text-danger">
+                                                                    <input 
+                                                                        type="radio" name="payStatus" value="Pending"
+                                                                        (change)="updateOrder(order && order.order_number, $event, 'payment')"
+                                                                    > Mark Unpaid
+                                                                </label>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+            
+                                            <div class="col-xl-6 mb-3">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <div class="d-flex justify-content-between m-0">
+                                                            <p class="mb-0"><b>DELIVERY INFORMATION</b></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body pt-3">
+                                                        <div class="payment-method mb-4">
+                                                            <h4 class="mb-2">Delivery Method</h4>
+                                                            <p class="email">
+                                                                {{shippingMethods && shippingMethods[1]}}
+                                                            </p>
+                                                        </div>
+                                                        <div class="payment-method">
+                                                            <h4 class="mb-2">Shipping Address</h4>
+                                                            <p class="email"><b>
+                                                                {{shipAddress && shipAddress.full_name}}
+                                                            </b></p>
+                                                            <p class="email">
+                                                                {{shipAddress && shipAddress.street_addr}},
+                                                            </p>
+                                                            <p class="email">
+                                                                {{shipAddress && shipAddress.city}},
+                                                                {{shipAddress && shipAddress.state}}
+
+                                                                <span class="float-right">
+                                                                    Status: 
+                                                                    <span 
+                                                                        *ngIf="order && order.status === 'Delivered'" 
+                                                                        class="badge badge-success"
+                                                                    >Delivered</span>
+
+                                                                    <span 
+                                                                        *ngIf="order && order.status === 'Shipped'" 
+                                                                        class="badge badge-warning"
+                                                                    >Shipped</span>
+
+                                                                    <span 
+                                                                        *ngIf="order && order.status === 'Returned'" 
+                                                                        class="badge badge-warning"
+                                                                    >Returned</span>
+
+                                                                    <span 
+                                                                        *ngIf="order && order.status === 'Cancelled'" 
+                                                                        class="badge badge-secondary"
+                                                                    >Cancelled</span>
+                                                               </span>
+                                                            </p>
+
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="col-xl-5">
+                                                                    <label class="pt-2">
+                                                                        Update Delivery Status
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-xl-7">
+                                                                    <select class="form-control"
+                                                                        (change)="updateOrder(order && order.order_number, $event, 'delivery')"
+                                                                    >
+                                                                        <option hidden>--Select--</option>
+                                                                        <option value="Shipped">Shipped</option>
+                                                                        <option value="Delivered">Delivered</option>
+                                                                        <option value="Returned">Returned</option>
+                                                                        <option value="Cancelled">Cancelled</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

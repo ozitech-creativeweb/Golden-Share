@@ -1,0 +1,234 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav> 
+
+<div id="pageContents">
+  <div id="adminWrapper">
+    <div class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-12">
+              <div class="page-title-box">
+                  <div class="page-title-right">
+                      <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item">
+                          <a routerLink="/{{adminUrl}}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                          <a routerLink="/{{adminUrl}}/product-manager">
+                            Product Manager
+                          </a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                          Categories Banner
+                        </li>
+                      </ol>
+                  </div>
+                  <h4 class="page-title">Category Banner</h4>
+              </div>
+          </div>
+        </div>
+
+        <div class="row">
+					<div class="col-xl-12 col-lg-12 col-md-12">
+						<section id="add-category">
+              <div class="row">
+    
+                <div class="col-xl-5 col-lg-5">
+                  <div class="card">
+                    <div class="card-header">
+                      Add Banner
+                    </div>
+                    <div class="card-body">
+                      <form [formGroup]="form" (ngSubmit)="submit()">
+                        <div class="form-group">
+                          <label for="category">Category*</label><br>
+                          <select
+                              formControlName="category"
+                              id="category"
+                              class="form-control"
+                            >
+                              <option [ngValue]="null" disabled>-- Select --</option>
+                              <ng-container *ngIf="categories && categories.length > 0">
+                                <ng-container *ngFor="let category of categories">
+                                  <option class="parentCat"
+                                    value="{{category.mainCats.cat_slug}}"
+                                  >{{category.mainCats.cat_name}}</option>
+                                  
+                                  <ng-container *ngIf="category && category.Subcategories.length > 0">																	
+                                    <ng-container *ngFor="let subcategory of category.Subcategories">
+                                      <option 
+                                        class="childCat" 
+                                        value="{{subcategory.Subcategory.subcat_slug}}"
+                                      > - {{subcategory.Subcategory.subcat_name}} </option>
+                                      <ng-container *ngIf="subcategory && subcategory.SubSubcategories.length > 0">
+                                        <option class="subChildCat"
+                                          value="{{subSub.sub_subcat_slug}}"
+                                          *ngFor="let subSub of subcategory.SubSubcategories"
+                                        > - - {{subSub.sub_subcat_name}}</option>
+                                      </ng-container>
+                                    </ng-container>
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
+                              
+                            </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="title">Title</label>
+                          <input 
+                            type="text" 
+                            id="title" 
+                            name="title" 
+                            formControlName="title" 
+                            class="form-control" 
+                            placeholder="eg: Women Shoes"
+                          >
+                        </div>
+                        <div class="form-group">
+                          <div *ngIf="uploadErr" class="alert alert-danger mt-2">
+														{{uploadErr}}
+													</div>
+													<div *ngIf="uploadProgress > 0" class="progress" style="margin-bottom: 10px;">
+														<span class="progress-bar progress-bar-striped progress-bar-animated" 
+															role="progressbar" 
+															aria-valuenow="100" 
+															aria-valuemin="0" 
+															aria-valuemax="100" 
+															style="width: 100%"> 
+															Uploading...{{ uploadProgress }}%
+														</span>
+													</div>
+                          <label for="bannerUpload">
+                            Banner
+                            <small class="text-danger">
+                              Best banner size: 1000px by 250px
+                            </small>
+                          </label>
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon1">
+                                Upload
+                              </span>
+                            </div>
+                            <input 
+                              type="file" 
+                              class="form-control" 
+                              id="bannerUpload" 
+                              name="bannerUpload"
+                              (change)="addBanner($event)"
+                            >
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="banner">
+                                or Image URL
+                              </span>
+                            </div>
+                            <input 
+                              type="text" 
+                              class="form-control" 
+                              id="banner" 
+                              name="banner" 
+                              formControlName="banner" 
+                            >
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="link">Link</label>
+                          <input 
+                            type="url" 
+                            id="link" 
+                            name="link" 
+                            formControlName="link" 
+                            class="form-control" 
+                            placeholder="eg: http://example.com/page-name"
+                          >
+                        </div>
+      
+                        <div class="text-center">
+                          <div *ngIf="addBannerError" class="alert alert-danger mt-2 mb-2">
+                            {{addBannerError}}
+                          </div>
+                          <button *ngIf="!isAdding" 
+                            [disabled]="!form.valid" 
+                            type="submit" 
+                            class="addBtn btn btn-primary btn-lg mt-5"
+                          >Add New Category</button>
+                          <button *ngIf="isAdding"
+                            class="btn btn-primary btn-lg mt-5" 
+                            type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" 
+                            role="status" aria-hidden="true"></span>
+                            Adding Category...
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  
+                </div>
+    
+                <div class="col-xl-7 col-lg-7">
+                  <div class="card">
+                    <div class="card-header">
+                      <b>{{bannerAds && bannerAds.length}}</b> Banners Ads
+                    </div>
+                    <div class="card-body">
+                      <div *ngFor="let ad of bannerAds" class="table-responsive">
+                        <table  class="table table-condensed m-0">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <div class="eachContainer">
+                                  <span *ngIf="ad.title">
+                                    Title: <b>{{ad.title}}</b>
+                                  </span>
+                                  <div>
+                                    <span *ngIf="ad.link">
+                                      Link: <b>{{ad.link}}</b><br>
+                                    </span>
+                                    Category: <b>{{ad.category}}</b>
+                                    <button 
+                                      class="btn btn-danger btn-sm ml-2 mb-2"
+                                      (click)="deleteCategory(ad)"
+                                    ><i class="fa fa-trash"></i></button>
+                                  </div>
+                                  <div>
+                                    <img [src]="ad.banner" class="rounded img-fluid">
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>   
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+              </div>
+            </section>
+					</div>
+				</div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <app-admin-footer></app-admin-footer>
+
+
+
+
+</div>
