@@ -1,0 +1,109 @@
+@import "../../../../theme/user_style.scss";
+.user-img {
+    width: 45px;
+    border-radius: 50%;
+}
+
+.shop-cart .table-responsive .table.order tr td {
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+}
+
+.action {
+    padding: 2px 12px;
+}
+
+.closeAuction {
+    border: 3px solid $primary;
+    min-height: 120px;
+    text-align: center;
+    font-size: 25px;
+    padding: 40px 60px !important;
+    border-radius: 3px;
+    color: $primary;
+    line-height: 35px;
+}
+
+thead th {
+    text-align: left !important;
+}
+
+tbody td {
+    text-align: left !important;
+    color: #fff !important
+}
+
+.totalAmnt {
+    max-width: 400px;
+    margin: auto;
+    padding: 50px 20px;
+    background: $primary;
+}
+
+tr>td.text-center:first-child {
+    padding: 20px !important;
+}
+
+// RADIO BUTTON
+.custom-control-label::before {
+    top: 0.3rem !important;
+}
+
+.custom-control-label::after {
+    top: 0.3rem;
+}
+
+.auction-body {
+    background-color: transparent;
+}
+
+.auction-header {
+    background: transparent;
+    text-transform: uppercase;
+    text-align: center;
+    color: #f2f2f2;
+}
+
+.auction-body .total_amount {
+    color: #cccccc;
+}
+
+.amount-input:focus {
+    background: $fadeDark;
+    color: #fff;
+}
+
+.amount-input {
+    padding: 5px;
+}
+
+::placeholder {
+    font-size: 16px;
+}
+
+label {
+    font-size: 15px;
+    color: #fff;
+}
+
+input,
+select {
+    color: #fff;
+    background-color: #232e48;
+    border: 1px solid rgba(226, 232, 245, 0.1);
+}
+
+.totalAuction {
+    width: 100%;
+    margin: 0 auto;
+    background: rgb(19, 172, 108);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.totalAuction h4 {
+    color: #fff;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}

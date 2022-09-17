@@ -1,0 +1,57 @@
+@import "../../../../theme/colors";
+
+
+.user-header{
+    background: $blackColor;
+}
+.user-header h4, .user-header p{
+    color: #fff;
+}
+.user-body{
+    background-color: $fadeDark;
+}
+.user-card{
+    box-shadow: 4px 4px 10px #000;
+}
+.amount-input{
+    height: 42px;
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+.amount-input:focus{
+    background: #000;
+    box-shadow: none;
+    border-color: #000;
+}
+
+
+.custom-control-label::after{
+    top: 10px;
+}
+
+.custom-control-label::before {
+    top: 7px;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.custom-control-label::after {
+    top: 0.6rem;
+    left: -1.655rem;
+    width: 1.7rem;
+    height: 1.7rem;
+}
+.custom-control-label::before {
+    left: -2.5rem;
+    background-color: #000;
+    border: #fff solid 2px;
+}
+.custom-control-label::after {
+    left: -2.655rem;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: $primary;
+    background-color: $primary;
+}
+

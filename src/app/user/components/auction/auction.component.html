@@ -1,0 +1,117 @@
+<div class="all-wrapper">
+    <app-user-header></app-user-header>
+
+    <div id="main" class="main-wrapper">
+
+
+        <section style="min-height: 600px; padding-top: 100px !important;">
+            <div class="container-fluid">
+
+                <div *ngIf="isLoading">
+                    <div class="text-center">
+                        <app-loading-indicator></app-loading-indicator>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <!-- <div class="totalAuct">
+                            Total Auction: #100,000 000
+                        </div> -->
+                        <div *ngIf="success" class="alert alert-success">
+                            {{ success }}
+                        </div>
+                        <div *ngIf="success" class="alert alert-warning">
+                            {{ config?.donation_request_instructions }}
+                        </div>
+                        <div *ngIf="error" class="alert alert-danger">
+                            <span [innerHTML]="error"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="allAuct?.length > 0 && !showTime">
+                    <!-- <div class="totalAuction">
+                        <h4>Total Auction is <span [innerHTML]="currency?.symbol"></span>{{totalAmount | number }}</h4>
+                    </div> -->
+                    <div class="row">
+                        <div *ngFor="let auct of allAuct; let x = index" class="col-xl-6">
+                            <div class="cusCard p-0">
+                                <div class="card-header auction-header">
+                                    {{auct?.bank | titlecase}}
+                                    <!-- {{auct?.bankInfo?.bank ? auct?.bankInfo?.bank : 'N/A'}} -->
+                                </div>
+                                <div class="card-body auction-body">
+                                    <h4 class="text-center total_amount">Total Amount: <b [innerHTML]="currency?.symbol"></b> {{auct.amount | number}}</h4>
+
+                                    <!-- <p class="mb-2 text-center">Min. Amount <span [innerHTML]="currency?.symbol"></span>{{config?.min_invest_amount | number}}</p> -->
+
+                                    <form [formGroup]="form">
+                                        <div class="form-group">
+                                            <label>Enter Amount</label>
+                                            <input type="number" class="form-control amount-input" formControlName="amount" placeholder="Enter Amount">
+                                        </div>
+                                        <div class="custom-control custom-radio mb-3" *ngFor="let pack of packages; let i = index" (click)="getDuration(pack?.duration, pack?.min_amount, pack?.id)">
+                                            <input type="radio" class="custom-control-input" id="option{{x+1}}{{i+1}}" required name="amountRadio">
+                                            <label class="custom-control-label" for="option{{x+1}}{{i+1}}">{{pack?.roi}}% in {{pack?.duration}} Day<span *ngIf="pack?.duration != 1">s</span> (Min. Invest Amount: <span [innerHTML]="currency?.symbol"></span>{{pack?.min_amount | number}})</label>
+                                        </div>
+
+                                        <div class="text-center mt-5">
+                                            <button (click)="submitBid(auct?.id, auct?.amount, auct?.bank)" *ngIf="!isSubmitting || activeID != auct?.id" type="submit" class="btn btn-block bg-primary text-white">BID</button>
+
+                                            <app-inner-loading *ngIf="isSubmitting && activeID == auct?.id" [name]="'Bidding...'" [class]="'btn btn-block bg-primary text-white'"></app-inner-loading>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mt-5 text-center">
+                        <!-- <button
+                            *ngIf="allAuct.length > pageLimit && !isLoadMore"
+                            (click)="loadMore()"
+                            [disabled]="allAuct.length < pageLimit"
+                            class="btn btn-primary btn-lg"
+                        >Load more</button>
+
+                        <app-inner-loading 
+                            *ngIf="isLoadMore"
+                            [name]="'Loading'"
+                            [class]="'btn btn-primary btn-lg'"
+                        ></app-inner-loading> -->
+                    </div>
+                </div>
+
+                <div *ngIf="allAuct?.length < 1 && !isLoading && !showTime" class="closeAuction">
+                    <div class="row">
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-8 mb-5">
+                            <div class="text-white" [innerHTML]="config?.merged_payer_instruction"></div>
+                        </div>
+                        <div class="col-xl-2"></div>
+                    </div>
+                </div>
+
+
+                <div *ngIf="!isLoading && showTime" class="closeAuction">
+                    <div class="row">
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-8 mb-5">
+                            <div [class.d-none]="!showTime" class="countDown text-center" style="font-size: 100px !important;">
+                                <app-count-down-string [startH]="config?.auction_time" [endH]="config?.auction_time_end"></app-count-down-string>
+                            </div>
+
+                            <div class="text-white" [innerHTML]="config?.merged_payer_instruction"></div>
+                        </div>
+                        <div class="col-xl-2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

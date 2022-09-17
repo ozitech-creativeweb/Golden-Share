@@ -1,0 +1,244 @@
+<div class="all-wrapper">
+    <app-user-header></app-user-header>
+
+    <div class="main-wrapper">
+        <div class="bodyContainer">
+            <div class="page-area">
+                <div class="breadcumb-overlay"></div>
+            </div>
+            <!-- End breadcumb Area -->
+
+            <!-- <input type="checkbox" id="drawer-toggle" name="drawer-toggle" />
+            <label for="drawer-toggle" id="drawer-toggle-label"></label> -->
+
+            <div id="donations">
+                <section class="chat-section mt-4">
+					<div class="container">
+						<div class="row mx-0">
+							<div class="col-md-4 px-0">
+								<div class="chat-contact">
+									<div class="card">
+										<div class="card-header d-flex justify-content-between align-content-center align-items-center">
+											<h4 class="subList mb-2">Support</h4>
+											<button class="btn btn-primary custDisplay" (click)="open(content)">Open A
+												Support
+												Ticket</button>
+										</div>
+										<div class="card-body">
+											<app-support-sidebar></app-support-sidebar>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-8 px-0">
+								<div class="select-chat chat-custmDisplay">
+									<div class="card">
+										<div class="card-body">
+											<div class="h-100 d-flex justify-content-center align-items-center align-content-center">
+												<div class="text-center">
+													<i class="fa fa-comments-o mb-3"></i>
+													<h4>Select a Chat to continue</h4>
+													<div class="about_btn mt-3">
+														<button class="btn btn-primary" (click)="open(content)">Open A
+															Support
+															Ticket</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                </section>
+			</div>
+			
+            <ng-template #content let-modal>
+                <div class="modal-header customModalHead">
+                    <h4 class="modal-title" id="modal-basic-title">Active Users</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+						<span aria-hidden="true">&times;</span>
+					</button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="form" (ngSubmit)="submit()">
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" class="form-control" id="subject" formControlName="title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea class="form-control" rows="4" formControlName="message"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <app-inner-loading *ngIf="isSubmitting" [name]="'Sending message...'" [class]="'btn btn-primary'"></app-inner-loading>
+							<button 
+								*ngIf="!isSubmitting" 
+								type="submit" 
+								class="btn btn-primary"
+							>Send Message</button>
+                            <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </ng-template>
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- <input type="checkbox" id="drawer-toggle" name="drawer-toggle" />
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+	<app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+	<app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 remove-lg ">
+						<app-support-manager-menu></app-support-manager-menu>
+					</div>
+
+					<div class="col-xl-10 col-lg-12 col-md-12">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">
+													Dashboard
+												</a>
+											</li>
+											<li class="breadcrumb-item active">
+												<span>
+													Open Support
+												</span>
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">
+										<span>
+											Open Support
+										</span>
+									</h4>
+								</div>
+							</div>
+						</div>
+
+
+						<div id="donations">
+
+							<section class="chat-section">
+								<div class="row mx-0">
+									<div class="col-xl-4 px-0">
+										<div class="chat-contact">
+											<div class="card">
+												<div class="card-header">
+													<h4 class="subList">Support</h4>
+												</div>
+												<app-support-sidebar></app-support-sidebar>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xl-8 px-0">
+										<div class="select-chat">
+											<div class="card">
+												<div class="card-body">
+													<div class="text-center">
+														<i class="fa fa-comments-o mb-3"></i>
+														<h4>Select a Chat to continue</h4>
+														<div class="about_btn mt-3">
+															<button class="btn btn-primary" (click)="open(content)">Open
+																A Support Ticket</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+
+						</div>
+
+
+
+						<ng-template #content let-modal>
+							<div class="modal-header customModalHead">
+								<h4 class="modal-title" id="modal-basic-title">Active Users</h4>
+								<button type="button" class="close" aria-label="Close"
+									(click)="modal.dismiss('Cross click')">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form [formGroup]="form" (ngSubmit)="submit()">
+									<div class="form-group">
+										<label>Select User</label>
+										<select class="form-control custom-select" formControlName="user">
+											<option hidden>---Select User---</option>
+											<option value="All User">All User</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+											<option value="John Doe">John Doe</option>
+										</select>
+									</div>
+
+									<div class="form-group">
+										<label for="subject">Subject</label>
+										<input type="text" class="form-control" id="subject" formControlName="subject">
+									</div>
+
+									<div class="form-group">
+										<label for="message">Message</label>
+										<textarea class="form-control" rows="4" formControlName="message"></textarea>
+									</div>
+
+									<div class="text-center">
+										<button type="submit" class="btn btn-primary mr-4">Send Message</button>
+										<button type="button" class="btn btn-danger ml-4"
+											(click)="modal.close('Save click')">Cancel</button>
+									</div>
+								</form>
+							</div>
+						</ng-template>
+
+						<app-admin-footer></app-admin-footer>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div> -->

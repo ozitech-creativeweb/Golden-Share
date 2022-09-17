@@ -1,0 +1,87 @@
+<div class="all-wrapper">
+    <app-user-header></app-user-header>
+
+    <div id="main" class="main-wrapper">
+
+
+        <section class="shop-cart mr-b150">
+            <!--Start section-->
+            <div class="container-fluid">
+                <app-inner-loading *ngIf="isLoading" [justSpinner]="true" [marginTo]="false"></app-inner-loading>
+                <h1 class="my-5 text-center">WITHDRAWALS</h1>
+
+                <div class="cusCard">
+                    <div class="helpGridItem">
+                        <div class="table-responsive-sm">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">ID</th>
+                                        <th>Amount</th>
+                                        <th>Withdrawn</th>
+                                        <th>Balance</th>
+                                        <th>Status</th>
+                                        <th>Mature Date</th>
+                                        <th>Date</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="withdrawals?.length > 0">
+                                    <tr *ngFor="let withdrawal of withdrawals">
+                                        <td class="text-center">
+                                            #{{withdrawal?.id}}
+                                        </td>
+                                        <td class="text-left">
+                                            <span class="price">
+                                            <span [innerHTML]="currency?.symbol"></span> {{withdrawal?.amount |number}}
+                                            </span>
+                                        </td>
+                                        <td class="text-left">
+                                            <span class="price">
+                                            <span [innerHTML]="currency?.symbol"></span> {{withdrawal?.withdrawn |number}}
+                                            </span>
+                                        </td>
+                                        <td class="text-left">
+                                            <span class="price">
+                                            <span [innerHTML]="currency?.symbol"></span> {{withdrawal?.amount - withdrawal?.withdrawn |number}}
+                                            </span>
+                                        </td>
+                                        <td class="text-left">
+                                            <span *ngIf="withdrawal.status === 'Paid'" class="label label-success">Paid</span>
+
+                                            <span *ngIf="withdrawal.status === 'Part'" class="label label-info">Part Payment</span>
+
+                                            <span *ngIf="withdrawal.status === 'Pending'" class="label label-warning">Pairing</span>
+                                        </td>
+                                        <td class="text-left">
+                                            <span class="price">
+                                                {{withdrawal?.matured_date |date}}
+                                                <app-count-down [countFrom]="countFrom(withdrawal?.matured_date)"></app-count-down>
+                                            </span>
+                                        </td>
+                                        <td class="text-left">
+                                            <span class="price">
+                                            {{withdrawal?.created_at |date}}
+                                        </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="eyeBtn" routerLink="/user/incoming-orders/{{withdrawal.id}}">
+                                                <i class="si si-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                                <tbody *ngIf="withdrawals?.length < 1">
+                                    <tr>
+                                        <td colspan="6">No Transactions</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

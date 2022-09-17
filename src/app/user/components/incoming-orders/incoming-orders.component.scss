@@ -1,0 +1,71 @@
+@import '../dashboard/dashboard.component.scss';
+// .updateBank h4 {
+//     font-weight: 400 !important;
+//     margin-top: 5px !important;
+//     color: #fff;
+//     font-size: 18px;
+// }
+// .updateBank p {
+//     color: #fff;
+// }
+// .alert-activation {
+//     background: $secondary;
+//     border: 3px solid $primary;
+//     padding-bottom: 30px;
+// }
+// .payment-history-area {
+//     min-height: calc(100vh - (130px + 33px + 69px));
+// }
+// @media (max-width: 1000px) {
+//     .payment-history-area {
+//         min-height: calc(100vh - (87px + 33px + 104px));
+//     }
+// }
+// @media (max-width: 700px) {
+//     .payment-history-area {
+//         min-height: calc(100vh - (60px + 33px + 123px));
+//     }
+// }
+// h1 {
+//     font-size: 35px;
+//     font-weight: bold;
+//     margin-bottom: 40px;
+//     color: #fff;
+// }
+// .action {
+//     color: #fff;
+//     padding: 3px 10px;
+// }
+// tbody>tr>td:last-child {
+//     width: 20% !important;
+// }
+// tbody td{
+//     text-align: center !important;
+//     color: #fff !important;
+//     padding-top: 15px;
+//     padding-bottom: 10px;
+// }
+// thead th{
+//     text-align: center !important;
+//     color: #fff;
+//     text-transform: uppercase;
+// }
+// .table-wrapper{
+//     background: $fadeDark;
+//     padding: 50px 10px;
+// }
+// .table-wrapper table tr:nth-child(even){
+//     background: $secondary;
+// }
+h1 {
+    font-size: 50px;
+    color: #fff;
+}
+
+.helpGridItem {
+    padding: 0;
+    margin: 0;
+    table {
+        font-size: 16px;
+    }
+}

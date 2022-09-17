@@ -1,0 +1,54 @@
+<div class="all-wrapper">
+    <app-user-header></app-user-header>
+
+
+    <div id="main" class="main-wrapper">
+
+        <section class="shop-cart mr-b150">
+            <!--Start section-->
+            <div class="container-fluid">
+                <app-inner-loading *ngIf="isLoading" [justSpinner]="true" [marginTo]="false"></app-inner-loading>
+                <h1 class="my-5 text-center">DONATIONS</h1>
+                <!-- Purchased Products Starts -->
+
+                <div class="cusCard helpGridItem">
+                    <div class="table-responsive-sm">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="text-center">ID</th>
+                                    <th>Recipient</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="donations?.length > 0">
+                                <tr *ngFor="let donation of donations">
+                                    <td class="text-center">
+                                        #{{donation?.id}}
+                                    </td>
+                                    <td class="text-left text-white">
+                                        {{donation?.first_name}} {{donation?.last_name}}
+                                    </td>
+                                    <td class="text-left"><span class="price"><span [innerHTML]="currency?.symbol"></span>{{donation?.amount |number}}</span>
+                                    </td>
+                                    <td class="text-left">
+                                        <span [class.label-success]="donation.status === 1" [class.label-danger]="donation.status !== 1" class="label">{{donation.status == 1 ? 'Paired' : 'Pairing'}}</span>
+                                    </td>
+                                    <td class="text-left"><span class="price">{{donation?.created_at |date}}</span></td>
+                                    <td class="text-center pt-3">
+                                        <a class="eyeBtn" routerLink="/user/reserved-orders/{{donation.id}}"><i class="si si-eye"></i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Purchased Products Ends -->
+                <!-- Coupon Input Starts -->
+
+            </div>
+        </section>
+    </div>

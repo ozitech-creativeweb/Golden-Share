@@ -1,0 +1,88 @@
+<div class="all-wrapper">
+
+
+    <app-user-header></app-user-header>
+
+    <div id="main" class="main-wrapper">
+
+        <div class="row mt-5 mr-b150">
+            <div class="col-lg-3 col-md-1"></div>
+            <div class="col-lg-6 col-md-10 col-sm-12 col-xs-12 wow  fadeInUp animated" data-wow-duration="1.6s" style="visibility: visible; animation-duration: 1.6s; animation-name: fadeInUp;">
+                <app-inner-loading *ngIf="isLoading" [justSpinner]="true" [marginTo]="false"></app-inner-loading>
+
+                <h2 class="text-center text-white mb-3">Bank Details</h2>
+
+                <div class="cusCard">
+                    <div>
+                        <div *ngIf="success" class="alert alert-success">
+                            {{ success }}
+                        </div>
+                        <div *ngIf="error" class="alert alert-danger">
+                            {{ error }}
+                        </div>
+
+                        <div class="">
+                            <form [formGroup]="form" (ngSubmit)="submit()">
+                                <input type="hidden" class="form-control" readonly formControlName="loginID">
+                                <input type="hidden" readonly formControlName="bankID" class="form-control">
+
+                                <div class="form-group mt-3">
+                                    <label>Account Name</label>
+                                    <input class="readonly form-control" formControlName="account_name" id="account_name" placeholder="Account Name" type="text">
+
+                                    <div *ngIf="account_name.touched && !account_name.valid" class="mt-2 errorMessage alert alert-danger">Acount name is required</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Account Number</label>
+                                    <input class="readonly form-control" formControlName="account_number" id="account_number" placeholder="Account Number" (keydown)="allowNum($event)" type="text">
+
+                                    <div *ngIf="account_number.touched && !account_number.valid" class="mt-2 errorMessage alert alert-danger">Account number is required</div>
+                                </div>
+
+                                <div *ngIf="banks?.length > 0" class="form-group mt-4">
+                                    <div class="form-group">
+                                        <label>Bank Name</label>
+                                        <select class="form-control" formControlName="bank">
+												<option 
+													*ngFor="let bank of banks"
+													value="{{bank.name}}"
+												>{{bank.name}}</option>
+											</select>
+
+                                        <div *ngIf="bank?.touched && !bank?.valid" class="mt-2 errorMessage alert alert-danger">Bank name is required</div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="banks?.length < 1" class="form-group mt-4">
+                                    <div class="form-group">
+                                        <label>Bank Name</label>
+                                        <input class="readonly form-control" formControlName="bank" id="bank" placeholder="Bank Name" type="text">
+
+                                        <div *ngIf="bank.touched && !bank.valid" class="mt-2 errorMessage alert alert-danger">Bank name is required</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Account Type</label>
+                                    <input class="readonly form-control" formControlName="account_type" id="account_type" placeholder="Account Type" type="text">
+
+                                    <div *ngIf="account_type.touched && !account_type.valid" class="mt-2 errorMessage alert alert-danger">
+                                        Account type name is required</div>
+                                </div>
+
+                                <div class="form-group text-center mt-4">
+                                    <button *ngIf="!isSubmitting" type="submit" [disabled]="!form.valid" class="btn bg-primary text-white btn-block">UPDATE</button>
+                                    <app-inner-loading *ngIf="isSubmitting" [name]="'UPDATING...'" [class]="'btn bg-primary text-white btn-block'"></app-inner-loading>
+                                    <br><br>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

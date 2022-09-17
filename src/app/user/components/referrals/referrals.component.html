@@ -1,0 +1,163 @@
+<div class="all-wrapper">
+
+    <app-user-header></app-user-header>
+
+    <div id="main" class="main-wrapper">
+        <!-- <div class="userBreadcrumb d-flex justify-content-between align-items-center">
+            <h2>Hi Prince254, welcome back!</h2>
+            <div class="rightSide">
+                <span>Wallet Balance</span>
+                <span class="balance">KES 1200</span>
+            </div>
+        </div> -->
+
+        <div class="referralParent mt-5 mr-b150">
+            <app-inner-loading *ngIf="isLoading" [justSpinner]="true" [marginTo]="false"></app-inner-loading>
+            <div class="row mb-4">
+                <div [class.col-xl-8]="auth?.referral" [class.col-lg-7]="auth?.referral" [class.col-xl-12]="!auth?.referral">
+                    <div *ngIf="auth?.login_id" class="cusCard referralLinkCont">
+                        <h4>REFERRAL LINK</h4>
+                        <input class="form-control" #lnk type="text" readonly value="{{settings?.url + '/ref/' + auth?.username}}">
+                        <div class="copyBtnCont d-flex justify-content-end">
+                            <button class="btn btn-info" #btn (click)="copyRefLink(lnk, btn)">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="auth?.referral" class="col-xl-4 col-lg-5">
+                    <div class="cusCard pt-1">
+                        <div class="text-white mb-2">YOU WERE REFERRED BY:</div>
+                        <div>
+                            <p class="text-white">Name: <span class="float-right">{{refInfo?.first_name | titlecase}} {{refInfo?.last_name | titlecase}}</span></p>
+                            <p class="text-white">Username: <span class="float-right">{{refInfo?.username | titlecase}}</span></p>
+                            <p class="text-white">Email: <span class="float-right">{{refInfo?.email}}</span></p>
+                            <p class="text-white">Phone: <span class="float-right">{{refInfo?.phone}}</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="rank" class="col-xl-4">
+                    <div class="rank">
+                        You've be Ranked as <span>{{rank}}</span>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- <div class="row mb-4">
+                <div class="col-xl-4 col-lg-6 px-cus-2">
+                    <div class="gridItem accountBal">
+                        <h6>Total Earned</h6>
+                        <div class="priceInfo d-flex justify-content-between align-items-center">
+                            <div><span innerHTML="{{currency?.symbol}}"></span> {{earnings | number}}</div>
+                            <i class="fas fa-arrow-circle-up"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 px-cus-2">
+                    <div class="gridItem refBonus">
+                        <h6>Withdrawn</h6>
+                        <div class="priceInfo d-flex justify-content-between align-items-center">
+                            <div><span innerHTML="{{currency?.symbol}}"></span> {{withdrawn |number}}</div>
+                            <i class="fas fa-arrow-circle-down"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 px-cus-2">
+                    <div class="gridItem deposit">
+                        <h6>Available</h6>
+                        <div class="priceInfo d-flex justify-content-between align-items-center">
+                            <div><span innerHTML="{{currency?.symbol}}"></span> {{balance |number}}</div>
+                            <i class="fas fa-arrow-circle-left"></i>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="row mb-4">
+                <div class="col-lg-4">
+                    <div class="gridItem cusCard">
+                        <div class="iconCont bg-primary-transparent">
+                            <i class="icon-layers text-primary"></i>
+                        </div>
+                        <div class="priceInfo">
+                            <h6>Total Earned</h6>
+                            <b><span [innerHTML]="currency?.symbol"></span>{{earnings | number}}</b>
+                            <div class="text-muted"><i class="text-success si si-arrow-up-circle"></i> increase</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="gridItem cusCard">
+                        <div class="iconCont bg-danger-transparent">
+                            <i class="icon-basket text-danger"></i>
+                        </div>
+                        <div class="priceInfo">
+                            <h6>Withdrawn</h6>
+                            <b><span [innerHTML]="currency?.symbol"></span>{{withdrawn | number}}</b>
+                            <div class="text-muted"><i class="text-success si si-arrow-down-circle"></i> increase</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="gridItem cusCard">
+                        <div class="iconCont bg-success-transparent">
+                            <i class="icon-wallet text-success"></i>
+                        </div>
+                        <div class="priceInfo">
+                            <h6>Available</h6>
+                            <b><span [innerHTML]="currency?.symbol"></span>{{balance | number}}</b>
+                            <div class="text-muted"><i class="text-success si si-arrow-up-circle"></i> increase</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- *ngIf="balance >= config?.min_invest_amount" -->
+            <div class="btnContainer mb-4 d-flex justify-content-center align-content-center align-items-center">
+                <span class="mr-3">You have an Available balance of <span
+                    [innerHTML]="currency?.symbol"></span>{{balance}}</span>
+                <button *ngIf="balance >= config?.min_invest_amount" (click)="withdraw()" class="btn btn-info">Withdraw</button>
+                <button *ngIf="!(balance >= config.min_invest_amount)" disabled class="btn btn-info">Withdraw</button>
+            </div>
+            <div class="downlineCont cusCard">
+                <h5 class="heading">
+                    MY REFERRAL DOWNLINES
+                </h5>
+                <div *ngFor="let ref of referralList; let i = index;" class="referralLevel">
+                    <h6 class="refLevelHeading bg-primary mb-0" (click)="toggleH.open = (toggleH.owner == i ? !toggleH.open : true); toggleH.owner = i">
+                        Referral Level <span>{{i + 1}}</span></h6>
+                    <div class="heightToggle" [style.height.px]="toggleH.open && toggleH.owner == i ? heightList[i] : 0">
+                        <div class="actHeight">
+                            <table *ngIf="ref?.list?.length > 0">
+                                <thead>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Signup Date</th>
+                                    <th>Status</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of ref?.list;">
+                                        <td>{{user?.first_name}}</td>
+                                        <td>{{user?.last_name}}</td>
+                                        <td>{{user?.email}}</td>
+                                        <td>{{user?.created_at | date}}</td>
+                                        <td>
+                                            <span [class.badge-success]="user.status === 'Active'" [class.badge-warning]="user.status === 'Pending'" [class.badge-danger]="user.status === 'Suspended'" [class.badge-danger]="user.status === 'Blocked'" class="badge">{{user?.status}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div *ngIf="ref?.list?.length < 1" class="emptyOrderText">
+                                <span>No record</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid infoParent"></div>
+    </div>
+</div>

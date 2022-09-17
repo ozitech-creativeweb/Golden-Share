@@ -1,0 +1,175 @@
+@import "../../../../theme/colors";
+.infoParent {
+    padding: 60px 30px 50px;
+}
+
+.receiverInfoParent,
+.paymentInstructionParent,
+.emptyOrder {
+    background: #f5f5f5;
+    color: #000;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.card-body {
+    height: 360px;
+}
+
+.receiverInfoCont,
+.paymentInstructionCont,
+.emptyOrder {
+    padding: 20px;
+}
+
+.heading {
+    background: $primary;
+    color: #fff;
+}
+
+// .postBtn {
+//     background: $primary;
+//     color: #fff;
+//     padding: 10px;
+//     border-radius: 5px;
+//     border: none;
+// }
+.imgContainer {
+    height: 90px;
+    width: 90px;
+    border-radius: 100%;
+    margin-bottom: 20px;
+}
+
+.infoItem {
+    padding: 10px 0;
+    border-top: 1px solid $primary;
+}
+
+// hr {
+//     border-color: #fff;
+// }
+.paymentInfo {
+    margin: 30px 0 0;
+}
+
+.remainingTime {
+    margin: 30px 0;
+}
+
+.scaleSmall {
+    display: inline-block;
+    margin-left: 10px;
+    width: 40%;
+    // transform: scale(0.6);
+}
+
+.cusChooseFile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    width: 50%;
+    background: #ffffff33;
+    border-radius: 50px;
+    height: fit-content;
+    padding-left: 20px;
+}
+
+.cusChooseFile span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.postBtn {
+    white-space: nowrap;
+}
+
+.emptyOrderText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 300px;
+}
+
+@media (max-width: 768px) {
+    .card-body {
+        height: fit-content !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .uploadPOPCont {
+        flex-direction: column;
+    }
+    .postBtn {
+        width: fit-content;
+    }
+    .cusChooseFile {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .infoParent {
+        padding: 30px 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    // .uploadPOPCont {
+    //     flex-direction: column;
+    // }
+    // .postBtn {
+    //     width: fit-content;
+    // }
+    .scaleSmall {
+        width: 100%;
+        margin-left: 0;
+    }
+    .paymentInstructionCont {
+        padding: 10px;
+    }
+    .infoParent {
+        padding: 30px 10px 50px;
+    }
+}
+
+.updateBank h4 {
+    font-weight: 400 !important;
+    margin-top: 5px !important;
+    color: #fff;
+    font-size: 18px;
+}
+
+.updateBank p {
+    color: #fff;
+}
+
+.alert-activation {
+    background: $secondary;
+    border: 3px solid $primary;
+    padding-bottom: 30px;
+}
+
+.card-header {
+    background: $secondary;
+    color: #fff;
+}
+
+.payment-history-area {
+    min-height: calc(100vh - (130px + 33px + 69px));
+    padding-top: 20px;
+}
+
+@media (max-width: 1000px) {
+    .payment-history-area {
+        min-height: calc(100vh - (87px + 33px + 104px));
+    }
+}
+
+@media (max-width: 700px) {
+    .payment-history-area {
+        min-height: calc(100vh - (60px + 33px + 123px));
+    }
+}

@@ -1,0 +1,216 @@
+<div class="all-wrapper">
+    <app-user-header></app-user-header>
+
+    <div id="main" class="main-wrapper">
+        <div class="userBreadcrumb d-flex justify-content-between align-items-center">
+            <h2>Hi {{auth?.username | titlecase}}, welcome back!</h2>
+            <!-- <div class="rightSide">
+                <span>Wallet Balance</span>
+                <span class="balance"><span innerHTML="{{currency?.symbol}}"></span> {{totalAmount | number}}</span>
+            </div> -->
+        </div>
+
+        <div class="dashboardParent px-cus-2 mr-b150">
+            <div *ngIf="isLoading" class="mb-3">
+                <app-inner-loading *ngIf="isLoading" [justSpinner]="true" [marginTo]="false"></app-inner-loading>
+            </div>
+            <div *ngIf="unreadNewsContent" class="notificationCont mb-4 bgWarning">
+                <div innerHTML="{{unreadNewsContent?.content | summary:380}}"></div>
+                <div class="dateCont pull-right">
+                    <span>{{unreadNewsContent?.created_at | date}}</span>
+                    <a routerLink="/user/news/{{unreadNewsContent?.id}}" class="postBtn">I understand</a>
+                </div>
+            </div>
+
+            <div *ngFor="let withdraw of mergedOrdersWithdraws" class="timerCont mb-4">
+                <div class="row align-items-center align-content-center">
+                    <div [class.col-lg-10]="!withdraw?.payee_timer" [class.col-lg-4]="withdraw?.payee_timer">
+                        <span *ngIf="!withdraw?.payee_timer" style="font-size: 18px;">
+                            <b>Congratulations!</b> You have received a donation
+                        </span>
+                        <span *ngIf="withdraw?.payee_timer" style="font-size: 18px;">
+                            The payer has uploaded POP, please approve this payment within this timer.  
+                        </span>
+                    </div>
+                    <div *ngIf="withdraw?.payee_timer" class="col-lg-6">
+                        <div *ngIf="withdraw?.payee_timer" class="widthControl">
+                            <app-count-down [countFrom]="countFrom(withdraw?.payee_timer)"></app-count-down>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <a routerLink="/user/incoming-orders/{{withdraw?.withdrawal_id}}" class="postBtn d-inline-block float-lg-right">
+                            Click to Confirm
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngFor="let order of mergedOrders" class="timerCont mb-4">
+                <div class="row align-items-center align-content-center">
+                    <div class="col-lg-4">
+                        Your new donation timer:
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="widthControl">
+                            <app-count-down [countFrom]="countFrom(order?.order_timer)"></app-count-down>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <a routerLink="/user/reserved-orders/{{order?.id}}" class="postBtn d-inline-block float-lg-right">Pay
+                            Now!</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row mb-4">
+                <div [class.col-lg-8]="rank" [class.col-lg-12]="!rank">
+                    <div *ngIf="auth?.login_id" class="referralLinkCont">
+                        <div class="referralLink">Referral Link: <code>{{settings?.url + '/ref/' + auth?.username}}</code>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="rank" class="col-lg-4">
+                    <div class="rank">
+                        You've be Ranked as <span>{{rank}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-xl-3 col-lg-6 px-cus-2">
+                    <div class="gridItem accountBal">
+                        <h6>Account Balance</h6>
+                        <div class="priceInfo d-flex justify-content-between align-items-center">
+                            <div><span innerHTML="{{currency?.symbol}}"></span> {{totalAmount | number}}</div>
+                            <i class="fas fa-arrow-circle-up"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 px-cus-2">
+                    <div class="gridItem refBonus">
+                        <h6>Referral Bonus</h6>
+                        <div class="priceInfo d-flex justify-content-between align-items-center">
+                            <div><span innerHTML="{{currency?.symbol}}"></span> {{refEarnings |number}}</div>
+                            <i class="fas fa-arrow-circle-down"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 px-cus-2">
+                    <div class="gridItem deposit">
+                        <h6>Deposits</h6>
+                        <div class="priceInfo d-flex justify-content-between align-items-center">
+                            <div><span innerHTML="{{currency?.symbol}}"></span> {{totalDonation |number}}</div>
+                            <i class="fas fa-arrow-circle-up"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 px-cus-2">
+                    <div class="gridItem withdrawals">
+                        <h6>Withdrawals</h6>
+                        <div class="priceInfo d-flex justify-content-between align-items-center">
+                            <div><span innerHTML="{{currency?.symbol}}"></span>{{totalWithdrawn |number}}</div>
+                            <i class="fas fa-arrow-circle-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 px-cus-2">
+                    <div class="helpGridItem">
+                        <div class="headingCont mb-3 d-flex justify-content-between align-items-center align-items-center align-content-center">
+                            <h4 class="mb-0">DONATIONS</h4>
+                            <a routerLink="/user/reserved-orders" class="postBtn postBtn-pri smallBtn">View All</a>
+                        </div>
+                        <div class="tableCont" style="min-height: 200px;">
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <th>id</th>
+                                        <th>Recipient</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tr *ngFor="let donation of donations">
+                                        <td>#{{donation?.id}}</td>
+                                        <td>{{donation?.first_name}} {{donation?.last_name}} </td>
+                                        <td><b [innerHTML]="currency?.symbol"></b> {{donation.amount| number}}</td>
+                                        <td>
+                                            <b [class.label-success]="donation.status === 1" [class.label-danger]="donation.status !== 1" class="label">
+                                            {{donation?.status === 1 ? 'Paired': 'Pairing'}}
+                                        </b>
+                                        </td>
+                                        <td>
+                                            <a routerLink="/user/reserved-orders/{{donation.id}}" class="eyeBtn">
+                                                <i class="si si-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p *ngIf="donations?.length < 1" class="mt-2">No record found</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 px-cus-2">
+                    <div class="helpGridItem">
+                        <div class="headingCont mb-3 d-flex justify-content-between align-items-center align-items-center align-content-center">
+                            <h4 class="mb-0">WITHDRAWALS</h4>
+                            <a routerLink="/user/incoming-orders" class="smallBtn">View All</a>
+                        </div>
+                        <div class="tableCont" style="min-height: 200px;">
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <th class="text-center">id</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tr *ngFor="let withdrawal of withdrawals">
+                                        <td class="text-center">#{{withdrawal?.id}}</td>
+                                        <td><b [innerHTML]="currency?.symbol"></b> {{withdrawal?.amount| number}}</td>
+                                        <td>
+                                            <span *ngIf="withdrawal.status === 'Paid'" class="label label-success">Paid</span>
+
+                                            <span *ngIf="withdrawal.status === 'Part'" class="label label-info">Part Payment</span>
+
+                                            <span *ngIf="withdrawal.status === 'Pending'" class="label label-warning">Pairing</span>
+                                        </td>
+                                        <td>
+                                            <a routerLink="/user/incoming-orders/{{withdrawal.id}}" class="eyeBtn">
+                                                <i class="si si-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <p *ngIf="withdrawals?.length < 1" class="mt-2">No record found</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div *ngIf="refInfo" class="row">
+                <div class="col-lg-6 px-cus-2">
+                    <div class="helpGridItem">
+                        <div class="headingCont mb-3 d-flex justify-content-between align-items-center align-items-center align-content-center">
+                            <h4 class="mb-0">You Were Referred By</h4>
+                        </div>
+                        <div>
+                            <p class="text-white">Name: {{refInfo?.first_name | titlecase}} {{refInfo?.last_name | titlecase}}</p>
+                            <p class="text-white">Username: {{refInfo?.username | titlecase}}</p>
+                            <p class="text-white">Email: {{refInfo?.email}}</p>
+                            <p class="text-white">Phone: {{refInfo?.phone}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

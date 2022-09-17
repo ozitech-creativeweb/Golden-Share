@@ -1,0 +1,101 @@
+<div class="all-wrapper">
+    <app-user-header></app-user-header>
+
+    <div class="main-wrapper">
+        <div class="bodyContainer">
+            <div class="page-area">
+                <div class="breadcumb-overlay"></div>
+            </div>
+
+            <div class="container mt-lg-5">
+                <div *ngIf="successResend" class="alert alert-success">
+                    {{ successResend }}
+                </div>
+                <div class="alert alert-danger mb-5">
+                    <h2>Phone Verification!</h2>
+                    <h5>A verification code was sent to your Phone Number on signup, please use the code for verification below.</h5>
+                    <hr>
+
+                    <form [formGroup]="resendForm" (ngSubmit)="submitLink()" class="mb-5">
+                        <button *ngIf="!isLoading2" type="submit" class="btn btn-primary float-right">RESEND</button>
+                        <button *ngIf="isLoading2" class="btn btn-primary float-right" type="button" disabled>
+							<span class="spinner-border spinner-border-sm" 
+							role="status" aria-hidden="true"></span>
+							RESENDING...
+						</button>
+                        <span class="float-right pt-2 pr-3">Didn't receive the Code on your phone?</span>
+                    </form>
+                </div>
+
+                <p class="mt-4 mb-4 text-center">OR</p>
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div *ngIf="success" class="alert alert-success">
+                            <b>Success!</b> Phone verified successfully.
+                        </div>
+                        <div *ngIf="failed" class="alert alert-danger">
+                            <b>Oops!</b> Verification failed, please try it again.
+                        </div>
+                        <div class="card card-header">
+                            <p>Phone Verification </p>
+                            <form [formGroup]="verifyForm" (ngSubmit)="verifyCode()">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" formControlName="code" placeholder="Enter Code here">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="text-left pt-1">
+                                            <button *ngIf="!verifying" type="submit" class="btn btn-primary" [disabled]="!verifyForm.valid">VERIFY NOW</button>
+
+                                            <button *ngIf="verifying" class="btn btn-primary" type="button" disabled>
+                                                <span class="spinner-border spinner-border-sm" 
+                                                role="status" aria-hidden="true"></span>
+                                                VERIFYING...
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xl-6">
+                        <div *ngIf="successChange" class="alert alert-success">
+                            {{ successChange }}
+                        </div>
+                        <div class="card card-header">
+                            <p>Change Phone Number</p>
+                            <form [formGroup]="form" (ngSubmit)="submit()">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" (keydown)="allowNum($event)" formControlName="phone">
+                                            <div *ngIf="phone.touched && !phone.valid" class="mt-2 errorMessage alert alert-danger">Your phone Number is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="text-left pt-1">
+                                            <button *ngIf="!isLoading" type="submit" class="btn btn-primary" [disabled]="!form.valid">SUBMIT</button>
+                                            <button *ngIf="isLoading" class="btn btn-primary" type="button" disabled>
+                                                <span class="spinner-border spinner-border-sm" 
+                                                role="status" aria-hidden="true"></span>
+                                                CHANGING...
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>

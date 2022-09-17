@@ -1,0 +1,98 @@
+<div class="all-wrapper">
+    <app-user-header></app-user-header>
+
+    <div class="main-wrapper">
+        <div class="bodyContainer">
+            <div class="page-area">
+                <div class="breadcumb-overlay"></div>
+            </div>
+            <!-- End breadcumb Area -->
+
+            <!-- activation payment -->
+            <div class="container">
+                <div class="alert alert-activation updateBank" style="margin-top: 60px;">
+                    <h1 style="color: #CCC; text-align: center; padding-top: 5px;">
+                        Account Activation
+                    </h1>
+                    <hr>
+                    <div class="row mt-2">
+                        <div class="col-xl-6 col-lg-6 mt-2">
+                            <h4>Pay activation fee of <span [innerHTML]="currency.symbol"></span>{{config?.activation_fee | number}} to the account below:</h4>
+                            <div class="mt-3">
+                                <p *ngIf="uplineInfo?.account_name && config?.activation_fee_receiver === 'Upline'">
+                                    Account Name: <b class="ml-2">{{uplineInfo?.account_name}}</b><br> 
+                                    Account Number: <b class="ml-2">{{uplineInfo?.account_number}}</b><br> 
+                                    Account Type: <b class="ml-2">{{uplineInfo?.account_type}}</b><br> 
+                                    Bank Name: <b class="ml-2">{{uplineInfo?.bank}}</b><br> 
+                                    Phone Number: <b class="ml-2">{{uplineInfo?.phone}}</b>
+                                </p>
+                                <p *ngIf="!uplineInfo?.account_name || config?.activation_fee_receiver !== 'Upline'">
+                                    Account Name: <b class="ml-2">{{config?.account_name}}</b><br> 
+                                    Account Number: <b class="ml-2">{{config?.account_number}}</b><br> 
+                                    Bank Name: <b class="ml-2">{{config?.bank_name}}</b>
+                                </p>
+                                <div *ngIf="auth?.activation_pop === 1 || auth?.activation === '1'">
+                                    <span class="text-success">
+										Payment confirmed 
+										<a target="_blank" href="{{auth?.activation_pop}}">View POP</a>
+									</span><br>
+                                    <span *ngIf="auth?.activation_pop_confirm_date" class="text-success">
+										Date confirmed: {{auth?.activation_pop_confirm_date | date}}
+									</span>
+                                </div>
+                                <div *ngIf="auth?.activation_pop">
+                                    <span class="text-danger">
+										POP Uploaded:  
+										<a target="_blank" href="{{auth?.activation_pop}}">View POP</a>
+									</span><br>
+                                    <span *ngIf="auth?.activation_pop_date" class="text-danger">
+										Date Uploaded: {{auth?.activation_pop_date | date}}
+									</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 mt-2">
+                            <div *ngIf="successUpdate" class="alert alert-success">
+                                {{ successUpdate }}
+                            </div>
+                            <div *ngIf="auth?.activation_pop" class="alert alert-warning">
+                                <b>POP Uploaded!</b> Awaiting admin confirmation, please refresh the page after some minutes.
+                            </div>
+                            <h4>Please upload prove of your payment here</h4>
+                            <form [formGroup]="form" (ngSubmit)="submit()" class="mt-2">
+                                <input type="hidden" class="form-control" formControlName="loginID">
+                                <div class="form-group">
+                                    <div *ngIf="uploadErr && uploadRole === 'pop'" class="alert alert-danger mt-2">
+                                        {{uploadErr}}
+                                    </div>
+                                    <div *ngIf="uploadProgress > 0 && uploadRole === 'pop'" class="progress" style="margin-bottom: 10px;">
+                                        <span class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"> 
+											Uploading...{{ uploadProgress }}%
+										</span>
+                                    </div>
+                                    <input type="tex" formControlName="pop" id="leftBanner" class="form-control" hidden>
+
+                                    <div class="custom-file">
+                                        <input type="file" id="leftBanner" class="form-control" (change)="addLeftBanner($event, 'pop')">
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 text-center">
+                                    <button *ngIf="!isLoading" type="submit" class="btn btn-primary btn-sm" [disabled]="pop?.value?.length < 1">UPLOAD</button>
+                                    <button *ngIf="isLoading" class="btn btn-primary btn-block" type="button" disabled>
+										<span class="spinner-border spinner-border-sm" 
+										role="status" aria-hidden="true"></span>
+										UPLOADING...
+									</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br><br><br><br>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>

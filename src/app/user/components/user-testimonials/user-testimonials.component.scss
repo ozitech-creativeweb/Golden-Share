@@ -1,0 +1,21 @@
+@import '../../../../theme/colors';
+
+.register{
+    background: $formControlBg;
+    padding: 70px 0px;
+}
+.register h3{
+    font-weight: 550;
+}
+.each-testimony{
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+.each-testimony p{
+    text-align: justify;
+}
+.edit-btn{
+    padding: 4px 3px 4px 5px;
+    border-radius: 5px;
+}

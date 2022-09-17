@@ -1,0 +1,58 @@
+@import "../../../../theme/user_style.scss";
+@import '../donation-order/donation-order.component.scss';
+.updateBank h4 {
+    font-weight: 400 !important;
+    margin-top: 5px !important;
+    color: #fff;
+    font-size: 18px;
+}
+
+.updateBank p {
+    color: #fff;
+}
+
+.mt-4 {
+    margin-top: 20px;
+}
+
+.card-header {
+    padding: 10px 15px;
+}
+
+.alert-activation {
+    background: $secondary;
+    border: 3px solid $primary;
+    padding-bottom: 30px;
+}
+
+.py-3 {
+    padding: 10px 0;
+}
+
+.card-body {
+    padding: 20px 0;
+}
+
+.payment-history-area {
+    min-height: calc(100vh - (130px + 33px + 69px));
+}
+
+@media (max-width: 1000px) {
+    .payment-history-area {
+        min-height: calc(100vh - (87px + 33px + 104px));
+    }
+}
+
+@media (max-width: 700px) {
+    .payment-history-area {
+        min-height: calc(100vh - (60px + 33px + 123px));
+    }
+}
+
+.dark-body {
+    background: $fadeDark;
+}
+
+.id {
+    font-size: 30px;
+}

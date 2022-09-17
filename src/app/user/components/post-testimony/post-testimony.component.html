@@ -1,0 +1,70 @@
+<div class="all-wrapper">
+
+    <app-user-header></app-user-header>
+
+    <div class="bodyContainer">
+        <div class="page-area">
+            <div class="breadcumb-overlay"></div>
+        </div>
+        <!-- End breadcumb Area -->
+
+
+        <div class="register">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3"></div>
+                    <div class="col-xl-6">
+                        <div class="card card-body">
+                            <h3 class="text-center mb-5">Post Testimony</h3>
+
+                            <!-- <div *ngIf="error" class="alert alert-danger">
+                                {{ error }}
+                            </div> -->
+
+                            <div *ngIf="successPost" class="alert alert-success">
+                                {{ successPost }}
+                            </div>
+
+                            <form [formGroup]="form" (ngSubmit)="submit()">
+                                <div class="form-group">
+                                    <label for="testimony">For</label>
+                                    <select formControlName="order_id" id="order_id" class="form-control">
+                                        <option [ngValue]="null || ''">--select--</option>
+                                        <option 
+                                            *ngFor="let order of withdrawals"
+                                            value="{{order.id}}"
+                                        ><span [innerHTML]="currency?.symbol"></span> {{order.amount}} => {{order.date_paid | date}}</option>
+                                    </select>
+                                    <div *ngIf="order_id?.touched && !order_id?.valid" class="mt-2 errorMessage alert alert-danger">
+                                        Please select withdrawal you want to write testimony
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="testimony">Write Testimony</label>
+                                    <textarea class="form-control" rows="6" formControlName="testimony" id="testimony"></textarea>
+                                    <div *ngIf="testimony.touched && !testimony.valid" class="mt-2 errorMessage alert alert-danger">Testimony field is required</div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <button *ngIf="!isLoading" type="submit" class="btn btn-primary btn-block">POST Testimony</button>
+                                    <button *ngIf="isLoading" class="btn btn-primary btn-block" type="button" disabled>
+										<span class="spinner-border spinner-border-sm" 
+										role="status" aria-hidden="true"></span>
+										SUBMITTING...
+									</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <app-footer></app-footer>
+    </div>
+
+
+
+</div>

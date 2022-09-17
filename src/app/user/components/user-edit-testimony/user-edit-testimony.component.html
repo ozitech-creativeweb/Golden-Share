@@ -1,0 +1,63 @@
+<div class="all-wrapper">
+
+    <app-user-header></app-user-header>
+
+    <div class="bodyContainer">
+        <div class="page-area">
+            <div class="breadcumb-overlay"></div>
+        </div>
+        <!-- End breadcumb Area -->
+
+
+        <div class="register">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3"></div>
+                    <div class="col-xl-6">
+                        <div class="text-center mb-4">
+                            <a class="btn btn-primary" routerLink="/user/testimonials">Testimonial Manager</a>
+                        </div>
+                        <div class="card card-body">
+                            <h3 class="text-center mb-5">Edit Testimony</h3>
+
+                            <!-- <div *ngIf="error" class="alert alert-danger">
+                                {{ error }}
+                            </div> -->
+
+                            <div *ngIf="successPost" class="alert alert-success">
+                                {{ successPost }}
+                            </div>
+
+                            <form [formGroup]="form" (ngSubmit)="submit()">
+                                <input type="hidden" formControlName="loginID" class="form-control">
+                                <input type="hidden" formControlName="testID" class="form-control">
+
+
+                                <div class="form-group">
+                                    <label for="testimony">Testimony</label>
+                                    <textarea class="form-control" rows="6" formControlName="testimony" id="testimony"></textarea>
+                                    <div *ngIf="testimony.touched && !testimony.valid" class="mt-2 errorMessage alert alert-danger">Testimony field is required</div>
+                                </div>
+
+                                <div class="mt-4">
+                                    <button *ngIf="!isLoading" type="submit" class="btn btn-primary btn-block">UPDATE Testimony</button>
+                                    <button *ngIf="isLoading" class="btn btn-primary btn-block" type="button" disabled>
+										<span class="spinner-border spinner-border-sm" 
+										role="status" aria-hidden="true"></span>
+										UPDATING Testimony...
+									</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <app-footer></app-footer>
+    </div>
+
+
+
+</div>

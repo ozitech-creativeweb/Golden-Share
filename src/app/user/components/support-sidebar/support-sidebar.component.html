@@ -1,0 +1,14 @@
+<div class="chat-contact-list">
+    <app-inner-loading *ngIf="isLoading" [justSpinner]="true" [marginTo]="false"></app-inner-loading>
+    <div class="list-group">
+        <a *ngFor="let support of supports" href="/user/support/{{support?.id}}/{{cleanUrl(support?.title)}}" class="list-group-item list-group-item-action">
+            <div class="media chat-user-detail">
+                <img src="assets/images/user/profile-default.png" alt="{{support?.first_name + ' ' + support?.last_name}}" class="rounded-circle mr-2 mt-2">
+                <div class="media-body">
+                    <h4 class="mb-0">{{support?.title}}</h4>
+                    <p>{{support?.first_name}} {{support?.last_name}} <span>{{support?.created_at | date}}</span></p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="all-wrapper">
+    <app-user-header></app-user-header>
+
+    <div id="main" class="main-wrapper">
+
+        <section class="pb-3">
+            <div class="container-fluid">
+                <div class="user-breadcrum">
+                    <h4>Auctions</h4>
+                    <ul class="m-0 list-inline">
+                        <li class="list-inline-item"><a routerLink="/user/dashboard"><i class="fa fa-home"></i></a></li>
+                        <li class="list-inline-item">/</li>
+                        <li class="list-inline-item">Auctions</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="container-fluid">
+            <app-inner-loading *ngIf="isLoading" [justSpinner]="true" [marginTo]="false"></app-inner-loading>
+            <div class="notificationCont mb-4">
+                <h3>{{newsDetails?.title}}</h3>
+                <div [innerHTML]="newsDetails?.content"></div>
+                <div class="dateCont float-right">
+                    <i>Posted on:</i><span> {{newsDetails?.created_at | date}}</span>
+                </div>
+            </div>
+        </div>
+
+        <app-footer></app-footer>
+    </div>
+
+</div>
+
+            

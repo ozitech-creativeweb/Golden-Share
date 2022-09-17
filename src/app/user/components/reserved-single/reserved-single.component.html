@@ -1,0 +1,115 @@
+<div class="all-wrapper">
+    <app-user-header></app-user-header>
+
+    <div id="main" class="main-wrapper">
+
+        <div class="payment-history-area mt-5 mr-b150">
+            <div class="container-fluid">
+                <app-inner-loading *ngIf="isLoading" [justSpinner]="true" [marginTo]="false"></app-inner-loading>
+
+                <div *ngIf="order" class="row">
+                    <div class="col-lg-4">
+                        <div class="cusCard p-0">
+                            <div class="card-header p-3">
+                                RECEIVER INFO
+                            </div>
+                            <div class="p-3 text-muted">
+                                <div class="py-3">
+                                    <img *ngIf="!order?.photo" src="assets/images/user/profile-default.png" alt="name here" style="width: 110px;">
+                                    <img *ngIf="order?.photo" src="{{order?.photo}}" alt="name here" style="width: 110px;">
+                                </div>
+                                <!-- <p>
+                                    Account Name: <b>{{order?.account_name}}</b><br> Account Number: <b>{{order?.account_number}}</b><br> Account Type: <b>{{order?.account_type}}</b><br> Bank Name: <b>{{order?.bank}}</b><br>
+                                </p> -->
+                                <div class="infoItem">
+                                    Account Name: <b>{{order?.account_name}}</b>
+                                </div>
+                                <div class="infoItem">
+                                    Account Number: <b>{{order?.account_number}}</b>
+                                </div>
+                                <div class="infoItem">
+                                    Account Type: <b>{{order?.account_type}}</b>
+                                </div>
+                                <div class="infoItem">
+                                    Name of Bank: <b>{{order?.bank}}</b>
+                                </div>
+                                <div class="infoItem">
+                                    Tel: <b>{{order?.phone}}</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div class="cusCard p-0">
+                            <div class="card-header p-3">
+                                PAYMENT INSTRUCTIONS
+                            </div>
+                            <div class="p-3 text-muted">
+                                <h4>Transaction ID: <span class="id">#{{order?.id}}</span></h4>
+                                <p>
+                                    Amount: <b> <b [innerHTML]="currency?.symbol"></b> {{order?.amount | number}}</b><br> Date Merged: <b>{{order?.created_at | date}}</b><br> Status: <b *ngIf="order?.status === 1" class="text-success">Paid</b>
+                                    <b *ngIf="order?.status !== 1" class="text-danger">Unpaid</b>
+                                </p>
+                                <!-- <p *ngIf="order?.status !== 1"> -->
+                                <div *ngIf="order?.status !== 1" class="remainingTime ">
+                                    <b>Remaining Time:</b>
+                                    <div class="scaleSmall">
+                                        <app-count-down [countFrom]="timerVal(order?.order_timer)"></app-count-down>
+                                    </div>
+                                </div>
+                                <!-- <b class="text-danger">
+                                        {{order?.order_timer}}
+                                    </b> -->
+                                <!-- </p> -->
+                                <p>
+                                    <span [innerHTML]="config?.merged_payee_instruction"></span>
+                                </p>
+
+
+                                <input type="file" id="edit-pro-pix" style="display: none;" (change)="onSelectedFile($event, order?.id)" #fileInput>
+                                <button *ngIf="order?.status !== 1 && uploadingProgress < 1" class="btn bg-primary text-white" (click)="fileInput.click()">Upload & submit
+                                    POP</button>
+
+                                <app-inner-loading *ngIf="uploadingProgress > 0" [name]="'Uploading POP...'" [class]="'btn bg-primary text-white'"></app-inner-loading>
+
+                                <p *ngIf="order?.status !== 1 || order?.pop">
+                                    <a *ngIf="order?.pop" target="_blank" href="{{order?.pop}}">
+                                        View POP
+                                    </a><br>
+                                    <span *ngIf="order?.pop_date">
+                                        Date Uploaded: <b>{{order?.pop_date | date}}</b>
+                                    </span><br>
+                                    <span *ngIf="order?.date_paid">
+                                        Date Confirmed: <b>{{order?.date_paid | date}}</b>
+                                    </span>
+                                </p>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <!-- <hr> -->
+                    </div>
+                </div>
+                <div *ngIf="!order && !isLoading" class="row mt-5">
+                    <div class="col-md-12">
+                        <div class="cusCard p-0">
+                            <div class="p-3">
+                                MERGED ORDER
+                            </div>
+
+                            <div class="text-center d-flex justify-content-center align-content-center align-items-center" style="min-height: 200px;">
+                                <span>No merge order</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End payment-history area -->
+
+    </div>
+
+
+</div>
