@@ -1,0 +1,191 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle" />
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+    <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+    <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+    <div id="adminWrapper">
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-3">
+                        <app-withdrawal-manager-menu></app-withdrawal-manager-menu>
+                    </div>
+
+                    <div class="col-xl-10 col-lg-10 col-md-9">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item">
+                                                <a routerLink="/{{adminUrl}}">
+													Dashboard
+												</a>
+                                            </li>
+                                            <li class="breadcrumb-item active">
+                                                <span>
+													{{status | titlecase }} Auctions
+												</span>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">
+                                        <span>
+											<!-- <b>{{withdrawalsCounty | number}}</b> {{status | titlecase }} Auctions -->
+										</span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="donations">
+                            <div class="card card-body">
+                                <div *ngIf="isRootAdmin" class="row mb-5">
+                                    <div class="col-lg-10">
+                                        <button (click)="switchList('On')" class="btn btn-success btn-sm mr-2"> Turn Auction ON</button>
+                                        <button (click)="switchList('Off')" class="btn btn-danger btn-sm"> Turn Auction OFF</button>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <button class="btn btn-primary btn-block" (click)="open(content)">+ Add to List</button>
+                                    </div>
+                                </div>
+
+
+                                <div class="searchUser">
+                                    <div class="row mb-5">
+                                        <div class="col-xl-2"></div>
+                                        <div class="col-xl-8 seachTable">
+                                            <!-- <form [formGroup]="formTable" (ngSubmit)="submitTable()">
+                                                <div class="input-group" style="z-index: 0;">
+                                                    <input type="number" class="form-control tableInput" placeholder="Search by Acution ID" formControlName="searchkeywords">
+                                                    <div class="input-group-append">
+                                                        <button *ngIf="!isTableSearch" class="btn btn-primary serchBtn" [disabled]="!formTable.valid" type="submit">Search</button>
+                                                        <button *ngIf="isTableSearch" class="btn btn-primary serchBtn" type="button" disabled><i class="fa fa-spinner fa-spin"></i></button>
+                                                        <button class="btn btn-danger resetBtn" type="reset" (click)="resetAll()">Reset</button>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="searchkeywords.touched && !searchkeywords.valid">
+                                                    <p class="mb-0 text-danger">Oops! The input field is required</p>
+                                                </div>
+
+
+                                            </form> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Amount</th>
+                                                <th>Withdrawn</th>
+                                                <th>Bank</th>
+                                                <th>Balance</th>
+                                                <th style="width: 80px;">Auction</th>
+                                                <th>Mature Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="withdrawals && withdrawals.length > 0">
+                                            <tr *ngFor="let withdraw of withdrawals">
+                                                <td> #{{withdraw?.id}}</td>
+                                                <td><span [innerHTML]="currency?.symbol"></span>{{withdraw?.amount | number}}</td>
+                                                <td><span [innerHTML]="currency?.symbol"></span>{{withdraw?.withdrawn | number}}</td>
+                                                <td>{{withdraw?.bank}}</td>
+                                                <td><span [innerHTML]="currency?.symbol"></span>{{withdraw?.balance | number}}</td>
+
+                                                <td>
+                                                    <span class="label mr-1" [class.label-success]="withdraw?.is_on === 'On'" [class.label-danger]="withdraw?.is_on === 'Off'">{{withdraw?.is_on}} </span>
+                                                    <span *ngIf="withdraw?.is_on === 'On'" (click)="turnOff(withdraw?.id)" class="getCuror badge badge-danger">Turn Off</span>
+                                                    <span *ngIf="withdraw?.is_on === 'Off'" (click)="turnOn(withdraw?.id)" class="getCuror badge badge-info">Turn On</span>
+                                                </td>
+
+
+                                                <td>{{withdraw?.matured_date | date}}</td>
+                                                <td>
+                                                    <button class="btn btn-danger delBtn btn-sm ml-2" (click)="deleteWithdrawal(withdraw?.id)"><i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody *ngIf="withdrawals && withdrawals.length < 1">
+                                            <tr class="text-center">
+                                                <td colspan="8">No Withdrawal Available</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="text-center mt-5">
+                                    <button *ngIf="withdrawalsCounty > 0 && !isLoadMore" (click)="loadMore()" [disabled]="withdrawalsCounty <= withdrawals.length" class="btn btn-primary">Load more</button>
+
+                                    <app-inner-loading *ngIf="isLoadMore" [name]="'Loading'" [class]="'btn btn-primary'"></app-inner-loading>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <ng-template #content let-modal style="display: block;">
+                            <div class="modal-header customModalHead">
+                                <h4 class="modal-title" id="modal-basic-title">Active Users</h4>
+                                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+									<span aria-hidden="true">&times;</span>
+								</button>
+                            </div>
+                            <div class="modal-body">
+                                <form [formGroup]="form" (ngSubmit)="submit()">
+                                    <div class="form-group">
+                                        <label>Search User</label>
+                                        <!-- <select class="form-control custom-select" formControlName="loginID">
+											<option hidden>---Select User---</option>
+											<option 
+												*ngFor="let user of customers" 
+												value="{{user?.login_id}}"
+											>{{user?.email}}</option>
+										</select> -->
+                                        <div class="d-flex cusInputGroup">
+                                            <input class="form-control flex-grow-1" #inp (keyup)="checkClose(inp)" placeholder="Search by name or email">
+                                            <button *ngIf="!searching" class="btn btn-primary" type="button" (click)="searchUsers(inp)"><i class="fa fa-search"></i></button>
+                                            <app-inner-loading *ngIf="searching" [class]="'btn btn-primary'"></app-inner-loading>
+                                            <div class="cusDropdown">
+                                                <div *ngFor="let user of customers" class="dropItem" (click)="setId($event.target.innerHTML, user?.login_id, inp)">{{user?.email}}</div>
+                                                <div *ngIf="noResult" class="dropItem notfound">No result found</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="amount">Amount</label>
+                                        <input type="text" class="form-control" id="amount" formControlName="amount">
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary mr-4">Add to Withdrawal</button>
+                                        <button type="button" class="btn btn-danger btnDanger ml-4" (click)="modal.close('Save click')">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </ng-template>
+
+
+                        <app-admin-footer></app-admin-footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

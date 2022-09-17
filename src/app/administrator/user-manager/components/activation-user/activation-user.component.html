@@ -1,0 +1,133 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-user-manager-menu></app-user-manager-menu>
+					</div>
+
+					<div class="col-12">
+						<div class="page-title-box">
+							<div class="page-title-right">
+								<ol class="breadcrumb m-0">
+									<li class="breadcrumb-item">
+										<a routerLink="/{{adminUrl}}">
+											Dashboard
+										</a>
+									</li>
+									<li class="breadcrumb-item">
+										<a routerLink="/{{adminUrl}}/user-manager">
+											User Manager
+										</a>
+									</li>
+								</ol>
+							</div>
+							<h4 class="page-title">All Users</h4>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xl-2 col-lg-2 col-md-3">
+						<app-user-manager-menu></app-user-manager-menu>
+					</div>
+					
+					<div class="custmDisplay col-xl-10">
+						<div class="row">
+							<div class="col-lg-9 col-md-6">
+								<div class="mt-1">									
+									(<b>{{activeUsers && activeUsers.length}}</b>)
+								</div>
+							</div>
+							<!-- <div class="col-lg-3"></div> -->
+							<div class="col-lg-3 col-md-6">
+								<div class="text-right">
+									<input type="text" placeholder="Search..." class="form-control">
+								</div>
+							</div>
+						</div>
+
+						<section class="user-list mt-4">
+							<div class="card">
+								<div class="card-header">
+																	
+								</div>
+								<div class="card-body">
+									<div class="table-responsive-sm recent-overflow">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Name</th>
+													<th>Signup Date</th>
+													<th>View POP</th>
+													<th>Status</th>
+													<th>View</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr *ngFor="let actUser of activeUsers; let i = index;">
+													<td>{{i + 1}}</td>
+													<td>
+														<a routerLink="/{{adminUrl}}/user-manager/profile/{{actUser.login_id}}">
+															{{actUser.first_name | titlecase}} 
+															{{actUser.last_name | titlecase}}
+														</a>
+													</td>
+													<td>{{actUser.created_at | date}}</td>
+													<td>
+														<div class="">
+															<a href="{{actUser.activation_pop}}" target="_blank" class="btn btn-primary btn-sm view-pop-btn">
+																View POP
+															</a>
+														</div>
+													</td>
+													<td class="text-center">
+														<span 
+															*ngIf="actUser.activation === '1' || actUser.activation ===1" 
+															class="badge badge-success"
+														>Activated</span>
+	
+														<span 
+															*ngIf="actUser.activation !== '1' && actUser.activation !==1"
+															class="badge badge-primary"
+														>Not Activated</span>
+													</td>
+													<td>
+														<a class="btn btn-primary btn-sm"
+															routerLink="/{{adminUrl}}/user-manager/profile/{{actUser.login_id}}">
+															<i class="fa fa-edit"></i>
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+							<div class="text-center mt-5">
+								<button class="btn btn-primary">View More</button>
+							</div>
+						</section>
+						<app-admin-footer></app-admin-footer>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

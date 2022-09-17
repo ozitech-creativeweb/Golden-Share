@@ -1,0 +1,141 @@
+@import "../../../../../theme/colors";
+.default-search {
+    background: #fff;
+    border-left: none;
+    color: #000;
+    height: 40px;
+    border-color: #ccc;
+}
+
+.default-input {
+    height: 40px !important;
+}
+
+.default-input:focus {
+    border-right: none;
+}
+
+.customModalHead {
+    background: #000;
+    padding: 5px 10px;
+}
+
+.customModalHead h4 {
+    color: #fff;
+    font-size: 18px;
+}
+
+.customModalHead button {
+    color: #fff;
+}
+
+.table-action-btn {
+    color: #fff !important;
+}
+
+.modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 1050 !important;
+    display: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    outline: 0 !important;
+}
+
+::ng-deep .fade {
+    opacity: 1 !important;
+}
+
+::ng-deep .modal-header {
+    background: $primary !important;
+}
+
+input,
+textarea {
+    background: #fff !important;
+    color: #000 !important;
+    padding: 10px !important;
+}
+
+.btnDanger {
+    font-size: 17px;
+    padding: 8px 15px;
+}
+
+thead {
+    border-top: 1px solid #ccc;
+}
+
+.getCuror {
+    cursor: pointer;
+}
+
+.cusInputGroup {
+    position: relative;
+    input {
+        border-radius: 4px 0 0 4px;
+    }
+    .btn {
+        border-radius: 0 4px 4px 0;
+    }
+    .cusDropdown {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 100%;
+        background: #fff;
+        max-height: 180px;
+        overflow-y: auto;
+        box-shadow: 0 2px 5px #ccccccd8;
+        .dropItem {
+            padding: 7px 10px;
+            width: 100%;
+            color: #000;
+            border-bottom: 1px solid #f8f8f8;
+        }
+        .dropItem:hover {
+            background: #007bff;
+            color: #fff;
+        }
+        .dropItem.notfound {
+            background: #fff !important;
+            color: #000 !important;
+        }
+    }
+}
+
+.seachTable {
+    .tableInput {
+        height: 50px;
+    }
+    .tableInput:focus {
+        box-shadow: none;
+        border-color: #ccc;
+    }
+    .serchBtn:focus {
+        box-shadow: none;
+        border-color: inherit;
+    }
+    .resetBtn:focus {
+        box-shadow: none;
+    }
+}
+
+table {
+    tr {
+        th {
+            font-size: 15px;
+        }
+        td {
+            font-size: 15px;
+            .delBtn {
+                font-size: 12px;
+                padding: 5px;
+                height: unset !important;
+            }
+        }
+    }
+}
