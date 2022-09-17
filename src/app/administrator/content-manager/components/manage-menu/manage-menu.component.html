@@ -1,0 +1,219 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+  <div id="adminWrapper">
+    <div class="content">
+      <div class="container-fluid">
+        
+
+        <div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-content-manager-menu></app-content-manager-menu>
+					</div>
+
+
+					<div class="custmDisplay col-xl-10">
+            <div class="row">
+              <div class="col-12">
+                <div class="page-title-box">
+                  <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                      <li class="breadcrumb-item">
+                        <a routerLink="/{{adminUrl}}">Dashboard</a>
+                      </li>
+                      <li class="breadcrumb-item">
+                        <a routerLink="/{{adminUrl}}/content-manager">
+                          Content Manager
+                        </a>
+                      </li>
+                      <li class="breadcrumb-item active">Manage Menu</li>
+                    </ol>
+                  </div>
+                  <h4 class="page-title">Manage Menu</h4>
+                </div>
+              </div>
+            </div>
+
+						<section id="add-category">
+              <div class="row">
+    
+                <div class="col-xl-4 col-lg-4 mb-5">
+                  <div class="card">
+                    <form [formGroup]="categoryForm" (ngSubmit)="submit()">
+                      <div class="card-header">
+                        Add Category to Navigation Menu
+                      </div>
+                      <div class="card-body">
+                        <div class="form-group">
+                          <label>Select Category
+                            <span class="text-danger">*</span>
+                          </label>
+                          <select
+                            formControlName="id"
+                            id="id"
+                            class="form-control"
+                          >
+                            <option [ngValue]="null" disabled>-- Select --</option>
+                            <ng-container *ngIf="categories && categories.length > 0">
+                              <ng-container *ngFor="let category of categories">
+                                <option class="parentCat"
+                                  value="{{category.mainCats.cat_id}}"
+                                >{{category.mainCats.cat_name}}</option>
+                              </ng-container>
+                            </ng-container>
+                            
+                          </select>
+                            
+                            <div *ngIf="category.touched && !category.valid" class="alert alert-danger mt-3">
+                              Please select category
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                          <button *ngIf="!isAdding" 
+                            [disabled]="!categoryForm.valid" 
+                            type="submit" 
+                            class="addBtn btn btn-primary btn-lg mt-1"
+                          >Add to Menu</button>
+                          <button *ngIf="isAdding"
+                            class="btn btn-primary btn-lg mt-1" 
+                            type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" 
+                            role="status" aria-hidden="true"></span>
+                            Adding To Menu...
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+
+                  <div class="card mt-5">
+                    <form [formGroup]="pageForm" (ngSubmit)="submitPage()">
+                      <div class="card-header">
+                        Add Page to Navigation Menu
+                      </div>
+                      <div class="card-body">
+                        <div class="form-group">
+                          <label>Select Page
+                            <span class="text-danger">*</span>
+                          </label>
+                          <select
+                            formControlName="id"
+                            id="id"
+                            class="form-control"
+                          >
+                            <option [ngValue]="null" disabled>-- Select --</option>
+                            <ng-container *ngFor="let page of pages">
+                              <option class="parentCat" value="{{page.id}}">
+                                {{page.title}}
+                              </option>
+                            </ng-container>
+                            
+                          </select>
+                            
+                            <div *ngIf="page.touched && !page.valid" 
+                              class="alert alert-danger mt-3">
+                              Please select a page
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                          <button *ngIf="!isPage" 
+                            [disabled]="!pageForm.valid" 
+                            type="submit" 
+                            class="addBtn btn btn-primary btn-lg mt-1"
+                          >Add to Menu</button>
+                          <button *ngIf="isPage"
+                            class="btn btn-primary btn-lg mt-1" 
+                            type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" 
+                            role="status" aria-hidden="true"></span>
+                            Adding To Menu...
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+    
+                <div class="col-xl-8 col-lg-8">
+                  <div class="card">
+                    <div class="card-header"> ALL CATEGORIES </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-condensed m-0">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Role</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ng-container *ngFor="let menu of menus">
+                              <ng-container *ngIf="menu.role === 'category'">
+                                <tr class="success">
+                                  <td>{{menu.cat_name}}</td>
+                                  <td>{{menu.role}}</td>
+                                  <td>
+                                    <button 
+                                        title="Remove from Menu"
+                                        (click)="delete(menu.id, menu.cat_name)"
+                                        class="btn btn-danger btn-sm"
+                                      ><i class="fa fa-trash"></i> </button>  
+                                  </td>
+                                </tr>                                                            
+                              </ng-container>
+
+                              <ng-container *ngIf="menu.role === 'page'">
+                                <tr class="active">
+                                  <td>{{menu.title}}</td>
+                                  <td>{{menu.role}}</td>
+                                  <td>
+                                    <button 
+                                      title="Remove from Menu"
+                                      (click)="delete(menu.id, menu.title)"
+                                      class="btn btn-danger btn-sm"
+                                    ><i class="fa fa-trash"></i> </button>
+                                  </td>
+                                </tr>
+                              </ng-container>                              
+                            </ng-container>
+                          </tbody>
+                        </table>
+
+                        <div 
+                          *ngIf="!menus || (menus && menus.length < 1)" 
+                          class="text-muted text-center mt-5">
+                          <p>No menu found</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+    
+              </div>
+            </section>
+
+            <app-admin-footer></app-admin-footer>
+					</div>
+				</div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>

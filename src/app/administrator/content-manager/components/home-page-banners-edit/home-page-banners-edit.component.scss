@@ -1,0 +1,82 @@
+
+.grid-icon{
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%; 
+    text-align: center; 
+    font-size: 30px; 
+    padding-top: 22px; 
+}
+.icon-col-1{
+    background:#d3f1f7; 
+    color: #4fc6e1; 
+    border: 2px solid #4fc6e1;
+}
+.icon-col-2{
+    background:#e9d5f0; 
+    color: #7e57c2; 
+    border: 2px solid #7e57c2;
+}
+.icon-col-3{
+    background:#fdedd2; 
+    color: #f7b84b; 
+    border: 2px solid #f7b84b;
+}
+.icon-col-4{
+    background:#f8d4d9; 
+    color: #f1556c; 
+    border: 2px solid #f1556c;
+}
+.icon-col-5{
+    background:#b5b1b2; 
+    color: #363434; 
+    border: 2px solid #363434;
+}
+.icon-col-6{
+    background:#b6fac5; 
+    color: #00bf2a; 
+    border: 2px solid #00bf2a;
+}
+.icon-col-7{
+    background:#a2b5fa; 
+    color: #002dd1; 
+    border: 2px solid #002dd1;
+}
+.list-group-item{
+    border-left: none;
+    border-right: none;
+    padding: 12px;
+    font-size: 15px;
+  }
+  .list-group-item span{
+    font-weight: 550
+  }
+  .header-title{
+      font-size: 17px;
+      margin: 15px;
+    }
+
+  .overflow-card{
+    height: 230px; 
+    overflow-y: scroll;
+  }
+  .recent-overflow{
+    height: 300px; 
+    overflow-y: scroll;
+  }
+
+  input, textarea, select{
+    background: #fff !important;
+    color: #000 !important;
+    padding: 10px !important;
+}
+
+#status {
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: auto;
+  position: relative;
+  left: unset;
+  top: unset;
+  transform: unset; 
+}

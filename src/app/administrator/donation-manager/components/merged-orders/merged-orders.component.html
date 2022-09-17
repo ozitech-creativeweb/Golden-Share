@@ -1,0 +1,129 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle" />
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+    <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+    <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+    <div id="adminWrapper">
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-xl-2 col-lg-2 col-md-3">
+                        <app-donation-manager-menu></app-donation-manager-menu>
+                    </div>
+
+                    <div class="col-xl-10 col-lg-10 col-md-9">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item">
+                                                <a routerLink="/{{adminUrl}}">
+													Dashboard
+												</a>
+                                            </li>
+                                            <li class="breadcrumb-item active">
+                                                <span>
+													Merged Orders
+												</span>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">
+                                        <span>
+											Merged Orders
+										</span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="searchUser">
+                            <div class="row mb-5">
+                                <div class="col-xl-2"></div>
+                                <div class="col-xl-8 seachTable">
+                                    <form [formGroup]="formTable" (ngSubmit)="submitTable()">
+                                        <div class="input-group" style="z-index: 0;">
+                                            <input type="number" class="form-control tableInput" placeholder="Search by Order id" formControlName="searchkeywords">
+                                            <div class="input-group-append">
+                                                <button *ngIf="!isTableSearch" class="btn btn-primary serchBtn" [disabled]="!formTable.valid" type="submit">Search</button>
+                                                <button *ngIf="isTableSearch" class="btn btn-primary serchBtn" type="button" disabled><i class="fa fa-spinner fa-spin"></i></button>
+                                                <button class="btn btn-danger resetBtn" type="reset" (click)="resetAll()">Reset</button>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="searchkeywords.touched && !searchkeywords.valid">
+                                            <p class="mb-0 text-danger">Oops! The input field is required</p>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="donations" style="min-height: 400px;">
+                            <div class="card card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Order ID</th>
+                                                <th>Payer</th>
+                                                <th>Payee</th>
+                                                <th>Amount</th>
+                                                <th>Date Merged</th>
+                                                <th>Status</th>
+                                                <th>View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let order of orders">
+                                                <td>#{{order?.id | number}}</td>
+                                                <td><a style="color:#910d0d" routerLink="/{{adminUrl}}/user-manager/profile/{{order?.payer_id}}">{{order?.payerInfo?.first_name}} {{order?.payerInfo?.last_name}}</a></td>
+                                                <td><a style="color:#037a15" routerLink="/{{adminUrl}}/user-manager/profile/{{order?.payee_id}}">{{order?.payeeInfo?.first_name}} {{order?.payeeInfo?.last_name}}</a></td>
+                                                <td><span [innerHTML]="currency?.symbol"></span>{{order?.amount | number}}</td>
+                                                <td>{{order?.created_at | date}}</td>
+                                                <td>
+                                                    <span *ngIf="order?.status == 1" class="badge badge-success">Approved</span>
+                                                    <span *ngIf="order?.status == 0" class="badge badge-danger">Pending</span>
+                                                </td>
+                                                <td>
+                                                    <a title="View History" routerLink="/{{adminUrl}}/donation-manager/merged-orders/{{order?.id}}" class="table-action-btn btn btn-success admin-btn-sm btn-sm mr-2">
+													view</a>
+                                                    <button class="btn btn-danger admin-btn-sm btn-sm ml-2" (click)="delete(order?.id)"><i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody *ngIf="orders && orders.length < 1">
+                                            <tr class="text-center">
+                                                <td colspan="6">No merged order Available</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <div class="text-center mt-5">
+                                    <button *ngIf="orderCounts > 0 && !isLoadMore" (click)="loadMore()" [disabled]="orderCounts <= orders.length" class="btn btn-primary">Load more</button>
+
+                                    <app-inner-loading *ngIf="isLoadMore" [name]="'Loading'" [class]="'btn btn-primary'"></app-inner-loading>
+                                </div>
+                            </div>
+                        </div>
+                        <app-admin-footer></app-admin-footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,163 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+  	<div id="adminWrapper">
+    	<div class="content">
+      		<div class="container-fluid">
+
+				
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-content-manager-menu></app-content-manager-menu>
+					</div>
+
+					
+					<!-- <div class="col-xl-1 col-lg-1 col-md-1"></div> -->
+					<div class="custmDisplay col-xl-10">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+											<a routerLink="/{{adminUrl}}">Dashboard</a>
+											</li>
+											<li class="breadcrumb-item active">
+												How it Work
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">How it Work</h4>
+								</div>
+							</div>
+						</div>
+
+						<section id="payment-gateway">
+							<form [formGroup]="form" (ngSubmit)="submit()">
+								<div *ngIf="success" class="alert alert-success mb-3">
+									{{success}}
+								</div>
+								<div formArrayName="main_title">
+									<div class="" *ngFor="let bDetail of moreFormGroup.controls; let i = index;">
+										<div class="row" [formGroupName]="i">
+											<div class="col-xl-12 col-lg-12 col-md-12">
+												<div class="card mb-4">
+													<div class="card-header">
+														<div class="row">
+															<div class="col-6">
+																Account Detail {{i + 1}}
+															</div>
+															<div class="col-6 text-right">
+																<button 
+																	type="button" 
+																	class="btn btn-danger btn-sm admin-btn-sm" 
+																	(click)="remove(i)"
+																>Remove</button>
+															</div>
+														</div>
+													</div>
+													<div class="card-body">
+														<div class="row">
+															<div class="col-xl-7">
+																<div class="form-group">
+																	<label for="title">
+																		Title<span class="text-danger">*</span>
+																	</label><br>
+																	<input 
+																		type="text" 
+																		id="title" 
+																		formControlName="title" 
+																		class="form-control"
+																	>
+																</div>
+															</div>
+
+															<div class="col-xl-5">
+																<div class="form-group">
+																	<label for="icon">
+																		Icon<span class="text-danger">*</span>
+																	</label><br>
+																	<input 
+																		type="text" 
+																		id="icon" 
+																		formControlName="icon" 
+																		class="form-control"
+																	>
+																</div>
+															</div>
+
+															<div class="col-xl-12">
+																<div class="form-group">
+																	<label for="content">
+																		Content<span class="text-danger">*</span>
+																	</label><br>
+																	<angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
+																	
+																</div>
+															</div>
+															
+														</div>		
+				
+														
+													</div>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-2 col-md-1"></div>
+										</div>
+									</div>
+								</div>
+		
+								<div class="mt-5 text-center">
+									<button 
+										type="button" 
+										class="btn btn-secondary btn-sm addMoreBtn" 
+										(click)="addMore()"
+									><i class="fa fa-plus"></i> Add More</button>
+								</div>
+				
+								<div class="text-center mt-4">
+									<button *ngIf="!isAdding" 
+										type="submit" 
+										[disabled]="!form.valid"
+										class="btn btn-primary btn-lg"
+									>UPDATE</button>
+									<button *ngIf="isAdding"
+										class="btn btn-primary btn-lg" 
+										type="button" disabled>
+										<span class="spinner-border spinner-border-sm" 
+										role="status" aria-hidden="true"></span>
+										UPDATING...
+									</button>
+								</div>
+							</form>
+						</section>
+
+
+						<app-admin-footer></app-admin-footer>
+          </div>
+        </div>
+				
+				
+
+        
+
+      </div>
+    </div>
+  </div>
+
+
+  
+
+
+
+
+</div>

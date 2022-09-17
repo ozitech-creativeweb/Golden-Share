@@ -1,0 +1,10 @@
+::ng-deep .angular-editor-textarea{
+    height: auto !important;
+    min-height: 180px !important;
+}
+
+input, textarea, select{
+    background: #fff !important;
+    color: #000 !important;
+    padding: 10px !important;
+}

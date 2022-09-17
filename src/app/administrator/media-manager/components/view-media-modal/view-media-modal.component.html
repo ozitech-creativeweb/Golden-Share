@@ -1,0 +1,120 @@
+
+    <div class="modal-header">
+        <h4 class="modal-title">Manage File</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeViewMedia()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-xl-7">
+                <img 
+                    src="{{upload && upload.original_url}}"
+                    style="max-width: 700px;">
+                <div class="text-center mt-4">
+                    <button 
+                        type="button" 
+                        class="btn btn-primary" 
+                        (click)="delete(upload)">Delete</button>
+                </div>
+            </div>
+            <div class="col-xl-5" style="background: #f0f0f0;">
+                <!-- <div class="file-detail p-2">
+                    <ul style="list-style-type: none;">
+                        <li>File Name: product_banner.jpg</li>
+                        <li>File Type: image/jpg</li>
+                        <li>Uploaded on: May 22, 2019</li>
+                        <li>File Size: 20KB</li>
+                        <li>Dimension: 500 x 250</li>
+                    </ul>
+                    <hr>
+                </div>
+
+                <div class="form-side p-2">
+                    <form 
+                        [formGroup]="updateMedia" 
+                        (ngSubmit)="submit()"
+                    >
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <label class="col-sm-4 text-right mt-2">URL:</label>
+                                <input type="text" class="col-sm-8 form-control" formControlName="url">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <label class="col-sm-4 text-right mt-2">Title:</label>
+                                <input type="text" class="col-sm-8 form-control" formControlName="title">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <label class="col-sm-4 text-right mt-2">Caption:</label>
+                                <textarea class="col-sm-8 form-control" rows="4" formControlName="caption"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <label class="col-sm-4 text-right mt-2">Alt Text:</label>
+                                <input type="text" class="col-sm-8 form-control" formControlName="alt_text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <label class="col-sm-4 text-right mt-2">Description:</label>
+                                <textarea class="col-sm-8 form-control" rows="4" formControlName="descr"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <p class="col-sm-4 text-right">Uploaded By:</p>
+                                <p class="col-sm-8">Administrator</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">    
+                            <div class="row mb-2">
+                                <p class="col-sm-4 text-right">Uploaded To:</p>
+                                <p class="col-sm-8">Ozicommerce site, Nigeria</p>
+                            </div>
+                        </div>
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-primary">SUBMIT</button>
+                        </div>
+                    </form>
+                </div> -->
+
+                <div>
+                    File: 
+                    <a target="_blank" href="{{upload && upload.original_url}}">
+                        <code>{{upload && upload.original_url}}</code>
+                    </a>
+                </div>
+                <hr>
+                <div *ngIf="upload && upload.resized_url">
+                    Resized: 
+                    <a target="_blank" href="{{upload && upload.resized_url}}">
+                        <code>{{upload && upload.resized_url}}</code>
+                    </a>
+                </div>
+                <hr>
+                <div *ngIf="upload && upload.resized_url">
+                    Date Uploaded:  <code>{{upload && upload.created_at}}</code>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button 
+            type="button" 
+            class="btn btn-light" 
+            (click)="closeViewMedia()"
+        >Close</button>
+    </div>

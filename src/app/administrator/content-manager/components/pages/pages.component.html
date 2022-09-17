@@ -1,0 +1,128 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+          <div class="col-xl-2 custmDisplay-sidebar">
+						<app-content-manager-menu></app-content-manager-menu>
+					</div>
+
+
+          <div class="custmDisplay col-xl-10">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">Dashboard</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/content-manager">
+													Content Manager
+												</a>
+											</li>
+											<li class="breadcrumb-item active">Pages</li>
+										</ol>
+									</div>
+									<h4 class="page-title">Pages</h4>
+								</div>
+							</div>
+						</div>
+						
+						<section class="search-bar mb-5">
+							<div class="card card-body">
+								<div class="row">		
+									<div class="col-xl-12">
+										<div class="text-right">
+											<a 
+												routerLink="/{{adminUrl}}/content-manager/add-page" 
+												class="btn btn-primary"
+											><i class="fa fa-plus mr-2"></i> Add New</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+		
+		
+						<section class="user-list">
+							<div class="row">
+								<div class="col-xl-12">
+									<div class="card">
+										<div class="card-header">
+											All Pages (<b>{{pageCounts | number}}</b>)
+										</div>
+										<div class="card-body">			
+											<div class="table-responsive">
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>ID</th>
+															<th>Action</th>
+															<th>Title</th>
+															<th>URL</th>
+															<th>Date Created</th>
+															<th>Last Modified</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr *ngFor="let page of pages; let i = index;">
+															<td>{{i + 1}}</td>
+															<td>
+																<a 
+																	routerLink="/{{adminUrl}}/content-manager/edit/{{page.id}}" 
+																	class="btn btn-success btn-sm mr-3"
+																><i class="fa fa-pencil"></i></a>
+																<button 
+																	(click)="delete(page)" 
+																	class="btn btn-primary btn-sm"
+																><i class="fa fa-trash"></i></button>
+															</td>
+															<td>{{page.title}}</td>
+															<td>{{page.url}}</td>
+															<td>{{page.created_at | date}}</td>
+															<td>{{page.updated_at | date}}</td>
+														</tr>
+													</tbody>
+												</table>
+												<div *ngIf="pages && pages.length < 1" 
+													class="text-muted text-center">
+													No page created
+												</div>
+											</div>		
+			
+											<!-- <div class="pagin-wrapper mt-5">
+												<ul class="pagination pagination-sm justify-content-end">
+													<li class="page-item"><a class="page-link" routerLink="#">Previous</a></li>
+													<li class="page-item"><a class="page-link" routerLink="#">1</a></li>
+													<li class="page-item"><a class="page-link" routerLink="#">Next</a></li>
+												</ul>
+											</div> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+          </div>
+       	</div>  
+			</div>
+		</div>
+	</div>
+
+
+</div>

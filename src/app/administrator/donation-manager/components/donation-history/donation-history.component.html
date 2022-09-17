@@ -1,0 +1,116 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 remove-lg">
+						<app-donation-manager-menu></app-donation-manager-menu>
+					</div>
+					
+					<div class="col-xl-10 col-lg-12 col-md-12">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">
+													Dashboard
+												</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/donation-manager">
+													Donations
+												</a>
+											</li>
+											<li class="breadcrumb-item active">
+												<span>
+													Donation History
+												</span>
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">
+										<span>
+											Donation History
+										</span>
+									</h4>
+								</div>
+							</div>
+						</div>
+
+
+						<div id="donations">
+							<div *ngIf="orders && orders.length > 0">
+								<div *ngFor="let order of orders" class="row">
+									<div class="col-xl-4 col-lg-4 col-md-5 mb-4">
+										<div class="card">
+											<div class="card-header">
+												Receiver Information
+											</div>
+
+											<div class="card-body">
+												<div class="user-img">
+													<img *ngIf="order.photo" src="{{order?.photo}}">
+													<img *ngIf="!order.photo" src="assets/images/user/profile-default.png">
+												</div>
+												<div class="user-info mt-4">
+													<p class="mb-1">Acount Name: <b>{{order?.account_name}}</b></p>
+													<p class="mb-1">Acount Number: <b>{{order?.account_number}}</b></p>
+													<p class="mb-1">Bank Name: <b>{{order?.bank}}</b></p>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="col-xl-8 col-lg-8 col-md-7 mb-4">
+										<div class="card">
+											<div class="card-header">
+												Payment Instruction
+											</div>
+
+											<div class="card-body">
+												<div class="payment-inst">
+													<p class="mb-1">Amount: <b><span [innerHTML]="currency?.symbol"></span>{{order?.amount | number}}</b></p>
+													<p class="mb-1">Date Merge: <b>{{order?.created_at | date}}</b></p>
+
+													<p class="mb-3 mt-3" *ngIf="order.status == 0">Status: <b class="unpaid">Unpaid</b></p>
+													<p class="mb-3 mt-3" *ngIf="order.status == 1">Status: <b class="paid">Paid</b></p>
+
+													<p class="mb-3">Remaining Time: <b class="unpaid">{{order?.order_timer}}</b></p>
+
+													<p>{{config?.donation_request_instructions}}</p>
+
+													<a class="btn btn-success btn-sm mr-5 view-pop" href="{{order?.pop}}" target="_blank">View POP</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div *ngIf="orders && orders.length < 1">
+								<h4 class="text-center">No Donation History</h4>
+							</div>
+						</div>
+						<app-admin-footer></app-admin-footer>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+

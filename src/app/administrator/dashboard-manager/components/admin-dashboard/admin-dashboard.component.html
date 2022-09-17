@@ -1,0 +1,462 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+  <div id="adminWrapper">
+    <div class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-12">
+              <div class="page-title-box">
+                  <div class="page-title-right">
+                      <ol class="breadcrumb m-0">
+                          <li class="breadcrumb-item">
+                            <a routerLink="/">Home</a>
+                          </li>
+                          <li class="breadcrumb-item">
+                            Administrator
+                          </li>
+                      </ol>
+                  </div>
+                  <h4 class="page-title">
+                    Welcome, {{adm && adm.username | titlecase}} 
+                    <span style="font-weight: lighter; font-size: 20px;">
+                      ({{adm && adm.full_name}})
+                    </span>
+                  </h4>
+              </div>
+          </div>
+        </div>
+
+
+        <section class="dashboard">
+          <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-users grid-icon icon-col-1"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4>{{customerCounts | number}}</h4>
+                    <p>All Users</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-user grid-icon icon-col-2"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4>{{customerActiveCounts | number}}</h4>
+                    <p>Active Users</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-user-md grid-icon icon-col-3"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4>{{customerSuspendedCounts | number}}</h4>
+                    <p>Suspended Users</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-user-times grid-icon icon-col-4"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4>{{customerBlockedCounts | number}}</h4>
+                    <p>Blocked Users</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-money grid-icon icon-col-1"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4><span [innerHTML]="currency?.symbol"></span> {{dashInfo?.withdrawalTotal | number}}</h4>
+                    <p>Withdrawal Request</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-money grid-icon icon-col-1"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4><span [innerHTML]="currency?.symbol"></span> {{dashInfo?.withdrawn | number}}</h4>
+                    <p>Total Withdrawn</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-database grid-icon icon-col-2"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4><span [innerHTML]="currency?.symbol"></span> {{dashInfo?.donationPaid | number}}</h4>
+                    <p>Total Donation</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-database grid-icon icon-col-2"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4><span [innerHTML]="currency?.symbol"></span> {{dashInfo?.donationTotal | number}}</h4>
+                    <p>Total Donated</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-eye grid-icon icon-col-1"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4>{{visitor?.todayVisitors | number}}</h4>
+                    <p>Today's Visitors</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-street-view grid-icon icon-col-2"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4>{{visitor?.weekVisitors | number}}</h4>
+                    <p>This Week's Visitors</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-bar-chart grid-icon icon-col-3"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4>{{visitor?.monthVisitors | number}}</h4>
+                    <p>This Month's Visitors</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+              <div class="card card-body">
+                <div class="d-flex justify-content-between">
+                  <div class="no_user">
+                    <i class="fa fa-signal grid-icon icon-col-1"></i>
+                  </div>
+                  <div class="no_user mt-4">
+                    <h4>{{visitor?.yearVisitors | number}}</h4>
+                    <p>This Year's Visitors</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="mt-5">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card card-box">
+                <div class="card-header p-0">
+                  <h4 class="header-title">
+                    Recently Signup User
+                    <a routerLink="/{{adminUrl}}/user-manager" class="float-right">See all</a>
+                  </h4>
+                </div>
+                <div class="table-responsive-sm recent-overflow">          
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Signup Date</th>
+                        <th>Status</th>
+                        <th>View</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let customer of customers; let i = index;">
+                        <td> {{ i + 1 }}</td>
+                        <td>
+                          <a routerLink="/{{adminUrl}}/user-manager/profile/{{customer.login_id}}">
+                            {{customer.first_name | titlecase}} 
+                            {{customer.last_name | titlecase}}
+                          </a>
+                        </td>
+                        <td>{{customer.created_at | date}}</td>
+                        <td class="text-center">
+                          <span 
+                            *ngIf="customer.status === 'Active'" 
+                            class="badge badge-success"
+                          >Active</span>
+
+                          <span 
+                            *ngIf="customer.status === 'Pending'" 
+                            class="badge badge-primary"
+                          >Pending</span>
+
+                          <span 
+                            *ngIf="customer.status === 'Suspended'" 
+                            class="badge badge-warning"
+                          >Suspended</span>
+
+                          <span 
+                            *ngIf="customer.status === 'Blocked'" 
+                            class="badge badge-danger"
+                          >Blocked</span>
+
+                          <span 
+                            *ngIf="customer.status === 'Removed'" 
+                            class="badge badge-secondary"
+                          >Removed</span>
+                        </td>
+                        <td>
+                          <a class="btn btn-primary btn-sm"
+                            routerLink="/{{adminUrl}}/user-manager/profile/{{customer.login_id}}">
+                            <i class="fa fa-edit"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6" style="display: none;">
+              <div class="card card-box">
+                <div class="card-header p-0">
+                  <h4 class="header-title">
+                    Recent Users for Activation
+                    <a routerLink="/{{adminUrl}}/user-manager/activation/users" class="float-right">See all</a>
+                  </h4>
+                </div>
+                <div class="table-responsive-sm recent-overflow">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Signup Date</th>
+                        <th>Status</th>
+                        <th>View POP</th>
+                        <th>View</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let actUser of activeUsers; let i = index;">
+                        <td>{{i + 1}}</td>
+                        <td>
+                          <a routerLink="/{{adminUrl}}/user-manager/profile/{{actUser.login_id}}">
+                            {{actUser.first_name | titlecase}} 
+                            {{actUser.last_name | titlecase}}
+                          </a>
+                        </td>
+                        <td>{{actUser.created_at | date}}</td>
+                        <td class="text-center">
+                          <span 
+                            *ngIf="actUser.activation === '1' || actUser.activation ===1" 
+                            class="badge badge-success"
+                          >Activated</span>
+
+                          <span 
+                            *ngIf="actUser.activation !== '1' && actUser.activation !==1"
+                            class="badge badge-primary"
+                          >Not Activated</span>
+                        </td>
+                        <td *ngIf="actUser.activation_pop">
+                          <a class="btn btn-primary btn-sm view-pop-btn" href="{{actUser?.activation_pop}}" target="_blank">View POP</a>
+                        </td>
+                        <td>
+                          <a class="btn btn-primary btn-sm"
+                            routerLink="/{{adminUrl}}/user-manager/profile/{{actUser.login_id}}">
+                            <i class="fa fa-edit"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section *ngIf="isRootAdmin" class="mt-5">
+          <div class="row">
+            <div *ngIf="adm && adm.username === 'administrator'" class="col-xl-4">
+              <div class="card card-box">
+                <div class="card-header p-0">
+                  <h4 class="header-title">Rcently Logged in Staffs</h4>
+                </div>
+                <div class="overflow-card">
+
+                  <div *ngFor="let recent of recentlyLogin" class="media border-bottom p-3">
+                    <img 
+                      src="{{recent.photo}}"
+                      alt="{{recent.username | titlecase}}" 
+                      class="profile_img mr-3" 
+                      width="100px"
+                    >
+                    <div class="media-body">
+                      <p class="mb-2"><b>{{recent.username | titlecase}}</b></p>
+                      <p class="mb-2"><small>{{recent.role | titlecase}}</small></p>
+                      <p class="mb-2">
+                        <span class="badge badge-primary">
+                          {{recent.last_login | timeAgo}}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                       
+                </div>
+              </div>
+            </div>
+
+            <div  
+              [class.col-xl-8]="adm && adm.username === 'administrator'"
+              [class.col-xl-12]="adm && adm.username !== 'administrator'"
+            >
+              <div class="card card-box">
+                <div class="card-header p-0">
+                  <h4 class="header-title">Recent Login Activity</h4>
+                </div>
+                <div class="table-responsive overflow-card">
+                  <table class="table table-borderless table-hover table-centered m-0">
+
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Admin</th>
+                            <th>IP Address</th>
+                            <th>Browser</th>
+                            <th>OS</th>
+                            <th>Last Seen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let adm of loginActivities">
+                        <td>{{adm.admin | titlecase}}</td>
+                        <td>{{adm.ip}}</td>
+                        <td>{{adm.browser | titlecase}}</td>
+                        <td>{{adm.os | titlecase}}</td>
+                        <td>{{adm.created_at | timeAgo}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-5">
+          <div class="row">
+            <div class="col-xl-6">
+              <div class="card card-box">
+                <h4 class="header-title mb-3">Vendor's Information</h4>
+                 <ul class="list-group vendor">
+                  <li class="list-group-item">
+                    Developer Name: <span> {{vendorInfo && vendorInfo.name}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    Website: <span> 
+                    <a href="{{vendorInfo && vendorInfo.website}}" target="_blank"> 
+                      {{vendorInfo && vendorInfo.website}}
+                    </a></span>
+                  </li>
+                  <li class="list-group-item">
+                    Date Relesed: 
+                    <span>{{vendorInfo && vendorInfo.version_date | date}}</span> 
+                      
+                    <small class="float-right">
+                      Version <span>{{vendorInfo && vendorInfo.curr_version}}</span>
+                    </small>
+                  </li>
+                </ul> 
+              </div>
+            </div>
+  
+            <div class="col-xl-6">
+              <div class="card card-box">
+                <h4 class="header-title mb-3">Client Information</h4>
+                <ul class="list-group vendor">
+                    <li class="list-group-item">
+                      Client Name: <span>{{clientInfo && clientInfo.name}}</span>
+                    </li>
+                    <li class="list-group-item">
+                      Server: <span>{{clientInfo && clientInfo.server}}</span>
+                    </li>
+                    <li class="list-group-item">
+                      Server IP Address: <span>{{clientInfo && clientInfo.ip}}</span>
+                    </li>
+                </ul> 
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <app-admin-footer></app-admin-footer>
+</div>

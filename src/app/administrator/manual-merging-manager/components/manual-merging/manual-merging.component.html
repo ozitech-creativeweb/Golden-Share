@@ -1,0 +1,137 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 col-lg-2 col-md-3">
+						<app-manual-merging-menu></app-manual-merging-menu>
+					</div>
+					
+					<div class="col-xl-10 col-lg-10 col-md-9">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/">
+													Dashboard
+												</a>
+											</li>
+											<li class="breadcrumb-item active">
+												<span>
+													Manual Merging
+												</span>
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">
+										<span>
+											Manual Merging
+										</span>
+									</h4>
+								</div>
+							</div>
+						</div>
+
+						<div *ngIf="success" class="alert alert-success">
+							<b>Your request is successfull!</b> If some of your selected rows are not merged then, is because the criteria are not met.
+						</div>
+
+
+						<div id="donations">
+							<form [formGroup]="form" (ngSubmit)="submit()">
+								<div class="row">
+									<div class="col-xl-6">
+										<div class="card">
+											<div class="card-header">
+												Select Multiple Payers
+											</div>
+											<div class="card-body custom-height">
+												<ul *ngIf="donations && donations.length > 0" class="list-group mb-0">
+													<li *ngFor="let donation of donations" class="list-group-item">
+														<div class="custom-control custom-checkbox">
+															<input 
+																type="checkbox" 
+																value="{{donation?.id}}" 
+																class="custom-control-input" 
+																id="payer{{donation?.id}}"
+																(change)="payersChange($event)"
+															>
+															<label class="custom-control-label" for="payer{{donation?.id}}">{{donation?.user.first_name}} {{donation?.user.last_name}} - Amount <span [innerHTML]="currency?.symbol"></span>{{donation?.amount | number}}</label>
+														</div>
+													</li>
+												</ul>
+
+												<ul *ngIf="donations && donations.length < 1" class="list-group mb-0">
+													<li class="list-group-item">
+														No Payer available
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-xl-6">
+										<div class="card">
+											<div class="card-header">
+												Select single payee
+											</div>
+											<div class="card-body custom-height">
+												<ul *ngIf="withdrawals && withdrawals.length > 0" class="list-group mb-0">
+													<li class="list-group-item" *ngFor="let with of withdrawals">
+														<div class="custom-control custom-radio">
+															<input type="radio" class="custom-control-input" id="receiver{{with?.id}}" formControlName="payee" value="{{with?.id}}">
+															<label class="custom-control-label" for="receiver{{with?.id}}">{{with?.user.first_name}} {{with?.user.last_name}} - Amount <span [innerHTML]="currency?.symbol"></span>{{with?.amount | number}}</label>
+														</div>
+													</li>
+												</ul>
+
+												<ul *ngIf="withdrawals && withdrawals.length < 1" class="list-group mb-0">
+													<li class="list-group-item">
+														No Payee available
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="text-center mt-5">
+									<div class="mt-4 text-center">
+										<button *ngIf="!isLoading" 
+											type="submit" 
+											class="btn btn-primary"
+										>Proceed to Merging</button>
+										<button 
+											*ngIf="isLoading" 
+											class="btn btn-primary" 
+											type="button" disabled>
+											<span class="spinner-border spinner-border-sm" 
+											role="status" aria-hidden="true"></span>
+											Processing...
+										</button>
+									</div>
+									<!-- <button class="btn btn-primary">Proceed to Merging</button> -->
+								</div>
+							</form>
+						</div>
+						<app-admin-footer></app-admin-footer>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

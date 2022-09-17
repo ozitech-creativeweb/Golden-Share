@@ -1,0 +1,128 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 custmDisplay-sidebar">
+						<app-content-manager-menu></app-content-manager-menu>
+					</div>
+
+					<div class="col-xl-10 custmDisplay">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">Dashboard</a>
+											</li>
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}/content-manager">
+													Content Manager
+												</a>
+											</li>
+											<li class="breadcrumb-item active">List of Banks</li>
+										</ol>
+									</div>
+									<h4 class="page-title">List of Banks</h4>
+								</div>
+							</div>
+						</div>
+
+						<section class="web-set">
+							<div class="row">
+								<div class="col-xl-5">
+									<div class="card">
+										<div class="card-header">
+											Add Bank
+										</div>
+										<div class="card-body">
+											<form [formGroup]="form" 
+												(ngSubmit)="submit()">
+												<div class="form-group mb-3">
+													<label for="name">Name</label>
+													<input 
+														type="text" 
+														formControlName="name" 
+														id="name" 
+														class="form-control"
+													>
+												</div>
+
+
+												<div class="text-center mt-4">
+													<button *ngIf="!isUpdaing" 
+														type="submit" 
+														[disabled]="!form.valid"
+														class="btn btn-primary btn-lg"
+													>ADD</button>
+													<button *ngIf="isUpdaing"
+														class="btn btn-primary btn-lg" 
+														type="button" disabled>
+														<span class="spinner-border spinner-border-sm" 
+														role="status" aria-hidden="true"></span>
+														ADDING...
+													</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-xl-7">
+									<div class="card">
+										<div class="card-header">
+											List of added banks
+										</div>
+										<div class="card-body">
+											<div class="list" style="height: 455px; overflow-y: scroll;">
+												<div class="table-responsive-sm">          
+													<table class="table table-bordered">
+														<tbody>
+															<tr *ngFor="let bank of banks">
+																<td>
+																	{{bank.name}}
+																	<span style="cursor: pointer;"
+																		(click)="remove(bank.id)" 
+																		class="text-danger mr-3">
+																		<i class="fa fa-trash"></i> Delete
+																	</span>
+																</td>
+															</tr>															
+														</tbody>
+													</table>
+
+													<p *ngIf="banks && banks.length < 1" 
+														class="m-5 text-muted text-center">
+														No bank
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</section>
+
+						<app-admin-footer></app-admin-footer>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>

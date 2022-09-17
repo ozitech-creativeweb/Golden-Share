@@ -1,0 +1,127 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+    <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+    <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<section id="add-product">
+					<form [formGroup]="form" (ngSubmit)="submit()">
+						<div class="row">
+							<div class="col-xl-2 custmDisplay-sidebar">
+								<app-content-manager-menu></app-content-manager-menu>
+							</div>		
+		
+							<div class="custmDisplay col-xl-10">
+								<div class="row">
+									<div class="col-12">
+										<div class="page-title-box">
+											<div class="page-title-right">
+												<ol class="breadcrumb m-0">
+													<li class="breadcrumb-item">
+														<a routerLink="/{{adminUrl}}">Dashboard</a>
+													</li>
+													<li class="breadcrumb-item">
+														<a routerLink="/{{adminUrl}}/content-manager">
+															Content Manager
+														</a>
+													</li>
+													<li class="breadcrumb-item active">Create New Page</li>
+												</ol>
+											</div>
+											<h4 class="page-title">Create New Page</h4>
+										</div>
+									</div>
+								</div>
+
+								<div class="card">
+									<div class="card-header">
+										Create New Page
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-8">
+												<div class="form-group">
+													<label for="title">Title</label>
+													<input 
+														type="text" 
+														formControlName="title" 
+														id="title" 
+														name="title" 
+														class="form-control"
+														placeholder="Enter page title"
+													>
+												</div>
+											</div>
+											<div class="col-4">
+												<div class="form-group">
+													<label for="type">Type</label>
+													<select 
+														class="form-control"
+														formControlName="type" 
+														id="type"
+														name="type"
+													>
+														<option [ngValue]="''" disabled>--Select--</option>
+														<option value="About">About</option>
+														<option value="Services">Services</option>
+														<option value="Contact">Contact</option>
+														<option value="How-to">How-to</option>
+														<option value="Other">Other</option>
+													</select>
+												</div>
+											</div>
+										</div>
+	
+										<div class="form-group">
+											<label for="editor1">Description</label>
+											<angular-editor 
+												id="editor1" 
+												formControlName="contents" 
+												[config]="editorConfig"
+												placeholder="type here..."
+											></angular-editor>
+										</div>
+									</div>
+								</div>
+
+								<div class="text-center">
+									<button *ngIf="!isAdding" 
+										type="submit" 
+										[disabled]="!form.valid"
+										class="btn btn-primary btn-lg mt-5"
+									>ADD PAGE</button>
+									<button *ngIf="isAdding"
+										class="btn btn-primary btn-lg mt-5" 
+										type="button" disabled>
+										<span class="spinner-border spinner-border-sm" 
+										role="status" aria-hidden="true"></span>
+										ADDING PAGE...
+									</button>
+								</div>
+
+								<app-admin-footer></app-admin-footer>
+							</div>
+						</div>
+
+						
+					</form>
+				</section>
+
+			</div>
+		</div>
+	</div>
+
+	
+
+
+</div>

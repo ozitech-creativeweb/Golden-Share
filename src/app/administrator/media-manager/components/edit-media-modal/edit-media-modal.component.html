@@ -1,0 +1,90 @@
+
+    <div class="modal-header">
+        <h4 class="modal-title">Edit Media</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeEditMedia()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-xl-7">
+                <img src="assets/images/slider/1.jpg" width="100%">
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-primary">Edit Image</a>
+                </div>
+            </div>
+            <div class="col-xl-5" style="background: #f0f0f0;">
+                <div class="file-detail p-2">
+                    <ul style="list-style-type: none;">
+                        <li>File Name: product_banner.jpg</li>
+                        <li>File Type: image/jpg</li>
+                        <li>Uploaded on: May 22, 2019</li>
+                        <li>File Size: 20KB</li>
+                        <li>Dimension: 500 x 250</li>
+                    </ul>
+                    <hr>
+                </div>
+
+                <div class="form-side p-2">
+                    <form (ngSubmit)="submit()">
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <label class="col-sm-4 text-right mt-2">URL:</label>
+                                <input type="text" class="col-sm-8 form-control" formControlName="url">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <label class="col-sm-4 text-right mt-2">Title:</label>
+                                <input type="text" class="col-sm-8 form-control" formControlName="title">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <label class="col-sm-4 text-right mt-2">Caption:</label>
+                                <textarea class="col-sm-8 form-control" rows="4" formControlName="caption"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <label class="col-sm-4 text-right mt-2">Alt Text:</label>
+                                <input type="text" class="col-sm-8 form-control" formControlName="alt_text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <label class="col-sm-4 text-right mt-2">Description:</label>
+                                <textarea class="col-sm-8 form-control" rows="4" formControlName="descr"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row mb-2">
+                                <p class="col-sm-4 text-right">Uploaded By:</p>
+                                <p class="col-sm-8">Administrator</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">    
+                            <div class="row mb-2">
+                                <p class="col-sm-4 text-right">Uploaded To:</p>
+                                <p class="col-sm-8">Ozicommerce site, Nigeria</p>
+                            </div>
+                        </div>
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-primary">SUBMIT</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="closeEditMedia()">Close</button>
+    </div>

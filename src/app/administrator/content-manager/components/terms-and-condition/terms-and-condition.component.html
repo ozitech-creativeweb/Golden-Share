@@ -1,0 +1,70 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+
+  <div id="adminWrapper">
+    <div class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-12">
+              <div class="page-title-box">
+                  <div class="page-title-right">
+                      <ol class="breadcrumb m-0">
+                          <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                          <li class="breadcrumb-item active">Terms and Conditions</li>
+                      </ol>
+                  </div>
+                  <h4 class="page-title">Terms and Conditions</h4>
+              </div>
+          </div>
+				</div>
+
+				<section id="add-product">
+					<form 
+						[formGroup]="termsCondition" 
+						(ngSubmit)="submit()"
+					>
+						<div class="row">
+							<div class="col-xl-8">
+								<div class="card card-body">
+									<div class="form-heading">
+										<h4>General</h4>
+									</div>
+									<div class="form-group">
+										<label for="pro_name">Terms Title</label>
+										<input type="text" name="pro_name" id="pro_name" class="form-control">
+									</div>
+
+									<div class="form-group">
+										<label for="pro_dec">Description</label>
+										<angular-editor formControlName="htmlContent" [config]="editorConfig"></angular-editor>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
+						<div class="text-center">
+							<button class="btn btn-primary mt-5">UPDATE TERMS</button>
+						</div>
+					</form>
+				</section>
+
+			</div>
+		</div>
+	</div>
+
+	<app-admin-footer></app-admin-footer>
+	
+</div>
+

@@ -1,0 +1,115 @@
+<input type="checkbox" id="drawer-toggle" name="drawer-toggle"/>
+<label for="drawer-toggle" id="drawer-toggle-label"></label>
+<header class="admin-header">
+  <app-admin-header></app-admin-header>
+</header>
+
+<nav id="drawer">
+  <app-admin-nav-content></app-admin-nav-content>
+</nav>
+
+<div id="pageContents">
+	<div id="adminWrapper">
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-xl-2 col-lg-2 col-md-3">
+						<app-donation-manager-menu></app-donation-manager-menu>
+					</div>
+					
+					<div class="col-xl-10 col-lg-10 col-md-9">
+						<div class="row">
+							<div class="col-12">
+								<div class="page-title-box">
+									<div class="page-title-right">
+										<ol class="breadcrumb m-0">
+											<li class="breadcrumb-item">
+												<a routerLink="/{{adminUrl}}">
+													Dashboard
+												</a>
+											</li>
+											<li class="breadcrumb-item active">
+												<span>
+													All Donations
+												</span>
+											</li>
+										</ol>
+									</div>
+									<h4 class="page-title">
+										<span>
+											All Donations
+										</span>
+									</h4>
+								</div>
+							</div>
+						</div>
+
+
+						<div id="donations">
+							<div class="card card-body">
+								<div class="table-responsive">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>User</th>
+												<th>Amount</th>
+												<th>Paid</th>
+												<th>Unpaid</th>
+												<th>Total</th>
+												<th>Created At</th>
+												<th>Mature Date</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody *ngIf="donations && donations.length > 0">
+											<tr *ngFor="let donate of donations">
+												<td><a style="color:#0099CC" routerLink="/{{adminUrl}}/user-manager/profile/{{donate?.login_id}}">{{donate?.first_name}} {{donate?.last_name}}</a></td>
+												<td><span [innerHTML]="currency?.symbol"></span>{{donate?.amount | number}}</td>
+												<td><span [innerHTML]="currency?.symbol"></span>{{donate?.paid | number}}</td>
+												<td><span [innerHTML]="currency?.symbol"></span>{{donate?.amount - donate?.paid | number}} </td>
+												<td> <span [innerHTML]="currency?.symbol"></span>{{donate?.total | number}}</td>
+												
+												<td> {{donate?.created_at | date}}</td>
+												<td> {{donate?.matured_date | date}}</td>
+
+												<td>
+													<a title="View History" routerLink="/{{adminUrl}}/donation-manager/history/{{donate?.id}}" class="table-action-btn btn btn-success btn-sm mr-2">
+													view</a>
+
+													<button class="btn btn-danger btn-sm ml-2" (click)="deleteDonation(donate?.id)"><i class="fa fa-trash"></i></button>
+												</td>
+											</tr>
+										</tbody>
+										<tbody *ngIf="donations && donations.length < 1">
+											<tr class="text-center">
+												<td colspan="4">No Donation Available</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<div class="text-center mt-5">
+									<button
+										*ngIf="donationsCounty > 0 && !isLoadMore"
+										(click)="loadMore()"
+										[disabled]="donationsCounty <= donations.length"
+										class="btn btn-primary"
+									>Load more</button>
+
+									<app-inner-loading 
+										*ngIf="isLoadMore"
+										[name]="'Loading'"
+										[class]="'btn btn-primary'"
+									></app-inner-loading>
+								</div>
+							</div>
+						</div>
+						<app-admin-footer></app-admin-footer>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

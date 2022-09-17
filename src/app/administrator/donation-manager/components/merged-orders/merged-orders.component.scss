@@ -1,0 +1,24 @@
+.table-action-btn {
+    color: #fff !important
+}
+
+thead {
+    border-top: 1px solid #ccc;
+}
+
+.seachTable {
+    .tableInput {
+        height: 50px;
+    }
+    .tableInput:focus {
+        box-shadow: none;
+        border-color: #ccc;
+    }
+    .serchBtn:focus {
+        box-shadow: none;
+        border-color: inherit;
+    }
+    .resetBtn:focus {
+        box-shadow: none;
+    }
+}
