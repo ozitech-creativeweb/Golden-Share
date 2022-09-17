@@ -1,0 +1,25 @@
+<!--============= Footer Section Starts Here =============-->
+<br><br><br>
+<footer class="footer-section bg_img" data-background="/assets/mosto/images/footer/footer-bg.jpg">
+    <div class="container">
+        <div class="footer-top padding-top padding-bottom">
+            <div class="logo">
+                <a href="/">
+                    <img src="{{webSet?.logo_url}}" alt="logo">
+                </a>
+            </div>
+            <ul class="social-icons">
+                <li *ngFor="let social of socialLink">
+                    <a href="{{social?.url}}"><i class="fab {{social?.icon}}"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="copyright">
+            <p>{{webSet?.copyright}} <span [innerHTML]="webSet?.designed_by"></span>
+                <!-- Copyright © 2020.All Rights Reserved By
+                <a href="#0"></a> -->
+            </p>
+        </div>
+    </div>
+</footer>
+<!--============= Footer Section Ends Here =============-->

@@ -1,0 +1,13 @@
+@import "../../../../theme/colors";
+
+.amountInput:focus{
+    background-color: $fadeDark;
+    color: #fff;
+}
+.payeeHeader{
+    background-color: $blackColor; 
+    text-align: center;
+}
+.btn-primary{
+    color: #fff !important;
+}

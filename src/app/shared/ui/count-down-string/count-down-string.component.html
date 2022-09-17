@@ -1,0 +1,6 @@
+<div class="countDown">
+    <span [style.color]="stopTimer ? 'red' : '#fff'" class="big">{{days}}</span><span [style.color]="stopTimer ? 'red' : '#fff'" class="small">d :</span>
+    <span [style.color]="stopTimer ? 'red' : '#fff'" class="big">{{hours | number:"2.0"}}</span><span [style.color]="stopTimer ? 'red' : '#fff'" class="small">h :</span>
+    <span [style.color]="stopTimer ? 'red' : '#fff'" class="big">{{minutes | number:"2.0"}}</span><span [style.color]="stopTimer ? 'red' : '#fff'" class="small">m :</span>
+    <span [style.color]="stopTimer ? 'red' : '#fff'" class="big">{{seconds | number:"2.0"}}</span><span [style.color]="stopTimer ? 'red' : '#fff'" class="small">s</span>
+</div>

@@ -1,0 +1,27 @@
+@import '../../../../theme/colors';
+.terms-wrapper {
+    color: #000;
+    font-size: 18px;
+}
+
+.terms-wrapper p {
+    color: #000;
+    font-size: 18px;
+}
+
+.terms-wrapper .term-title {
+    font-size: 28px;
+    margin: 20px 0px 20px 0px
+}
+
+.terms-wrapper .term-content p {
+    text-align: justify;
+}
+
+.terms-wrapper {
+    margin-bottom: 40px;
+}
+
+.wysiwyg-para {
+    line-height: 30px !important;
+}

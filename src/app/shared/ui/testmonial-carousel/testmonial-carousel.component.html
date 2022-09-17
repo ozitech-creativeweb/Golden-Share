@@ -1,0 +1,34 @@
+<!-- "testimonial-carousel" and "single-testi" are strongly referenced in the ts file -->
+<div class="testimonial-carousel">
+    <div *ngFor="let testiItem of carouselList; let i=index;" class="single-testi" [class.carouselActive]="i == current">
+        <div class="testi-text">
+            <div class="clients-text">
+                <div class="client-rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+                <p>{{testiItem?.testimony}}</p>
+            </div>
+            <div class="testi-img ">
+                <img *ngIf="testiItem.photo" src="{{testiItem?.photo}}" alt="">
+                <img *ngIf="!testiItem.photo" src="assets/images/user/profile-default.png" alt="">
+                <div class="guest-details">
+                    <h4 style="color: #FFF;">{{testiItem?.first_name}} {{testiItem?.last_name}}</h4>
+                    <!-- <span class="guest-rev">{{testiItem.review}} - <a href="#">{{testiItem.reviewLink}}</a></span> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End single item -->
+    <!-- indicator -->
+    <!-- Do not remove the "carouselIndicatorCont" div, it is strongly referenced in the ts file -->
+    <!-- If it is not needed, only remove its content and leave it empty. You are free to style it and its content as you want -->
+    <!-- <div class="carouselIndicatorCont">
+        <div class="carouselIndicatorInner">
+            <div *ngFor="let indicator of carouselList; let i = index" class="indicatorItem" [class.indicatorActive]="i == currentIndic" [style.width.px]="i == currentIndic ? '30' : '8'"></div>
+        </div>
+    </div> -->
+</div>

@@ -1,0 +1,121 @@
+<app-header></app-header>
+
+<div class="bodyContainer">
+    <div class="cusBreadcrumb">
+        <h2>Contact Us</h2>
+        <ul>
+            <li><a routerLink="/">Home</a><span>/</span></li>
+            <li>Contact us</li>
+        </ul>
+    </div>
+    <!-- End breadcumb Area -->
+
+    <!-- Contact Section Starts -->
+    <section class="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 contact-form">
+                    <h3 class="col-xs-12">Get in Touch</h3>
+                    <!-- Contact Form Starts -->
+                    <form class="form-contact" [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <!-- Input Field Starts -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" formControlName="first_name" id="firstname" placeholder="FIRST NAME" type="text" required>
+
+                                    <div *ngIf="first_name.touched && !first_name.valid" class="mt-2 errorMessage alert alert-danger">First name is required</div>
+                                </div>
+                                <!-- Input Field Ends -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Input Field Starts -->
+                                <div class="form-group">
+                                    <input class="form-control" formControlName="last_name" id="lastname" placeholder="LAST NAME" type="text" required>
+
+                                    <div *ngIf="last_name.touched && !last_name.valid" class="mt-2 errorMessage alert alert-danger">Last name is required</div>
+                                </div>
+                                <!-- Input Field Ends -->
+                            </div>
+                            <div class="col-md-12">
+                                <!-- Input Field Starts -->
+                                <div class="form-group">
+                                    <input class="form-control" formControlName="email" id="email" placeholder="EMAIL" type="email" required>
+
+                                    <div *ngIf="email.touched && !email.valid" class="mt-2 errorMessage alert alert-danger">Email is required</div>
+                                </div>
+                                <!-- Input Field Ends -->
+                            </div>
+                            <div class=" col-md-12">
+                                <!-- Input Field Starts -->
+                                <div class="form-group">
+                                    <input class="form-control" formControlName="subject" id="subject" placeholder="SUBJECT" type="text" required>
+
+                                    <div *ngIf="subject.touched && !subject.valid" class="mt-2 errorMessage alert alert-danger">Subject is required</div>
+                                </div>
+                                <!-- Input Field Ends -->
+                            </div>
+                            <div class="col-md-12">
+                                <!-- Input Field Starts -->
+                                <div class="form-group">
+                                    <textarea class="form-control" id="message" formControlName="message" placeholder="MESSAGE" required></textarea>
+
+                                    <div *ngIf="message.touched && !message.valid" class="mt-2 errorMessage alert alert-danger">Message is required</div>
+                                </div>
+                                <!-- Input Field Ends -->
+                            </div>
+                            <div class="col-md-12">
+                                <!-- Submit Form Button Starts -->
+                                <div class="form-group">
+                                    <button *ngIf="!isLoading" class="btn btn-primary btn-contact w-100" type="submit" [disabled]="!form.valid || 
+                                email.value.indexOf('@') < 0">Send Message</button>
+
+                                    <button *ngIf="isLoading" class="btn btn-primary btn-contact" type="button" disabled>
+									<span class="fa fa-spinner fa-pulse" 
+									role="status" aria-hidden="true"></span>
+									Sending Message
+								</button>
+                                </div>
+                            </div>
+                            <!-- Submit Form Button Ends -->
+                            <!-- Form Submit Message Starts -->
+                            <div class="col-md-12 text-center output_message_holder d-none">
+                                <p class="output_message"></p>
+                            </div>
+                            <!-- Form Submit Message Ends -->
+                        </div>
+                    </form>
+                    <!-- Contact Form Ends -->
+                </div>
+                <!-- Contact Widget Starts -->
+                <div class="col-lg-5">
+                    <div class="widget" style="margin-top: 40px">
+                        <div class="contact-page-info">
+                            <div class="contact-info-box">
+                                <i class="fa fa-envelope big-icon"></i>
+                                <div class="contact-info-box-content">
+                                    <h4>Email Addresses</h4>
+                                    <p>{{settings?.email}}<br>{{settings?.url}}</p>
+                                </div>
+                            </div>
+                            <!-- Contact Info Box Ends -->
+                            <!-- Social Media Icons Starts -->
+                            <div class="contact-info-box">
+                                <i class="fa fa-share-alt big-icon"></i>
+                                <div class="contact-info-box-content">
+                                    <h4>Social Profiles</h4>
+                                    <div class="social-contact">
+                                        <ul>
+                                            <li *ngFor="let social of socialMedia" class="facebook"><a href="{{social?.url}}" target="_blank"><i class="fab {{social?.icon}}"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<app-footer></app-footer>

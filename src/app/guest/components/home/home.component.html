@@ -1,0 +1,218 @@
+<app-header></app-header>
+<div id="bodyContainer">
+    <!--============= Banner Section Starts Here =============-->
+    <section class="banner-10 bg_img pos-rel oh" [ngStyle]="{'background-image': getUrl()}">
+        <div class="bottom-shape d-lg-block d-none">
+            <img src="/assets/mosto/css/img/banner-10.png" alt="css">
+        </div>
+        <!-- <div class="banner-10-trops d-lg-block d-none">
+            <div class="trops-1"><img src="/assets/mosto/images/banner/banner10/circle.png" alt="banner10"></div>
+            <div class="trops-2"><img src="/assets/mosto/images/banner/banner10/tri1.png" alt="banner10"></div>
+            <div class="trops-3"><img src="/assets/mosto/images/banner/banner10/tri2.png" alt="banner10"></div>
+            <div class="trops-4"><img src="/assets/mosto/images/banner/banner10/tri3.png" alt="banner10"></div>
+            <div class="trops-5"><img src="/assets/mosto/images/banner/banner10/tri4.png" alt="banner10"></div>
+            <div class="trops-6"><img src="/assets/mosto/images/banner/banner10/tri5.png" alt="banner10"></div>
+            <div class="trops-7"><img src="/assets/mosto/images/banner/banner10/sq.png" alt="banner10"></div>
+        </div> -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="banner-content-10 cl-white">
+                        <h1 class="title">{{secondBanner?.title}}</h1>
+                        <p>
+                            {{secondBanner?.descr}}
+                        </p>
+                        <div class="banner-button-group">
+                            <a routerLink="/register" class="button-4">Register</a>
+                            <a routerLink="/login" class="button-4 active">Login</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-lg-block d-none">
+                    <div class="banner-thumb-10">
+                        <img src="{{firstBanner?.banner}}" alt="banner">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--============= Banner Section Ends Here =============-->
+
+
+    <!--============= Sponsor Section Section Starts Here =============-->
+    <div class="sponsor-section padding-top pt-lg-0 mt-lg--90">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <div class="spon-cont text-lg-right">
+                        <p></p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="sponsor-slider owl-theme owl-carousel">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--============= Sponsor Section Section Ends Here =============-->
+
+
+    <!--============= Re-Charge Section Starts Here =============-->
+    <section class="recharge-section padding-bottom padding-top oh" id="feature">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-xl-3 rtl d-none d-xl-block">
+                    <img src="{{aboutUs?.slide_left}}" alt="recharge">
+                </div>
+                <div class="col-xl-8">
+                    <div class="section-header left-style">
+                        <h5 class="cate">{{aboutUs?.about_title}}</h5>
+                        <h2 class="title">{{aboutUs?.about_sub_title}}</h2>
+                        <p [innerHTML]="aboutUs?.about_content"></p>
+                    </div>
+
+                    <div class="recharge-wrapper">
+                        <div *ngFor="let work of howWorks" class="recharge-item">
+                            <div class="recharge-thumb">
+                                <span class="anime"></span>
+                                <div class="thumb">
+                                    <i class="iconRoll fa {{work?.icon}}"></i>
+                                </div>
+                            </div>
+                            <div class="recharge-content">
+                                <h5 class="title roll_title">{{work?.title | titlecase}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--============= Re-Charge Section Ends Here =============-->
+
+
+    <!--============= How Section Starts Here =============-->
+    <section class="how-section padding-bottom padding-top pos-rel pb-xl-0 oh" id="how">
+        <div class="bg-xl-100 bg_img" data-background="/assets/mosto/images/bg/client-bg.jpg"></div>
+        <div class="top-shape d-none d-lg-block"><img src="/assets/mosto/css/img/work-shape.png" alt="css"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="client-header">
+                        <div class="section-header left-style cl-white mb-olpo">
+                            <h5 class="cate">More about us</h5>
+                            <h2 class="title">See How we Work</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center mb-30-none">
+
+                <div *ngFor="let work of howWorks" class="col-xl-3 col-sm-6">
+                    <div class="how-item-3">
+                        <div class="how-thumb">
+                            <i class="fa {{work?.icon}}" style="font-size: 70px;"></i>
+                            <!-- <img src="/assets/mosto/images/how/how4.png" alt="how"> -->
+                        </div>
+                        <div class="how-content">
+                            <h4 class="title">{{work?.title | titlecase}}</h4>
+                            <p class="text-justify" [innerHTML]="work?.content"><br></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-xl-3 col-sm-6">
+                    <div class="how-item-3">
+                        <div class="how-thumb">
+                            <img src="/assets/mosto/images/how/how5.png" alt="how">
+                        </div>
+                        <div class="how-content">
+                            <h4 class="title">Pledge</h4>
+                            <p>Pool money in our platform and once the system estimates the daily profit the system will return to its members you will be awarded the money depending on the amount you bid</p>
+                            <a href="https://www.onlineelitesglobally.com/register" class="button-3 active">Get Started <i class="flaticon-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6">
+                    <div class="how-item-3">
+                        <div class="how-thumb">
+                            <img src="/assets/mosto/images/how/how6.png" alt="how">
+                        </div>
+                        <div class="how-content">
+                            <h4 class="title">Surveys</h4>
+                            <p>Earn from our frequent surveys. If you do not fit to a survey criteria worry less we get data requests from a variety of companies and yours will be around the corner<br><br></p>
+                            <a href="#0" class="button-3">Get Started <i class="flaticon-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6">
+                    <div class="how-item-3">
+                        <div class="how-thumb">
+                            <img src="/assets/mosto/images/how/how7.png" alt="how">
+                        </div>
+                        <div class="how-content">
+                            <h4 class="title">Shares</h4>
+                            <p>Buy Company shares and after some period earn a profit out of the shares. The percentages given are projected profit and once profits increase the share profit percentage will be increased.</p>
+                            <a href="https://www.onlineelitesglobally.com/register" class="button-3">Get Started <i class="flaticon-right"></i></a>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+    <!--============= How Section Ends Here =============-->
+
+
+
+
+    <!--============= Testimonial Section Starts Here =============-->
+    <section class="testimonial-feature bg_img pb-xl-0 padding-bottom" data-background="/assets/mosto/images/bg/client-bg.jpg">
+        <div class="oh pos-rel padding-top">
+            <div class="top-shape d-none d-lg-block">
+                <img src="/assets/mosto/css/img/client-shape.png" alt="css">
+            </div>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5">
+                        <div class="client-header">
+                            <div class="section-header left-style cl-white mb-olpo">
+                                <h5 class="cate">Testimonials</h5>
+                                <h2 class="title">Over {{allUser | number}} happy clients</h2>
+                                <p>Everyday reviews from users around the world are an important driver of our team.</p>
+                            </div>
+                            <a routerLink="/register" class="button-client">Register Today <i class="flaticon-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="client-slider owl-carousel owl-theme">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="counter-wrapper-area-2 mt-xl-0">
+                <div class="counter-wrapper-2">
+                    <div class="counter-item-2">
+                        <h2 class="title"><span class="intitle counter">{{allUser | number}}</span><span class="intitle"></span></h2>
+                        <span class="name">All Users</span>
+                    </div>
+                    <div class="counter-item-2">
+                        <h2 class="title"><span class="intitle counter">{{orderNum | number}}</span><span class="intitle">+</span></h2>
+                        <span class="name">Number of Coin Sold</span>
+                    </div>
+                    <div class="counter-item-2">
+                        <h2 class="title"><span class="intitle counter">{{withNum | number}}</span><span class="intitle">+</span></h2>
+                        <span class="name">Number of Withdrawals</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--============= Testimonial Section Ends Here =============-->
+</div>
+
+<app-footer></app-footer>

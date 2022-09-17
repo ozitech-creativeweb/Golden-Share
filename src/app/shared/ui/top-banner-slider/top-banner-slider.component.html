@@ -1,0 +1,32 @@
+<div *ngIf="homeSlides != 'not available'">
+    <div class="bannerContainer">
+        <div *ngFor="let slide of homeSlides; let i = index;" class="slideImageCont">
+            <img src="{{slide && slide.banner}}">
+            <div class="overlayColor"></div>
+            <div class="slideTextCont">
+                <div class="slideTextInnerCont">
+                    <h1>{{slide && slide.title}}</h1>
+                    <!-- <a [routerLink]="slide.link">{{slide.linkText}}</a> -->
+                    <span innerHTML="{{slide && slide.url}}"></span>
+                </div>
+            </div>
+        </div>
+        <button class="prevControl" (click)="bannerSlider(-1, 100)"><i class="fa fa-angle-left"></i></button>
+        <button class="nextControl" (click)="bannerSlider(1, 100)"><i class="fa fa-angle-right"></i></button>
+    </div>
+</div>
+
+<!-- <div class="bannerContainer" (mousedown)="drag($event)" (touchstart)="drag($event)" (mouseup)="stopDrag($event)" (touchend)="stopDrag($event)">
+    <div *ngFor="let slide of homeSlides; let i = index;" class="slideImageCont" [style.left.%]="slidePosList[i]">
+        <img src="{{slide && slide.banner}}">
+        <div class="overlayColor"></div>
+        <div class="slideTextCont">
+            <div class="slideTextInnerCont">
+                <h1>{{slide && slide.title}}</h1>
+                <span innerHTML="{{slide && slide.url}}"></span>
+            </div>
+        </div>
+    </div>
+    <button class="prevControl" (click)="bannerSlider(-1, 100)"><i class="fa fa-angle-left"></i></button>
+    <button class="nextControl" (click)="bannerSlider(1, 100)"><i class="fa fa-angle-right"></i></button>
+</div> -->

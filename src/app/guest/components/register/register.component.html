@@ -1,0 +1,151 @@
+<section class="dark-theme">
+    <!-- Page -->
+    <div class="page">
+
+        <div class="container-fluid">
+            <div class="row no-gutter">
+                <!-- The image half -->
+                <div class="col-md-6 col-lg-6 col-xl-6 d-none d-md-flex" style="background: url(/assets/images/banner/login.jpg); background-position: bottom; background-size: cover;">
+                    <div class="row wd-100p mx-auto text-center">
+                        <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto wd-100p">
+                            <!-- <img src="/assets/login.png" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo"> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- The content half -->
+                <div class="col-md-6 col-lg-6 col-xl-6">
+                    <div class="login d-flex align-items-center py-2">
+                        <!-- Demo content-->
+                        <div class="container p-0">
+
+                            <div class="card-sigin">
+                                <div class="mb-5 text-center">
+                                    <a routerLink="/"><img src="{{webSet?.logo_url}}" class="sign-favicon ht-40" alt="logo"></a>
+                                </div>
+                                <div class="card-sigin">
+                                    <div class="main-signup-header">
+                                        <div *ngIf="error" class="alert alert-danger">
+                                            {{ error }}
+                                        </div>
+
+                                        <div *ngIf="success" class="alert alert-success">
+                                            {{ success }}
+                                        </div>
+                                        <h2>Welcome!</h2>
+                                        <!-- <h5 class="font-weight-semibold mb-4  text text-success">You were referred By Online Elites</h5> -->
+                                        <form [formGroup]="form" (ngSubmit)="submit()">
+                                            <div class="row">
+                                                <div class="col-xl-12">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control form-control-lg" formControlName="username" id="username" autocomplete="off" placeholder="Username">
+                                                        <div *ngIf="username.touched && !username.valid" class="errorMessage alert alert-danger">Your Username is required</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control form-control-lg" formControlName="first_name" autocomplete="off" required placeholder="First Name">
+                                                        <div *ngIf="first_name.touched && !first_name.valid" class="errorMessage alert alert-danger">Your First Name is required</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <input type="text" formControlName="last_name" class="form-control form-control-lg" id="exampleInputUsername1" autocomplete="off" placeholder="Last Name">
+                                                        <div *ngIf="last_name.touched && !last_name.valid" class="errorMessage alert alert-danger">Your Last Name is required</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <input type="email" class="form-control form-control-lg" formControlName="email" id="exampleInputEmail1" autocomplete="off" placeholder="Email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                                        <div *ngIf="email.touched && !email.valid" class="errorMessage alert alert-danger">Your Email is required</div>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <input type="numeric" class="form-control form-control-lg" value="" formControlName="phone" placeholder="Mobile Number" (keydown)="allowNum($event)">
+                                                        <div *ngIf="phone.touched && !phone.valid" class="errorMessage alert alert-danger">Your Phone Number is required</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" formControlName="password" placeholder="Password">
+                                                        <div *ngIf="password.touched && password.value.length < 6 && password.value.length !=0" class="errorMessage alert alert-danger"> Password should be minimum of 6 characters long</div>
+                                                        <div *ngIf="password.touched && password.value.length > 18" class="errorMessage alert alert-danger"> Password should be maximum of 18 characters long
+                                                        </div>
+                                                        <div *ngIf="password.touched && password.value.length == 0" class="errorMessage alert alert-danger">Password is required</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control form-control-lg" formControlName="com_password" placeholder="Comfirm Password">
+                                                        <div *ngIf="com_password.touched && !com_password.valid" class="errorMessage alert alert-danger">Retype your password</div>
+                                                    </div>
+                                                </div>
+
+                                                <div *ngIf="banks.length > 0" class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <select class="form-control form-control-lg" formControlName="bank">
+																											<option label="Select Bank"></option>
+																											<option *ngFor="let bank of banks" value="{{bank.name}}">{{bank.name}}</option>
+																										</select>
+                                                        <div *ngIf="bank?.touched && !bank?.valid" class="errorMessage alert alert-danger">Bank name is required</div>
+                                                    </div>
+                                                </div>
+
+                                                <div *ngIf="banks.length < 1" class="col-xl-6">
+                                                    <div *ngIf="banks?.length < 1" class="form-group">
+                                                        <input class="form-control form-control-lg" formControlName="bank" id="bank" placeholder="Bank Name" type="text">
+                                                        <div *ngIf="bank.touched && !bank.valid" class="errorMessage alert alert-danger">Bank name is required</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control form-control-lg" formControlName="account_name" placeholder="Account Name">
+                                                        <div *ngIf="account_name.touched && !account_name.valid" class="errorMessage alert alert-danger">Acount name is required</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control form-control-lg" formControlName="account_number" placeholder="Account Number" (keydown)="allowNum($event)">
+                                                        <div *ngIf="account_number.touched && !account_number.valid" class="errorMessage alert alert-danger">Acount number is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <button *ngIf="!isLoading" type="submit" class="btn btn-main-primary btn-block" [disabled]="!form.valid || email.value.indexOf('@') < 0">Sign Up</button>
+                                            <button *ngIf="isLoading" class="btn btn-main-primary btn-block" type="button" disabled>
+																								<span class="fa fa-spinner fa-pulse" 
+																								role="status" aria-hidden="true"></span>
+																								Signing up...
+																							</button>
+                                            <div class="row row-xs">
+                                            </div>
+                                        </form>
+                                        <div class="main-signin-footer mt-5">
+                                            <p><a routerLink="/page/terms-and-conditions">By Signing up you agree to our terms and conditions</a></p>
+                                            <p>Have an account? <a routerLink="/login">Sign In</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End -->
+                    </div>
+                </div>
+                <!-- End -->
+            </div>
+        </div>
+
+    </div>
+    <!-- End Page -->
+</section>

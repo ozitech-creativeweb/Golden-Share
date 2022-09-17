@@ -1,0 +1,47 @@
+.alert-danger {
+    background: transparent !important;
+    padding: 0px !important;
+    color: red;
+    border: none !important;
+}
+
+.alert {
+    margin-bottom: 0px !important;
+}
+
+.widget {
+    box-shadow: 5px 5px 10px #ebebeb, -5px -5px 10px #ebebeb;
+}
+
+.contact-info-box {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: flex-start;
+    .contact-info-box-content {
+        padding-left: 20px;
+        height: fit-content;
+        // line-height: 40px;
+        h4 {
+            margin: 0;
+        }
+        p {
+            margin: 0;
+        }
+        ul {
+            display: flex;
+            align-items: center;
+        }
+    }
+    // align-items: center;
+}
+
+.contact {
+    margin-top: 100px;
+}
+
+input.form-control,
+textarea {
+    background: #fff !important;
+    padding: 10px;
+    height: 40px;
+}

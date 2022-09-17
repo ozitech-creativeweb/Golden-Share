@@ -1,0 +1,134 @@
+@import '../../../../theme/colors';
+.testimonial-carousel {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-carousel .single-testi {
+    position: absolute;
+    width: 50%;
+    top: 0;
+}
+
+.fa-star {
+    font-size: 20px;
+    color: #ffc400;
+    margin-right: 5px;
+}
+
+.testimonial-carousel .clients-text p {
+    height: 95px !important;
+    overflow: hidden;
+    text-align: justify;
+}
+
+// .testimonial-carousel .clients-text p span {
+//     max-height: 6em;
+//     overflow: hidden;
+//     position: relative;
+//     line-height: 1.2em;
+//     display: block;
+//     margin-right: -1em;
+//     padding-right: 1em;
+//     text-align: justify;
+// }
+// .testimonial-carousel .clients-text p span:before {
+//     position: absolute;
+//     right: 0;
+//     bottom: 0;
+//     content: '...';
+//     // background: #fff;
+// }
+// .testimonial-carousel .clients-text p span:after {
+//     position: absolute;
+//     right: 0;
+//     // bottom: 0;
+//     content: '';
+//     background: #fff;
+//     width: 1em;
+//     height: 1em;
+//     margin-top: 0.2em;
+// }
+// .testimonial-carousel .clients-text p {
+//     /* hide text if it more than N lines  */
+//     overflow: hidden;
+//     /* for set '...' in absolute position */
+//     position: relative;
+//     /* use this value to count block height */
+//     line-height: 1.2em;
+//     /* max-height = line-height (1.2) * lines max number (3) */
+//     max-height: 95px;
+//     /* fix problem when last visible word doesn't adjoin right side  */
+//     text-align: justify;
+//     /* place for '...' */
+//     margin-right: -1em;
+//     padding-right: 1em;
+// }
+// /* create the ... */
+// .testimonial-carousel .clients-text p {
+//     /* points in the end */
+//     content: '...';
+//     /* absolute position */
+//     position: absolute;
+//     /* set position to right bottom corner of block */
+//     right: 0;
+//     bottom: 0;
+// }
+// /* hide ... if we have text, which is less than or equal to max lines */
+// .testimonial-carousel .clients-text p:after {
+//     /* points in the end */
+//     content: '';
+//     /* absolute position */
+//     position: absolute;
+//     /* set position to right bottom corner of text */
+//     right: 0;
+//     /* set width and height */
+//     width: 1em;
+//     height: 1em;
+//     margin-top: 0.2em;
+//     /* bg color = bg color under block */
+//     background: white;
+// }
+// .testimonial-carousel .clients-text p span {
+//     position: absolute;
+//     bottom: 0;
+//     right: 0;
+//     background: #fff;
+//     padding-left: 0px;
+// }
+.carouselActive .clients-text {
+    border: 1px solid $primary;
+    border-radius: 5px;
+}
+
+.carouselActive img {
+    border: 1px solid $primary;
+}
+
+.carouselIndicatorCont {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 30px;
+}
+
+.carouselIndicatorCont .carouselIndicatorInner {
+    width: fit-content;
+    margin: auto;
+}
+
+.carouselIndicatorInner .indicatorItem {
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+    background: black;
+    transition: 0.4s;
+    border-radius: 50px;
+    margin-left: 7px;
+}
+
+.indicatorActive {
+    background: $primary !important;
+}

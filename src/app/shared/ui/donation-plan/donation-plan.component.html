@@ -1,0 +1,27 @@
+
+
+
+<div class="listItem">
+	<div class="card card-header payeeHeader">
+		<p class="mb-2" *ngIf="true">{{package?.roi}}% in {{package?.duration}} Day<span *ngIf="package?.duration != 1">s</span></p>
+
+		<div class="formSection">
+			<form [formGroup]="form" (ngSubmit)="submit()">
+				<div class="inputCont">
+					<div class="forn-group">
+						<input formControlName="amount" type="number" placeholder="0" min="{{package?.min_amount}}" max="{{package?.max_amount}}" class="form-control amountInput">
+					</div>
+
+					<input formControlName="duration" type="text" hidden>
+					
+					<div class="text-center mt-5 mb-4">
+						<button *ngIf="!isSubmitting || activeId != package.id" class="btn btn-primary btn-sm" type="submit">Bid</button>
+
+						<app-inner-loading *ngIf="isSubmitting && activeId == package.id" [name]="'BIDDING'" [class]="'btn btn-primary btn-sm'"></app-inner-loading>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+    
+</div>

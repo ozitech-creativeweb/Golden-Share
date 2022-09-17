@@ -1,0 +1,81 @@
+<div class="wrapper">
+
+
+	<div class="all-wrapper" id="homePage">
+			<app-header></app-header>
+	</div>
+
+	<a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
+	
+
+
+	<div section-scroll='6' class="wd_scroll_wrap">
+		
+		<section class="team2-area pd-t100 pd-b50 bg-img">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="section-heading">
+							<h2 class="wow  fadeInUp animated" data-wow-duration="1.0s" style="visibility: visible; animation-duration: 1.0s; animation-name: fadeInUp;">Testimonials</h2>
+						</div>
+					</div>
+				</div>
+
+				<div *ngIf="testimonies.length > 0">
+					<div class="row">
+						<div *ngFor="let testimony of testimonies" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-4 wow  fadeInUp animated" data-wow-duration="1.3s" style="visibility: visible; animation-duration: 1.3s; animation-name: fadeInUp;">
+							<div class="team-list">
+								<div class="conte">
+									<div class="dbox">
+										<div class="dleft">
+											<img src="assets/images/user/5.png" alt="" width="55"/>
+										</div>
+										<div class="dright">
+											<div class="content">
+												<h3>Mason Liam</h3>
+												<span>{{testimony?.created_at | date}}</span>
+											</div>
+										</div>
+									</div>
+									<div class="con">
+										<p>{{testimony?.testimony}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="mt-5 text-center">
+						<button
+							*ngIf="testimonyCounts > 0 && !isLoadMore"
+							(click)="loadMore()"
+							[disabled]="testimonyCounts <= testimonies.length"
+							class="btn1"
+						>Load more</button>
+	
+						<app-inner-loading 
+							*ngIf="isLoadMore"
+							[name]="'Loading'"
+							[class]="'btn1'"
+						></app-inner-loading>
+					</div>
+				</div>
+
+				<div *ngIf="testimonies.length < 1 && !isLoading">
+					<h4 class="text-center">NO TESTIMONY</h4>
+				</div>
+			</div>
+		</section>
+
+	</div>
+
+
+
+	<div section-scroll='7' class="wd_scroll_wrap">
+
+		<app-footer></app-footer>
+		
+	</div>
+
+
+</div>

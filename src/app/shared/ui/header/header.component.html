@@ -1,0 +1,41 @@
+<a href="javascript:void(0)" class="scrollToTop" [class.active]="scrolltoTop" onclick="document.querySelector('html').scrollTop = 0"><i class="fas fa-angle-up"></i></a>
+<div class="overlay" [class.active]="dropped"></div>
+<!--============= Header Section Starts Here =============-->
+<header class="header-section">
+    <div class="container">
+        <div class="header-wrapper">
+            <div class="logo">
+                <a routerLink="/">
+                    <img src="{{webSet?.logo_url}}" alt="logo">
+                </a>
+            </div>
+            <ul class="menu" [class.active]="dropped">
+                <li>
+                    <a routerLink="/">Home</a>
+
+                </li>
+                <li *ngIf="!auth">
+                    <a routerLink="/login">Login</a>
+                </li>
+                <li *ngIf="auth">
+                    <a routerLink="/user/dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a href="https://sa.smart-auction.org" target="_blank">Knowledge Base</a>
+                </li>
+            </ul>
+            <div class="header-bar d-lg-none" [class.active]="dropped" (click)="dropped = !dropped">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div *ngIf="!auth" class="header-right">
+                <a routerLink="/register" class="header-button d-none d-sm-inline-block">Register</a>
+            </div>
+            <div *ngIf="auth" class="header-right">
+                <a (click)="logout()" class="header-button d-none d-sm-inline-block">Logout</a>
+            </div>
+        </div>
+    </div>
+</header>
+<!--============= Header Section Ends Here =============-->

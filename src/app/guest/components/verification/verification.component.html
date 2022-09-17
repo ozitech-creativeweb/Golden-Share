@@ -1,0 +1,45 @@
+<section class="page">
+    <div class="container mt-100 mt-lg-5">
+        <h4 class="text-center mt-lg-5">Email Verification</h4>
+        <div class="row">
+            <div class="col-lg-2 col-md-2"></div>
+            <div class="col-lg-8 col-md-8">
+                <div *ngIf="isLoading" class="mb-5">
+                    <app-inner-loading [justSpinner]="true" [marginTo]="false"></app-inner-loading>
+                </div>
+
+                <div *ngIf="success">
+                    <div class="alert alert-success">
+                        <h5 class="text-center">
+                            <strong>Success!</strong><br>
+                            <span style="font-size: 16px;">Email verification is successful.</span>
+                        </h5>
+                    </div>
+                    <hr>
+                    <div *ngIf="!isLoading">
+                        <a routerLink="/login" class="btn btn-basic btn-block mt-4 mb-5 pri-col">
+                            <b>RETURN TO DASHBOARD</b>
+                        </a>
+                    </div>
+                </div>
+
+                <div *ngIf="failed || !success && !isLoading">
+                    <div class="alert alert-danger">
+                        <h5 class="text-center">
+                            <strong>Oops!</strong> Verification Failed, <br>
+                            <span style="font-size: 16px;">we could not verify your email, please try it again.</span>
+                        </h5>
+                    </div>
+                    <hr>
+                    <div *ngIf="!isLoading">
+                        <a routerLink="/login" class="btn btn-basic btn-block mt-4 mb-5 pri-col">
+                            <b>RETURN TO LOGIN</b>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>

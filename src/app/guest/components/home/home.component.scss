@@ -1,0 +1,73 @@
+@import '../../../../theme/colors';
+.login-card {
+    background: #08091b;
+    padding: 10px;
+}
+
+.login-box {
+    border: 3px solid #fff;
+    padding: 10px;
+}
+
+input.form-control {
+    background: #10122d;
+    border-color: #10122d;
+    border-radius: 0px;
+    height: 43px;
+    color: #aaa;
+}
+
+input.form-control:focus {
+    box-shadow: none;
+}
+
+.errorMessage {
+    background: transparent;
+    color: red;
+    border: none;
+    padding: 0px;
+    font-weight: bold;
+}
+
+.form-icon-user {
+    background: #08091b;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    padding: 10px;
+    border: 3px solid #fff;
+    color: #fff;
+    margin-bottom: -60px;
+    z-index: 200;
+    position: relative;
+    font-size: 50px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 50%;
+}
+
+.contact {
+    padding: 100px 0px;
+}
+
+.textarea {
+    background: $secondary !important;
+    border-radius: 0px !important;
+    color: #fff;
+}
+
+.cust-bg {
+    background: #3964d0 !important;
+    background: -webkit-gradient(left top, right top, color-stop(0%, #3964d0), color-stop(100%, #2dc1c9)) !important;
+    background: linear-gradient(to right, #3964d0 0%, #2dc1c9 100%) !important;
+    border-color: $thirdColor !important;
+}
+
+.roll_title {
+    font-size: 18px !important;
+}
+
+.iconRoll {
+    font-size: 30px;
+    padding-top: 20px;
+}

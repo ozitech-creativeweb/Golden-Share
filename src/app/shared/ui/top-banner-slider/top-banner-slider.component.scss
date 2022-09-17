@@ -1,0 +1,141 @@
+@import '../../../../theme/colors';
+.bannerContainer {
+    position: relative;
+    width: 100%;
+    height: 758.81px;
+    overflow: hidden;
+}
+
+.bannerContainer .slideImageCont {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: 0.8s ease;
+    overflow: hidden !important;
+}
+
+.bannerContainer .slideImageCont img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation-name: myzoom;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes myzoom {
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.bannerContainer .slideImageCont .slideTextCont {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /*padding-top: 20%;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.bannerContainer .slideImageCont .slideTextCont .slideTextInnerCont {
+    width: 60%;
+    /*margin: auto;*/
+}
+
+.bannerContainer .slideImageCont .slideTextCont h1 {
+    font-size: 90px;
+    color: white;
+    font-weight: bold;
+    line-height: 100px;
+    margin-bottom: 50px;
+}
+
+.bannerContainer .slideImageCont .slideTextCont a {
+    color: #ffffff;
+    /* font-size: 0px; */
+    padding: 15px 10px;
+    line-height: 25px;
+    background: $primary;
+    display: inline-block;
+    font-weight: bold;
+    width: 160px;
+}
+
+.bannerContainer .slideImageCont .slideTextCont a:hover {
+    background: #ffffff;
+    color: $primary;
+}
+
+.bannerContainer .slideImageCont .overlayColor {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(4, 23, 46, 0.75);
+}
+
+.prevControl,
+.nextControl {
+    position: absolute;
+    top: 45%;
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    color: #ffffff;
+    padding: 6px 18px;
+    text-align: center;
+    font-size: 38px;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.prevControl:active,
+.nextControl:active {
+    transform: scale(0.8);
+}
+
+.prevControl:hover,
+.nextControl:hover {
+    background: $primary;
+}
+
+.prevControl {
+    left: 15%;
+}
+
+.nextControl {
+    right: 15%;
+}
+
+.bannerContainer:hover .prevControl {
+    opacity: 1;
+    left: 3%;
+}
+
+.bannerContainer:hover .nextControl {
+    opacity: 1;
+    right: 3%;
+}
+
+.prevControl:focus,
+.nextControl:focus {
+    outline: none;
+}
+
+@media (max-width: 500px) {
+    .prevControl,
+    .nextControl {
+        display: none;
+    }
+}

@@ -1,0 +1,14 @@
+<a *ngIf="!justSpinner" class="{{class}}" disabled>
+    <b class="fa fa-refresh fa-spin" [class.spinn-color]="'primaryColor'"
+    role="status" aria-hidden="true"></b>
+    {{name}}
+</a>
+
+<div 
+    *ngIf="justSpinner" 
+    class="text-center"
+    [class.spinCtr]="marginTo"
+>
+    <span class="fa fa-refresh fa-spin" [class.spinn-color]="'primaryColor'"
+    role="status" aria-hidden="true"></span>
+</div>
